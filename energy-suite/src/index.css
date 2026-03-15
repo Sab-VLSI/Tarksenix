@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-energy-blue: #0ea5e9;
+  --color-energy-green: #10b981;
+  --color-energy-purple: #8b5cf6;
+  --color-energy-orange: #f59e0b;
+  --color-bg-light: #f8fafc;
+  --font-sans: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: #f8fafc;
+    color: #111827;
+    font-family: var(--font-sans);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}

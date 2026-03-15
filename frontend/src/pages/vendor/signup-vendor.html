@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Register as a vendor on EnergyNest.">
+    <meta name="theme-color" content="#f0f9ff">
+    <link rel="manifest" href="../../components/manifest.json">
+    <title>Login / Vendor Registration - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/login.css">
+    <style>
+        .role-badge {
+            background: rgba(0, 245, 255, 0.1);
+            color: #00f5ff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .form-section-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0.75rem 0 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-bg-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .service-option {
+            background: var(--color-bg-light);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            transition: all 0.2s;
+        }
+
+        .service-option:hover {
+            background: white;
+            border-color: var(--color-energy-cyan);
+        }
+
+        .service-option input:checked+span {
+            color: #00f5ff;
+        }
+
+        .service-option input {
+            accent-color: #00f5ff;
+        }
+
+        .verification-note {
+            background: rgba(255, 171, 0, 0.1);
+            border: 1px solid rgba(255, 171, 0, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 0.75rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .v-icon {
+            color: #ffab00;
+            font-size: 1.25rem;
+        }
+
+        .v-text {
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="bg-decoration">
+            <div class="energy-particle" style="--x: 10%; --y: 20%; --delay: 0s;"></div>
+            <div class="energy-particle" style="--x: 85%; --y: 15%; --delay: 1.5s;"></div>
+            <div class="energy-particle" style="--x: 15%; --y: 75%; --delay: 3s;"></div>
+            <div class="energy-particle" style="--x: 90%; --y: 80%; --delay: 4.5s;"></div>
+        </div>
+
+        <div class="login-card">
+            <header class="card-header">
+                <div class="role-badge">VENDOR</div>
+                <h1 class="app-name" style="font-size: 1.5rem;">Partner Portal</h1>
+                <p class="app-subtitle">Select Login or Register Business</p>
+            </header>
+
+            <!-- Tab switcher -->
+            <div class="tab-switcher">
+                <button class="tab-btn" data-tab="login">Login</button>
+                <button class="tab-btn active" data-tab="signup">Signup</button>
+                <div class="tab-indicator" style="transform: translateX(calc(100% + 0.25rem));"></div>
+            </div>
+
+            <div class="forms-container">
+                <!-- Login form -->
+                <form class="auth-form login-form" id="vendorLoginForm">
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="Enter official email"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter password"
+                            required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"
+                        style="background: linear-gradient(135deg, #00d2ff, #3b82f6);">
+                        <span>Login as Vendor</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button type="button" class="forgot-password">Forgot password?</button>
+                </form>
+
+                <!-- Signup form -->
+                <form class="auth-form signup-form active" id="vendorSignupForm">
+                    <div class="form-group">
+                        <label for="companyName" class="form-label">Company Name</label>
+                        <input type="text" id="companyName" name="name" class="form-input"
+                            placeholder="Enter business name" required>
+                    </div>
+
+                    <div class="form-row" style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1.5;">
+                            <label for="contactName" class="form-label">Contact Person</label>
+                            <input type="text" id="contactName" name="contact_person" class="form-input"
+                                placeholder="Full name" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="email" class="form-label">Official Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="biz@company.com"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-input"
+                            placeholder="Create a secure password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
+                            placeholder="Repeat your password" required>
+                    </div>
+
+                    <div class="form-section-title">Service Capabilities</div>
+
+                    <div class="form-group">
+                        <label for="location" class="form-label">Service Locations (City/Region)</label>
+                        <input type="text" id="location" name="location" class="form-input"
+                            placeholder="e.g. London, Manchester" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Services Offered</label>
+                        <div class="services-grid">
+                            <label class="service-option">
+                                <input type="checkbox" name="service_solar" checked>
+                                <span>Solar Installation</span>
+                            </label>
+                            <label class="service-option">
+                                <input type="checkbox" name="service_battery">
+                                <span>Battery Systems</span>
+                            </label>
+                            <label class="service-option">
+                                <input type="checkbox" name="service_maintenance">
+                                <span>Maintenance</span>
+                            </label>
+                            <label class="service-option">
+                                <input type="checkbox" name="service_hardware">
+                                <span>Hardware Supply</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacity" class="form-label">Max Installation Capacity (kW)</label>
+                        <input type="number" id="capacity" name="capacity" class="form-input" placeholder="e.g. 50"
+                            required>
+                    </div>
+
+                    <div class="verification-note">
+                        <span class="v-icon">⚠️</span>
+                        <p class="v-text">Vendor onboarding is subject to a 24-hour verification period to ensure
+                            service
+                            standards.</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"
+                        style="margin-top: 1.5rem; background: linear-gradient(135deg, #00d2ff, #3b82f6);">
+                        <span>Register as Vendor</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+                Not a vendor? <a href="/login.html"
+                    style="color: var(--color-energy-blue); font-weight: 600; text-decoration: none;">Change Role</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabIndicator = document.querySelector('.tab-indicator');
+        const loginForm = document.getElementById('vendorLoginForm');
+        const signupForm = document.getElementById('vendorSignupForm');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                if (tab === 'login') {
+                    tabIndicator.style.transform = 'translateX(0)';
+                    loginForm.classList.add('active');
+                    signupForm.classList.remove('active');
+                } else {
+                    tabIndicator.style.transform = 'translateX(calc(100% + 0.25rem))';
+                    loginForm.classList.remove('active');
+                    signupForm.classList.add('active');
+                }
+            });
+        });
+
+        // handleLogin is now handled by login.js
+        // handleSignup is now handled by login.js
+    </script>
+    <script src="../../components/login.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

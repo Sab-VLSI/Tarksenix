@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts & Notifications - Company - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/alerts.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="window.location.href='dashboard-company.html'">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Grid Alerts</h1>
+                    <p class="dashboard-subtitle">Grid and distributed energy alerts</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Notification Settings -->
+            <section class="settings-section">
+                <h2 class="section-title collapsible" onclick="togglePreferences()">Notification Preferences</h2>
+                <div class="settings-card collapsible-content" id="prefs-content">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="setting-text">
+                                <p class="setting-title">Grid Safety</p>
+                                <p class="setting-description">Critical frequency shifts, overload alerts</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m12-9a4 4 0 11-8 0 4 4 0 018 0zm2 10V12m0 0l-3 3m3-3l3 3"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="setting-text">
+                                <p class="setting-title">Vendor Compliance</p>
+                                <p class="setting-description">New onboardings, certification expirations</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="setting-text">
+                                <p class="setting-title">Tariff Updates</p>
+                                <p class="setting-description">Market rate changes, regulatory updates</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="setting-text">
+                                <p class="setting-title">Market Performance</p>
+                                <p class="setting-description">Regional demand peaks, export/import stats</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Notifications -->
+            <section class="notifications-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Notifications</h2>
+                    <button class="mark-read-btn">Mark all as read</button>
+                </div>
+
+                <div class="notifications-list">
+                    <!-- Frequency Anomaly -->
+                    <div class="notification-item unread critical">
+                        <div class="notification-badge">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-title">Grid Frequency Anomaly Detected</p>
+                            <p class="notification-message">Frequency dropped to 49.8Hz in South Region. Distributed
+                                assets response activated.</p>
+                            <p class="notification-time">30 mins ago</p>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn" onclick="window.location.href='company-grid.html'">View Grid
+                                Status</button>
+                        </div>
+                    </div>
+
+                    <!-- New Vendor -->
+                    <div class="notification-item unread info">
+                        <div class="notification-badge">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-title">New Vendor Application</p>
+                            <p class="notification-message">'SolarTech Solutions' applied for vendor certification in
+                                East Region.</p>
+                            <p class="notification-time">2 hours ago</p>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn">Review App</button>
+                        </div>
+                    </div>
+
+                    <!-- Demand Peak -->
+                    <div class="notification-item warning">
+                        <div class="notification-badge">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+                                    stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-title">Regional Demand Peak Warning</p>
+                            <p class="notification-message">North Region demand is approaching 95% of peak capacity.
+                                Load balancing recommended.</p>
+                            <p class="notification-time">5 hours ago</p>
+                        </div>
+                    </div>
+
+                    <!-- Tariff Update -->
+                    <div class="notification-item success">
+                        <div class="notification-badge">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-title">Tariff Schedule Published</p>
+                            <p class="notification-message">New peak-hour tariffs for Q1 2025 have been updated and
+                                notified to users.</p>
+                            <p class="notification-time">1 day ago</p>
+                        </div>
+                        <div class="notification-actions">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alert Summary -->
+            <section class="summary-section">
+                <h2 class="section-title">Grid Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-card critical-summary">
+                        <div class="summary-count">1</div>
+                        <p class="summary-label">Active Anomalies</p>
+                        <p class="summary-detail">Requiring action</p>
+                    </div>
+                    <div class="summary-card unread-summary">
+                        <div class="summary-count">2</div>
+                        <p class="summary-label">Pending Reviews</p>
+                        <p class="summary-detail">Vendors/Compliance</p>
+                    </div>
+                    <div class="summary-card total-summary">
+                        <div class="summary-count">12</div>
+                        <p class="summary-label">Daily Events</p>
+                        <p class="summary-detail">Logged notifications</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-company.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-grid.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Grid</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-distributed.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Distributed</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-energy-flow.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Energy Flow</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-company.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Mark all as read
+        document.querySelector('.mark-read-btn').addEventListener('click', function () {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            this.textContent = 'All read';
+            setTimeout(() => {
+                this.textContent = 'Mark all as read';
+            }, 2000);
+        });
+
+        function togglePreferences() {
+            const title = document.querySelector('.section-title.collapsible');
+            const content = document.getElementById('prefs-content');
+            title.classList.toggle('active');
+            content.classList.toggle('expanded');
+        }
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

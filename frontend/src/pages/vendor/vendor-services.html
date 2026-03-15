@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Requests - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/vendor-orders.css"> <!-- Reusing styles for consistent look -->
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="window.location.href='dashboard-vendor.html'">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Service Requests</h1>
+                    <p class="dashboard-subtitle">Service requests are assigned based on proximity and asset ownership.
+                    </p>
+                </div>
+                <div class="header-actions">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <section class="requests-section">
+                <!-- Tabs navigation for Orders, Services, and History -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb;">
+                    <button style="background: none; border: none; padding: 0.5rem 1rem; color: #6b7280; font-weight: 500; cursor: pointer;" onclick="window.location.href='vendor-orders.html'">Orders</button>
+                    <button style="background: none; border: none; padding: 0.5rem 1rem; border-bottom: 2px solid var(--color-primary); color: var(--color-primary); font-weight: 600; cursor: pointer;">Services</button>
+                    <button style="background: none; border: none; padding: 0.5rem 1rem; color: #6b7280; font-weight: 500; cursor: pointer;" onclick="window.location.href='vendor-history.html'">History</button>
+                </div>
+
+                <div class="requests-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Propose Date Modal -->
+        <div id="proposeDateModal" class="modal-overlay">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3 class="modal-title">Propose Service Date</h3>
+                    <button class="modal-close" onclick="closeModal('proposeDateModal')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Available Date</label>
+                        <input type="date" id="proposedDateInput" class="form-input" required>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--color-text-secondary); margin-top: 1rem;">
+                        The homeowner will be notified to confirm or reject this date.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn" style="background: var(--color-bg); color: var(--color-text-primary);"
+                        onclick="closeModal('proposeDateModal')">Cancel</button>
+                    <button class="action-btn accept-btn" id="confirmProposeBtn" onclick="submitProposedDate()">Propose
+                        Date</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+            <button class="nav-item " onclick="window.location.href='dashboard-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='vendor-orders.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Orders & Services</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-assets.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Assets</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-revenue.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Revenue</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='profile-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- View Details Modal -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Request Details</h3>
+                <button class="modal-close" onclick="closeModal('detailsModal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="detailsContent">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="action-btn" style="background: var(--color-bg); color: var(--color-text-primary);"
+                    onclick="closeModal('detailsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Request Modal -->
+    <div id="addRequestModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Service Request</h3>
+                <button class="modal-close" onclick="closeModal('addRequestModal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addRequestForm">
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-input" placeholder="Brief description of the issue" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Asset In Question</label>
+                        <select class="form-select">
+                            <option>Solar Array #12</option>
+                            <option>Battery Pack A</option>
+                            <option>Main IoT Meter</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Urgency</label>
+                        <select class="form-select">
+                            <option>Normal</option>
+                            <option>Urgent</option>
+                            <option>Critical</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Detailed Description</label>
+                        <textarea class="form-textarea" placeholder="Explain the problem in detail..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="action-btn" style="background: var(--color-bg); color: var(--color-text-primary);"
+                    onclick="closeModal('addRequestModal')">Cancel</button>
+                <button class="action-btn accept-btn" style="width: auto; padding: 0.5rem 1.5rem;"
+                    onclick="submitRequest()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        const vendorEmail = localStorage.getItem('userEmail') || 'vendor@smartintelli.com';
+        let scheduleTargetId = null;
+
+        document.addEventListener('DOMContentLoaded', loadServices);
+
+        const STATUS_BADGE = {
+            'Requested': 'background:rgba(245,158,11,0.15);color:#d97706;',
+            'Assigned': 'background:rgba(139,92,246,0.15);color:#7c3aed;',
+            'Scheduled': 'background:rgba(16,185,129,0.15);color:#059669;',
+            'Completed': 'background:rgba(107,114,128,0.15);color:#374151;',
+            'Active': 'background:rgba(59,130,246,0.15);color:#2563eb;',
+        };
+
+        async function loadServices() {
+            const container = document.querySelector('.requests-list');
+            container.innerHTML = '<p style="text-align:center;padding:2rem;color:#9ca3af;font-size:0.85rem;">Loading service requests...</p>';
+            try {
+                const data = await apiCall(`/api/vendor/services/${encodeURIComponent(vendorEmail)}`);
+                const allReqs = [...(data.assigned_requests || []), ...(data.orders || [])];
+                renderServices(allReqs);
+            } catch (err) {
+                console.error('Failed to load services:', err);
+                // Try old endpoint as fallback
+                try {
+                    const orders = await apiCall(`/vendor/orders?email=${vendorEmail}`);
+                    renderServices(orders);
+                } catch (e) {
+                    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#9ca3af;">No service requests found. Waiting for homeowner requests.</p>';
+                }
+            }
+        }
+
+        function renderServices(requests) {
+            const container = document.querySelector('.requests-list');
+            if (!requests || requests.length === 0) {
+                container.innerHTML = `<div style="text-align:center;padding:2.5rem;color:#9ca3af;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">📋</div>
+                    <p style="font-size:0.85rem;">No service requests assigned yet.<br>New homeowner requests will appear here.</p>
+                </div>`;
+                return;
+            }
+            container.innerHTML = requests.map(r => {
+                const status = r.status || 'Pending';
+                const badgeStyle = STATUS_BADGE[status] || STATUS_BADGE['Assigned'];
+                const actionBtns = getActionButtons(r);
+                return `<div class="request-card" id="card-${r.id}">
+                    <div class="request-header">
+                        <span style="font-size:0.7rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:50px;${badgeStyle}">${status.toUpperCase()}</span>
+                        <span class="request-id">#${r.id}</span>
+                    </div>
+                    <h3 class="request-title">${r.service_type || 'Service Request'}</h3>
+                    <div class="request-details">
+                        <div class="detail-item">
+                            <div class="detail-content">
+                                <p class="detail-label">Customer</p>
+                                <p class="detail-value">${r.customer_name || r.customer || 'Homeowner'}</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-content">
+                                <p class="detail-label">Location</p>
+                                <p class="detail-value">${r.location || '—'}</p>
+                            </div>
+                        </div>
+                        ${r.preferred_time ? `<div class="detail-item"><div class="detail-content"><p class="detail-label">Preferred Time</p><p class="detail-value">⏰ ${r.preferred_time}</p></div></div>` : ''}
+                        ${r.description ? `<div class="detail-item"><div class="detail-content"><p class="detail-label">Issue</p><p class="detail-value" style="font-size:0.78rem;">${r.description}</p></div></div>` : ''}
+                        ${r.scheduled_time ? `<div class="detail-item"><div class="detail-content"><p class="detail-label">Scheduled</p><p class="detail-value" style="color:#059669;">📅 ${r.scheduled_time}</p></div></div>` : ''}
+                    </div>
+                    <div class="request-actions">${actionBtns}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function getActionButtons(r) {
+            if (r.status === 'Completed') {
+                return `<span style="font-size:0.8rem;color:#059669;font-weight:600;">✅ Service Completed</span>`;
+            }
+            if (r.status === 'Scheduled') {
+                return `<button class="action-btn accept-btn" onclick="updateStatus('${r.id}','complete')">✅ Mark Completed</button>
+                        <button class="action-btn view-btn" onclick="updateStatus('${r.id}','schedule')">🔄 Reschedule</button>`;
+            }
+            return `<button class="action-btn accept-btn" onclick="updateStatus('${r.id}','accept')">✔ Accept</button>
+                    <button class="action-btn view-btn" onclick="openSchedule('${r.id}')">📅 Schedule Visit</button>`;
+        }
+
+        function openSchedule(id) {
+            scheduleTargetId = id;
+            document.getElementById('proposeDateModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function submitProposedDate() {
+            const date = document.getElementById('proposedDateInput').value;
+            if (!date || !scheduleTargetId) return;
+            const btn = document.getElementById('confirmProposeBtn');
+            btn.disabled = true;
+            btn.textContent = 'Scheduling...';
+            try {
+                await apiCall('/api/vendor/service/update', 'POST', {
+                    request_id: scheduleTargetId,
+                    vendor_id: vendorEmail,
+                    action: 'schedule',
+                    scheduled_time: date,
+                });
+                showToast('Visit scheduled successfully!', 'success');
+                closeModal('proposeDateModal');
+                await loadServices();
+            } catch (e) {
+                showToast('Failed to schedule. Try again.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Confirm Schedule';
+            }
+        }
+
+        async function updateStatus(requestId, action) {
+            const labels = { accept: 'Accepting...', complete: 'Completing...' };
+            showToast(labels[action] || 'Updating...', 'info');
+            try {
+                const result = await apiCall('/api/vendor/service/update', 'POST', {
+                    request_id: requestId,
+                    vendor_id: vendorEmail,
+                    action: action,
+                });
+                const newStatus = result.request?.status || result.order?.status || 'Updated';
+                showToast(`${action === 'complete' ? '✅ Marked Completed' : '✔ Accepted'} successfully!`, 'success');
+                await loadServices();
+            } catch (e) {
+                showToast('Update failed. Please try again.', 'error');
+            }
+        }
+
+        function addRequest() {
+            showToast('Homeowners apply for services via their dashboard.', 'info');
+        }
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>
+
+

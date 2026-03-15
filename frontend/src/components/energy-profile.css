@@ -1,0 +1,431 @@
+/* ===================================================
+   energy-profile.css  –  EnergyProfileForm extras
+   Extends login.css; do NOT import this without it.
+   =================================================== */
+
+/* ── Wider card for the richer form ── */
+.ep-card {
+    max-width: 520px;
+    max-height: calc(100vh - 32px);
+}
+
+/* ── Role badge reuse ── */
+.role-badge {
+    background: rgba(0, 212, 232, 0.1);
+    color: var(--color-energy-cyan);
+    padding: 0.25rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(0, 212, 232, 0.25);
+}
+
+/* ── Inline label extras ── */
+.label-unit {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-left: 0.3rem;
+}
+
+.label-optional {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin-left: 0.3rem;
+}
+
+/* ========================================
+   Custom Select Wrapper
+   ======================================== */
+.select-wrapper {
+    position: relative;
+}
+
+.ep-select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 2.5rem;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    pointer-events: none;
+    line-height: 1;
+    transition: color var(--transition-fast);
+}
+
+.ep-select:focus~.select-arrow {
+    color: var(--color-energy-cyan);
+}
+
+/* ========================================
+   Consumer Type Grid  (2 × 2 radio cards)
+   ======================================== */
+.consumer-type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+}
+
+.consumer-option {
+    cursor: pointer;
+}
+
+.consumer-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.consumer-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.75rem 0.5rem;
+    background: var(--color-bg-light);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    user-select: none;
+}
+
+.consumer-card:hover {
+    border-color: rgba(0, 212, 232, 0.35);
+    background: var(--color-bg-white);
+}
+
+.consumer-option input[type="radio"]:checked+.consumer-card {
+    border-color: var(--color-energy-cyan);
+    background: rgba(0, 212, 232, 0.06);
+    box-shadow: 0 0 0 3px rgba(0, 212, 232, 0.12);
+}
+
+.consumer-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.consumer-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Rooftop Yes / No Toggle
+   ======================================== */
+.toggle-group {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.toggle-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.toggle-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-bg-light);
+    border: 2px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-base);
+    user-select: none;
+}
+
+.toggle-pill:hover {
+    border-color: rgba(0, 212, 232, 0.3);
+    color: var(--color-text-primary);
+    background: var(--color-bg-white);
+}
+
+.toggle-option input[type="radio"]:checked+.toggle-pill {
+    border-color: var(--color-energy-cyan);
+    background: rgba(0, 212, 232, 0.08);
+    color: var(--color-text-primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 232, 0.12);
+}
+
+/* ========================================
+   File Drop Zone
+   ======================================== */
+.file-input-hidden {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.file-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1.25rem 1rem;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-light);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: center;
+    min-height: 110px;
+}
+
+.file-drop-zone:hover,
+.file-drop-zone.drag-over {
+    border-color: var(--color-energy-cyan);
+    background: rgba(0, 212, 232, 0.04);
+}
+
+.file-drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    pointer-events: none;
+}
+
+.file-icon {
+    width: 36px;
+    height: 36px;
+    color: var(--color-energy-cyan);
+    opacity: 0.75;
+}
+
+.file-drop-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.file-drop-hint {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.file-name-display {
+    margin-top: 0.45rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-energy-cyan);
+    word-break: break-all;
+}
+
+/* ========================================
+   Recommendations Panel
+   ======================================== */
+.recommendations-panel {
+    animation: formSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-top: 0.25rem;
+}
+
+.rec-header {
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+.rec-badge {
+    display: inline-block;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+}
+
+.rec-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.rec-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.rec-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.9rem 1rem;
+    background: var(--color-bg-light);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-energy-cyan);
+    animation: recCardIn 0.35s ease both;
+}
+
+@keyframes recCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rec-card-icon {
+    font-size: 1.55rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.05rem;
+}
+
+.rec-card-body {
+    flex: 1;
+}
+
+.rec-card-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.rec-card-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+/* ── Edit button variant ── */
+.ep-btn-edit {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Body scroll override for taller form
+   ======================================== */
+body {
+    /* Allow scroll if content overflows on small screens */
+    overflow: auto;
+    height: auto;
+    min-height: 100vh;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media (max-width: 560px) {
+    .ep-card {
+        max-width: 100%;
+    }
+
+    .consumer-type-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 380px) {
+    .consumer-type-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .toggle-group {
+        flex-direction: column;
+    }
+}
+
+/* ========================================
+   Validation states
+   ======================================== */
+.form-input.ep-invalid {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.consumer-type-grid.ep-group-invalid .consumer-card,
+.toggle-group.ep-group-invalid .toggle-pill {
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* Shake on failed submit */
+@keyframes ep-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-6px);
+    }
+
+    40% {
+        transform: translateX(6px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+.ep-shake {
+    animation: ep-shake 0.4s ease;
+}
+
+/* ========================================
+   Summary stat strip (above rec cards)
+   ======================================== */
+.rec-stat-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.5rem;
+    background: linear-gradient(135deg, rgba(0, 212, 232, 0.06), rgba(163, 230, 53, 0.06));
+    border: 1px solid rgba(0, 212, 232, 0.2);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.rec-stat {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.rec-dot {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}

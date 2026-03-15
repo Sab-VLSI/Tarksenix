@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="description" content="Solar — plant capacity, allocation status and 7-day trend.">
+    <title>Solar — EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <style>
+        .sp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .65rem;
+            margin-bottom: 1rem
+        }
+
+        .sp-card {
+            background: var(--color-white);
+            border-radius: 16px;
+            border: 1px solid var(--color-border);
+            padding: .9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04)
+        }
+
+        .sp-card.wide {
+            grid-column: 1/-1
+        }
+
+        .sp-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: .45rem
+        }
+
+        .sp-icon svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .sp-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--color-text-primary)
+        }
+
+        .sp-unit {
+            font-size: .68rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            margin-left: 2px
+        }
+
+        .sp-lbl {
+            font-size: .62rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--color-text-muted);
+            margin-top: .28rem
+        }
+
+        .sp-section {
+            background: var(--color-white);
+            border-radius: 16px;
+            border: 1px solid var(--color-border);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04)
+        }
+
+        .sp-section-title {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--color-text-secondary);
+            margin-bottom: .85rem;
+            display: flex;
+            align-items: center;
+            gap: .4rem
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: sdot 2s infinite
+        }
+
+        @keyframes sdot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7)
+            }
+        }
+
+        .sp-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: .3rem .85rem;
+            border-radius: 50px;
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .status-balanced {
+            background: rgba(16, 185, 129, .1);
+            color: #059669
+        }
+
+        .status-near_capacity {
+            background: rgba(245, 158, 11, .1);
+            color: #d97706
+        }
+
+        .status-overloaded {
+            background: rgba(239, 68, 68, .1);
+            color: #dc2626
+        }
+
+        .sp-util-bar {
+            height: 8px;
+            border-radius: 99px;
+            background: var(--color-border);
+            overflow: hidden;
+            margin: .55rem 0 .3rem
+        }
+
+        .sp-util-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 1s ease
+        }
+
+        .sp-chart-legend {
+            display: flex;
+            gap: .85rem;
+            flex-wrap: wrap;
+            margin-bottom: .6rem;
+            font-size: .7rem
+        }
+
+        .sp-ldot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px
+        }
+
+        #solarCanvas {
+            width: 100% !important
+        }
+
+        .sp-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            font-size: .82rem
+        }
+
+        .sp-spinner::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid var(--color-border);
+            border-top-color: #10b981;
+            border-radius: 50%;
+            animation: spin .8s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .sp-empty {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--color-text-muted);
+            font-size: .82rem
+        }
+
+        .sp-refresh {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .67rem;
+            color: var(--color-text-muted);
+            padding: 0 .1rem .65rem
+        }
+
+        .sp-live {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            display: inline-block;
+            margin-right: 4px;
+            animation: sdot 1.5s infinite
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="dashboard-title h1-compact">Solar</h1>
+                    <p class="dashboard-subtitle text-xs">Plant capacity, generation &amp; allocation status</p>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-company.html'">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="sp-refresh">
+                <span><span class="sp-live"></span>Live · refreshes every 5 s</span>
+                <span id="spUpdated">—</span>
+            </div>
+
+            <!-- Capacity cards -->
+            <div class="sp-section">
+                <p class="sp-section-title"><span class="live-dot" style="background:#f59e0b"></span>Plant Capacity</p>
+                <div id="capacityCards" class="sp-spinner">Loading…</div>
+            </div>
+
+            <!-- Allocation status -->
+            <div class="sp-section">
+                <p class="sp-section-title"><span class="live-dot" style="background:#10b981"></span>Allocation Status
+                </p>
+                <div id="allocStatus" class="sp-spinner">Loading…</div>
+            </div>
+
+            <!-- 7-day trend chart -->
+            <div class="sp-section" style="margin-bottom:5.5rem">
+                <p class="sp-section-title"><span class="live-dot" style="background:#3b82f6"></span>7-Day Solar Trend
+                </p>
+                <div class="sp-chart-legend">
+                    <span><span class="sp-ldot" style="background:#f59e0b"></span>Generated (kWh)</span>
+                    <span><span class="sp-ldot" style="background:#10b981"></span>Allocated (kWh)</span>
+                </div>
+                <canvas id="solarCanvas" height="150"></canvas>
+                <p id="trendEmpty" class="sp-empty" style="display:none">No trend data yet.</p>
+            </div>
+        </main>
+
+        <!-- Bottom nav -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='company-solar.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Solar</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-buildings.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1m-5 4h1m4 0h1m-5 4h1m4 0h1"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Buildings</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-ai-control.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>AI Control</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke-linecap="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        function fmt(v, d = 1) { if (v == null || isNaN(v)) return '—'; return parseFloat(v).toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+        function statusLabel(s) { return { balanced: '✅ Balanced', near_capacity: '⚠️ Near Capacity', overloaded: '🔴 Overallocated' }[s] || s; }
+
+        async function loadSolar() {
+            const el = document.getElementById('capacityCards');
+            try {
+                const d = await apiCall('/api/company/solar-data');
+                el.innerHTML = `
+        <div class="sp-grid">
+            <div class="sp-card">
+                <div class="sp-icon" style="background:rgba(245,158,11,.12)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round"/></svg>
+                </div>
+                <div class="sp-val">${fmt(d.plant_capacity_kw, 0)}<span class="sp-unit">kW</span></div>
+                <div class="sp-lbl">Total Plant Capacity</div>
+            </div>
+            <div class="sp-card">
+                <div class="sp-icon" style="background:rgba(16,185,129,.12)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="sp-val">${fmt(d.subscribed_capacity_kw, 1)}<span class="sp-unit">kW</span></div>
+                <div class="sp-lbl">Subscribed Capacity</div>
+            </div>
+            <div class="sp-card">
+                <div class="sp-icon" style="background:rgba(59,130,246,.12)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round"/></svg>
+                </div>
+                <div class="sp-val" style="color:${d.remaining_capacity_kw > 0 ? '#10b981' : '#ef4444'}">${fmt(d.remaining_capacity_kw, 1)}<span class="sp-unit">kW</span></div>
+                <div class="sp-lbl">Remaining Available</div>
+            </div>
+            <div class="sp-card">
+                <div class="sp-icon" style="background:rgba(139,92,246,.12)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round"/></svg>
+                </div>
+                <div class="sp-val" style="color:#8b5cf6">${fmt(d.solar_generated_today, 0)}<span class="sp-unit">kWh</span></div>
+                <div class="sp-lbl">Generated Today</div>
+            </div>
+        </div>`;
+
+                const barC = d.status === 'balanced' ? '#10b981' : d.status === 'near_capacity' ? '#f59e0b' : '#ef4444';
+                document.getElementById('allocStatus').innerHTML = `
+        <div class="sp-util-bar"><div class="sp-util-fill" style="width:${Math.min(100, d.utilization_percent)}%;background:${barC}"></div></div>
+        <p style="font-size:.72rem;color:var(--color-text-secondary);margin-bottom:.45rem">${fmt(d.subscribed_capacity_kw, 1)} kW subscribed of ${fmt(d.plant_capacity_kw, 0)} kW total (${d.utilization_percent}%)</p>
+        <span class="sp-status-badge status-${d.status}">${statusLabel(d.status)}</span>`;
+            } catch (e) { el.innerHTML = '<p class="sp-empty">Solar data unavailable.</p>'; }
+        }
+
+        async function loadTrend() {
+            try {
+                const data = await apiCall('/api/company/solar-trend');
+                if (!data || !data.length) { document.getElementById('trendEmpty').style.display = 'block'; return; }
+                const canvas = document.getElementById('solarCanvas');
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                const W = canvas.offsetWidth || 320, H = 150;
+                canvas.width = W; canvas.height = H;
+                const ctx = canvas.getContext('2d');
+                const PAD = { top: 10, right: 12, bottom: 28, left: 44 };
+                const pW = W - PAD.left - PAD.right, pH = H - PAD.top - PAD.bottom;
+                const maxV = Math.max(...data.map(d => d.generated)) * 1.1 || 1;
+                const tc = isDark ? '#9ca3af' : '#6b7280', gc = isDark ? 'rgba(255,255,255,.06)' : 'rgba(0,0,0,.05)';
+                ctx.clearRect(0, 0, W, H);
+                ctx.font = '10px Inter,sans-serif'; ctx.fillStyle = tc; ctx.textAlign = 'right';
+                for (let i = 0; i <= 4; i++) {
+                    const y = PAD.top + (pH * i) / 4;
+                    ctx.strokeStyle = gc; ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + pW, y); ctx.stroke();
+                    ctx.fillText(Math.round(maxV * (1 - i / 4)).toLocaleString(), PAD.left - 4, y + 3);
+                }
+                ctx.textAlign = 'center';
+                data.forEach((d, i) => { const x = PAD.left + (i / (data.length - 1)) * pW; ctx.fillStyle = tc; ctx.fillText(d.label, x, H - 4); });
+                function series(vals, color) {
+                    const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + pH);
+                    grad.addColorStop(0, color.replace(')', ',0.28)').replace('rgb', 'rgba'));
+                    grad.addColorStop(1, color.replace(')', ',0.02)').replace('rgb', 'rgba'));
+                    ctx.beginPath();
+                    vals.forEach((v, i) => { const x = PAD.left + (i / (vals.length - 1)) * pW, y = PAD.top + pH - (v / maxV) * pH; i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
+                    ctx.lineTo(PAD.left + pW, PAD.top + pH); ctx.lineTo(PAD.left, PAD.top + pH); ctx.closePath();
+                    ctx.fillStyle = grad; ctx.fill();
+                    ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+                    vals.forEach((v, i) => { const x = PAD.left + (i / (vals.length - 1)) * pW, y = PAD.top + pH - (v / maxV) * pH; i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
+                    ctx.stroke();
+                    vals.forEach((v, i) => {
+                        const x = PAD.left + (i / (vals.length - 1)) * pW, y = PAD.top + pH - (v / maxV) * pH;
+                        ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+                        ctx.strokeStyle = isDark ? '#1f2937' : '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+                    });
+                }
+                series(data.map(d => d.generated), 'rgb(245,158,11)');
+                series(data.map(d => d.allocated), 'rgb(16,185,129)');
+            } catch (e) { document.getElementById('trendEmpty').style.display = 'block'; }
+        }
+
+        async function refresh() {
+            await Promise.all([loadSolar(), loadTrend()]);
+            document.getElementById('spUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        document.addEventListener('DOMContentLoaded', () => { refresh(); setInterval(refresh, 5000); });
+        window.addEventListener('resize', loadTrend);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }); })</script>
+</body>
+
+</html>

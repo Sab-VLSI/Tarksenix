@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/subscription-plans.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="window.location.href='../homeowner/profile-homeowner.html'">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Subscription Plans</h1>
+                    <p class="dashboard-subtitle">Choose the perfect plan for your energy needs</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Current Plan -->
+            <section class="current-plan-section">
+                <h2 class="section-title">Your Current Plan</h2>
+                <div class="current-plan-card">
+                    <div class="plan-badge">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        Active Plan
+                    </div>
+                    <h3 class="plan-name">Standard Plan - 3 kW</h3>
+                    <p class="plan-price">₹7,500<span class="price-period">/month</span></p>
+
+                    <div class="plan-usage">
+                        <div class="usage-header">
+                            <p class="usage-label">Monthly Usage</p>
+                            <p class="usage-value">340 kWh <span class="usage-total">/ 420 kWh</span></p>
+                        </div>
+                        <div class="usage-bar">
+                            <div class="usage-fill" style="width: 81%;"></div>
+                        </div>
+                        <p class="usage-remaining">80 kWh remaining this month</p>
+                    </div>
+
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span>420 kWh monthly units</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span>72% solar coverage</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span>Real-time monitoring</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span>Priority support</span>
+                        </div>
+                    </div>
+
+                    <div class="plan-lock-info">
+                        <div class="lock-icon">🔒</div>
+                        <div class="lock-details">
+                            <p class="lock-label">Lock-in Period</p>
+                            <p class="lock-value">12 months • 7 months remaining</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Plans -->
+            <section class="plans-section">
+                <h2 class="section-title">Available Plans</h2>
+                <div class="plans-grid">
+                    <!-- Basic Plan -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-title">Basic</h3>
+                            <p class="plan-capacity">1 kW</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <p class="plan-amount">₹3,500</p>
+                            <p class="plan-period">/month</p>
+                        </div>
+                        <div class="plan-details">
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>140 kWh/month</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>60% solar coverage</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Basic monitoring</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Email support</span>
+                            </div>
+                        </div>
+                        <button class="plan-btn downgrade-btn" disabled>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Downgrade
+                        </button>
+                    </div>
+
+                    <!-- Standard Plan (Current) -->
+                    <div class="plan-card current">
+                        <div class="current-badge">Current Plan</div>
+                        <div class="plan-header">
+                            <h3 class="plan-title">Standard</h3>
+                            <p class="plan-capacity">3 kW</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <p class="plan-amount">₹7,500</p>
+                            <p class="plan-period">/month</p>
+                        </div>
+                        <div class="plan-details">
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>420 kWh/month</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>72% solar coverage</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Real-time monitoring</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Priority support</span>
+                            </div>
+                        </div>
+                        <button class="plan-btn current-btn" disabled>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Active
+                        </button>
+                    </div>
+
+                    <!-- Premium Plan -->
+                    <div class="plan-card recommended">
+                        <div class="recommended-badge">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Recommended
+                        </div>
+                        <div class="plan-header">
+                            <h3 class="plan-title">Premium</h3>
+                            <p class="plan-capacity">5 kW</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <p class="plan-amount">₹11,000</p>
+                            <p class="plan-period">/month</p>
+                        </div>
+                        <div class="plan-details">
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>700 kWh/month</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>85% solar coverage</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Advanced analytics</span>
+                            </div>
+                            <div class="detail-item">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>24/7 support</span>
+                            </div>
+                        </div>
+                        <button class="plan-btn upgrade-btn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 10l7-7m0 0l7 7m-7-7v18" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Upgrade
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Plan Comparison -->
+            <section class="comparison-section">
+                <h2 class="section-title">Compare Plans</h2>
+                <div class="comparison-card">
+                    <div class="comparison-table">
+                        <div class="comparison-row header-row">
+                            <div class="comparison-cell">Features</div>
+                            <div class="comparison-cell">Basic</div>
+                            <div class="comparison-cell">Standard</div>
+                            <div class="comparison-cell">Premium</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">Monthly Units</div>
+                            <div class="comparison-cell">140 kWh</div>
+                            <div class="comparison-cell highlight">420 kWh</div>
+                            <div class="comparison-cell">700 kWh</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">Solar Coverage</div>
+                            <div class="comparison-cell">60%</div>
+                            <div class="comparison-cell highlight">72%</div>
+                            <div class="comparison-cell">85%</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">Monitoring</div>
+                            <div class="comparison-cell">Basic</div>
+                            <div class="comparison-cell highlight">Real-time</div>
+                            <div class="comparison-cell">Advanced</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">Support</div>
+                            <div class="comparison-cell">Email</div>
+                            <div class="comparison-cell highlight">Priority</div>
+                            <div class="comparison-cell">24/7</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-cell">Battery Storage</div>
+                            <div class="comparison-cell">❌</div>
+                            <div class="comparison-cell highlight">✅ 5 kWh</div>
+                            <div class="comparison-cell">✅ 10 kWh</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQs -->
+            <section class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I change my plan anytime?</span>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            You can upgrade anytime. Downgrades are allowed after the lock-in period ends.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What happens if I exceed my monthly units?</span>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            Additional units are automatically sourced from the grid at standard DISCOM rates.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is there a setup fee?</span>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            No setup fees! Start using clean energy immediately after subscription.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='../homeowner/dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='../homeowner/energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='../homeowner/virtual-solar.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='../homeowner/profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        // Simple FAQ toggle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', function () {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="../../components/login.js"></script>
+    <script>
+        // Load plans from backend and attach activation
+        async function loadPlans() {
+            try {
+                const plans = await apiCall('/api/subscription/plans');
+                // Plans loaded successfully - update current plan badge if needed
+                const email = localStorage.getItem('userEmail');
+                if (!email) return;
+                console.log('Plans loaded from backend:', plans.map(p => p.plan_name));
+            } catch (e) {
+                console.log('Subscription plans API not available, using static data.');
+            }
+        }
+
+        async function subscribePlan(planKey, price) {
+            const email = localStorage.getItem('userEmail') || 'user_123';
+            if (!email) { alert('Please login first'); return; }
+            
+            try {
+                // 1. Create order on backend (first month charge)
+                const order = await apiCall('/api/payment/create-order', 'POST', { amount: price, user_id: email, purpose: 'subscription' });
+                
+                // 2. Open Razorpay Checkout wrapper
+                const options = {
+                    key: order.key_id,
+                    amount: order.amount,
+                    currency: order.currency,
+                    name: "EnergyNest",
+                    description: `Subscription: ${planKey.toUpperCase()} Plan`,
+                    order_id: order.id,
+                    handler: async function (response) {
+                        try {
+                            const verifyData = await apiCall('/api/payment/verify', 'POST', {
+                                razorpay_order_id: response.razorpay_order_id || order.id,
+                                razorpay_payment_id: response.razorpay_payment_id || 'mock_pay_123',
+                                razorpay_signature: response.razorpay_signature || 'mock_sig',
+                                user_id: email,
+                                amount: price,
+                                purpose: 'subscription'
+                            });
+
+                            if (verifyData.status === 'success') {
+                                alert(`Payment Successful! You are now subscribed to the ${planKey} plan.`);
+                                setTimeout(() => window.location.reload(), 1500);
+                            } else {
+                                alert('Payment Verification Failed');
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            alert('Payment Verification Failed');
+                        }
+                    },
+                    theme: { color: "#10b981" }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+                
+            } catch (err) {
+                console.error("Payment flow err:", err);
+                alert("Payment initiation failed. Please check console.");
+            }
+        }
+
+        // Wire up upgrade buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPlans();
+            const upgradeBtns = document.querySelectorAll('.upgrade-btn');
+            if (upgradeBtns[0]) upgradeBtns[0].addEventListener('click', () => subscribePlan('premium', 11000));
+            const downgradeBtns = document.querySelectorAll('.downgrade-btn:not([disabled])');
+            if (downgradeBtns[0]) downgradeBtns[0].addEventListener('click', () => subscribePlan('basic', 3500));
+        });
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

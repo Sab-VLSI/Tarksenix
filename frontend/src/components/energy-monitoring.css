@@ -1,0 +1,374 @@
+/* ===================================
+   Energy Monitoring Page Styles
+   =================================== */
+
+/* Back Button */
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.back-btn:hover {
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-primary);
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Time Filter */
+.filter-section {
+    margin-bottom: var(--spacing-sm);
+}
+
+.time-filter {
+    display: flex;
+    gap: var(--spacing-xs);
+    background: var(--color-white);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.filter-btn {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.filter-btn:hover {
+    background: var(--color-bg);
+}
+
+.filter-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 212, 232, 0.3);
+}
+
+/* Live Usage Graph */
+.graph-section {
+    margin-bottom: var(--spacing-sm);
+}
+
+.graph-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+}
+
+.chart-container {
+    margin-top: var(--spacing-xs);
+    height: 160px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-sm) var(--spacing-xs) var(--spacing-xs);
+    border: 1px inset rgba(0, 0, 0, 0.05);
+}
+
+.chart-bars-horizontal {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+    gap: var(--spacing-md);
+}
+
+.hour-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.hour-bar::before {
+    content: '';
+    width: 100%;
+    height: var(--height);
+    background: linear-gradient(to top, rgba(0, 212, 232, 0.1), rgba(0, 212, 232, 0.3));
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 212, 232, 0.2);
+}
+
+.hour-bar:hover::before {
+    background: linear-gradient(to top, rgba(0, 212, 232, 0.3), rgba(0, 212, 232, 0.5));
+    transform: scaleX(1.1);
+}
+
+.hour-bar.active::before {
+    background: var(--gradient-primary);
+    box-shadow: 0 0 15px rgba(0, 212, 232, 0.4);
+    border: none;
+    animation: livePulse 2s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+
+    0%,
+    100% {
+        filter: brightness(1);
+        transform: scaleX(1);
+    }
+
+    50% {
+        filter: brightness(1.2);
+        transform: scaleX(1.05);
+    }
+}
+
+.bar-value {
+    position: absolute;
+    top: -28px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    opacity: 0.9;
+}
+
+.bar-label {
+    margin-top: var(--spacing-xs);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+body.dark-mode .chart-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .hour-bar::before {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Energy Source Breakdown */
+.source-section {
+    margin-bottom: var(--spacing-sm);
+}
+
+.source-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.source-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.source-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.source-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.source-content {
+    flex: 1;
+}
+
+.source-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.source-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.source-value .unit {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--color-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-solar);
+    border-radius: 10px;
+    transition: width var(--transition);
+}
+
+.grid-fill {
+    background: var(--gradient-grid);
+}
+
+.source-percentage {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* Battery Status */
+.battery-section {
+    margin-bottom: var(--spacing-xs);
+}
+
+.battery-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.battery-visual {
+    flex-shrink: 0;
+}
+
+.battery-icon-large {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.battery-body {
+    width: 80px;
+    height: 40px;
+    border: 3px solid var(--color-text-primary);
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg);
+}
+
+.battery-level {
+    height: 100%;
+    background: var(--gradient-battery);
+    transition: width 1s ease;
+}
+
+.battery-terminal {
+    width: 8px;
+    height: 24px;
+    background: var(--color-text-primary);
+    border-radius: 0 4px 4px 0;
+}
+
+.battery-info {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.battery-stat {
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.status-charging {
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .source-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .battery-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .battery-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-bars-horizontal {
+        gap: var(--spacing-xs);
+    }
+}

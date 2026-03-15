@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>html{background:#f8fafb}body{visibility:hidden}body.si-loaded{visibility:visible}</style>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/order-status.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="window.location.href='dashboard-home.html'">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Order Status</h1>
+                    <p class="dashboard-subtitle">Track your solar installation progress</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Status Flow -->
+            <section class="status-flow-section">
+                <div class="status-stepper">
+                    <div class="step completed">
+                        <div class="step-icon">✓</div>
+                        <div class="step-label">Requested</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon">✓</div>
+                        <div class="step-label">Vendor Matching</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon">3</div>
+                        <div class="step-label">Vendor Assigned</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">4</div>
+                        <div class="step-label">Installation</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">5</div>
+                        <div class="step-label">Completed</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vendor Assigned Card -->
+            <section class="vendor-assignment-section">
+                <h2 class="section-title">Vendor Assigned</h2>
+                <div class="vendor-card">
+                    <div class="vendor-header">
+                        <div class="vendor-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="vendor-info">
+                            <h3 class="vendor-name">Locating Vendor...</h3>
+                            <p class="vendor-region" id="vendorRegionDisplay">Service Region: Mumbai Metropolitan Area
+                            </p>
+                            <div class="transparency-badges">
+                                <span class="badge">Certified Vendor</span>
+                                <span class="badge">Locally Matched</span>
+                                <span class="badge">Availability Verified</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="assignment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Service Type</span>
+                            <span class="detail-value" id="serviceTypeDisplay">Solar Installation</span>
+                        </div>
+                        <div class="detail-row" id="datenegotiationRow">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div id="negotiationActions"
+                        style="display: none; padding: 1rem; border-top: 1px solid var(--color-border); margin-top: 1rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Vendor has proposed a
+                            date. Do you agree?</p>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="action-btn accept-btn" id="confirmDateBtn"
+                                style="padding: 0.5rem 1rem;">Confirm Date</button>
+                            <button class="action-btn" id="rejectDateBtn"
+                                style="padding: 0.5rem 1rem; background: var(--color-bg); color: var(--color-text-primary);">Suggest
+                                Different Date</button>
+                        </div>
+                        <div id="rejectionInput"
+                            style="display: none; margin-top: 1rem; gap: 0.5rem; align-items: center;">
+                            <input type="date" id="preferredDateInput" class="form-input" style="width: auto;">
+                            <button class="action-btn" onclick="submitRejection()" style="padding: 0.5rem 1rem;">Send
+                                Suggestion</button>
+                        </div>
+                    </div>
+
+                    <div class="fairness-note">
+                        <p>“This vendor was selected based on suitability and availability, not bidding or favoritism.”
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why can't I choose FAQ -->
+            <section class="faq-section">
+                <div class="faq-card">
+                    <div class="faq-header">
+                        <span class="faq-icon">ⓘ</span>
+                        <h4 class="faq-question">Why can’t I choose any vendor?</h4>
+                    </div>
+                    <p class="faq-answer">
+                        To ensure quality, timely installation, and fair pricing, vendors are selected automatically
+                        based on technical and service suitability.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        async function loadOrderStatus() {
+            const email = localStorage.getItem('userEmail') || 'owner@smartintelli.com';
+            try {
+                const data = await apiCall(`/homeowner/summary?email=${email}`);
+                if (data.active_order) {
+                    updateUI(data.active_order);
+                } else {
+                    document.querySelector('.dashboard-subtitle').textContent = "No active installation requests found.";
+                    document.querySelector('.status-flow-section').style.display = 'none';
+                    document.querySelector('.vendor-assignment-section').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Failed to load order status:', error);
+            }
+        }
+
+        let currentOrderId = null;
+
+        function updateUI(order) {
+            currentOrderId = order.id;
+            const statusFlowSection = document.querySelector('.status-flow-section');
+            let idDisplay = statusFlowSection.querySelector('#orderIdDisplay');
+            if (!idDisplay) {
+                const p = document.createElement('p');
+                p.style.textAlign = 'center';
+                p.style.marginTop = '1rem';
+                p.innerHTML = `Track progress for Request <span id="orderIdDisplay">#${order.id}</span>`;
+                statusFlowSection.appendChild(p);
+            } else {
+                idDisplay.textContent = `#${order.id}`;
+            }
+
+            const statusMap = {
+                'Requested': 0,
+                'Matching': 1,
+                'Assigned': 2,
+                'Installation': 3,
+                'Completed': 4
+            };
+
+            const currentStep = statusMap[order.status] || 0;
+            const steps = document.querySelectorAll('.step');
+
+            steps.forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                    step.querySelector('.step-icon').textContent = '✓';
+                } else if (index === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                    step.querySelector('.step-icon').textContent = (index + 1);
+                } else {
+                    step.classList.remove('completed', 'active');
+                    step.querySelector('.step-icon').textContent = (index + 1);
+                }
+            });
+
+            if (currentStep >= 1) {
+                document.querySelector('.vendor-assignment-section').style.display = 'block';
+                document.querySelector('.vendor-name').textContent = order.vendor_name || "Searching for partners...";
+                document.getElementById('serviceTypeDisplay').textContent = order.service_type || "Solar Installation";
+                const regionDisplay = document.getElementById('vendorRegionDisplay');
+                if (regionDisplay) regionDisplay.textContent = `Service Region: ${order.location || 'Locating...'}`;
+
+                if (currentStep >= 2) {
+                    renderNegotiation(order);
+                } else {
+                    const row = document.getElementById('datenegotiationRow');
+                    if (row) row.style.display = 'none';
+                    const actions = document.getElementById('negotiationActions');
+                    if (actions) actions.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary); width: 100%; padding: 1rem;">Finding the best local vendor...</p>';
+                }
+            } else {
+                document.querySelector('.vendor-assignment-section').style.display = 'none';
+            }
+        }
+
+        function renderNegotiation(order) {
+            const row = document.getElementById('datenegotiationRow');
+            const actions = document.getElementById('negotiationActions');
+
+            if (!order.scheduled_date) {
+                row.innerHTML = `<span class="detail-label">Service Date</span><span class="detail-value">Waiting for Vendor...</span>`;
+                actions.style.display = 'none';
+                return;
+            }
+
+            if (order.date_status === 'Proposed') {
+                row.innerHTML = `<span class="detail-label">Vendor Proposed</span><span class="detail-value" style="color: var(--color-primary);">${order.scheduled_date}</span>`;
+                actions.style.display = 'block';
+
+                document.getElementById('confirmDateBtn').onclick = () => confirmDate(order.id);
+                document.getElementById('rejectDateBtn').onclick = () => {
+                    document.getElementById('rejectionInput').style.display = 'flex';
+                };
+            } else if (order.date_status === 'Confirmed') {
+                row.innerHTML = `<span class="detail-label">Scheduled Date</span><span class="detail-value" style="color: #10b981;">${order.scheduled_date} (Confirmed)</span>`;
+                actions.style.display = 'none';
+            } else if (order.date_status === 'Rejected') {
+                row.innerHTML = `<span class="detail-label">You Suggested</span><span class="detail-value">${order.preferred_date}</span>`;
+                actions.style.display = 'none';
+                const p = document.createElement('p');
+                p.style.fontSize = '0.8rem';
+                p.style.marginTop = '0.5rem';
+                p.textContent = "Waiting for vendor to review your preferred date.";
+                row.appendChild(p);
+            }
+        }
+
+        async function confirmDate(id) {
+            try {
+                await apiCall(`/homeowner/orders/${encodeURIComponent(id)}/confirm-date`, 'POST');
+                alert('Date confirmed!');
+                loadOrderStatus();
+            } catch (error) {
+                alert('Failed to confirm date: ' + error.message);
+            }
+        }
+
+        async function submitRejection() {
+            const date = document.getElementById('preferredDateInput').value;
+            if (!date) return alert('Please select a preferred date.');
+
+            try {
+                await apiCall(`/homeowner/orders/${encodeURIComponent(currentOrderId)}/reject-date?preferred_date=${date}`, 'POST');
+                alert('Alternative date sent to vendor.');
+                loadOrderStatus();
+            } catch (error) {
+                alert('Failed to send alternative date: ' + error.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadOrderStatus);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){document.body.classList.add("si-loaded")})})</script>
+</body>
+
+</html>

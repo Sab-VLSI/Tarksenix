@@ -1,0 +1,167 @@
+/* ===================================
+   CSS Variables & Theme
+   =================================== */
+:root {
+    --color-bg-dark: #0f172a;
+    --color-primary: #00d4e8;
+    --color-secondary: #a3e635;
+    --color-white: #ffffff;
+    --font-display: 'Exo 2', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* ===================================
+   Global Reset
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--color-bg-dark);
+    color: var(--color-white);
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* ===================================
+   Splash Container
+   =================================== */
+.splash-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Background Image Animation */
+.splash-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('professional_energy_splash_bg_1770134520535.png');
+    background-size: cover;
+    background-position: center;
+    animation: bgZoomOut 10s ease-out forwards;
+    filter: brightness(0.6);
+}
+
+@keyframes bgZoomOut {
+    from {
+        transform: scale(1.1);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* ===================================
+   Glassmorphism Card
+   =================================== */
+.splash-content {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 450px;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: cardReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Brand Section */
+.app-title {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.25rem;
+    letter-spacing: -1px;
+}
+
+.tagline {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2rem;
+}
+
+/* Status Section */
+.status-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05rem;
+}
+
+/* Loading Bar */
+.loading-bar {
+    width: 60%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    animation: progressFill 3s ease-in-out forwards;
+    box-shadow: 0 0 15px var(--color-primary);
+}
+
+@keyframes progressFill {
+    0% {
+        width: 0%;
+    }
+
+    30% {
+        width: 45%;
+    }
+
+    60% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@800&family=Inter:wght@400;500&display=swap');

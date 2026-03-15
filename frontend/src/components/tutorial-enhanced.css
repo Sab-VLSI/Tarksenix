@@ -1,0 +1,379 @@
+/* ===================================
+   Enhanced Tutorial System with Arrows
+   Auto-guided tour across pages
+   =================================== */
+
+/* Pulse Arrow Pointer */
+.tutorial-arrow {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    z-index: 10003;
+    pointer-events: none;
+    animation: arrowPulse 1.5s ease-in-out infinite;
+}
+
+.tutorial-arrow svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 4px 12px rgba(0, 212, 232, 0.6));
+}
+
+@keyframes arrowPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+/* Arrow pointing down */
+.tutorial-arrow.down {
+    animation: arrowBounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounceDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* Arrow pointing up */
+.tutorial-arrow.up {
+    animation: arrowBounceUp 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounceUp {
+    0%, 100% {
+        transform: translateY(0) rotate(180deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+    }
+}
+
+/* Arrow pointing left */
+.tutorial-arrow.left {
+    animation: arrowBounceLeft 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounceLeft {
+    0%, 100% {
+        transform: translateX(0) rotate(-90deg);
+    }
+    50% {
+        transform: translateX(-10px) rotate(-90deg);
+    }
+}
+
+/* Arrow pointing right */
+.tutorial-arrow.right {
+    animation: arrowBounceRight 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounceRight {
+    0%, 100% {
+        transform: translateX(0) rotate(90deg);
+    }
+    50% {
+        transform: translateX(10px) rotate(90deg);
+    }
+}
+
+/* Click indicator (pulsing circle) */
+.tutorial-click-indicator {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #00d4e8;
+    z-index: 10003;
+    pointer-events: none;
+    animation: clickPulse 1s ease-out infinite;
+}
+
+@keyframes clickPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Enhanced spotlight with stronger glow */
+.tutorial-spotlight {
+    position: absolute;
+    border: 4px solid #00d4e8;
+    border-radius: 12px;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85),
+                0 0 40px rgba(0, 212, 232, 0.8),
+                inset 0 0 40px rgba(0, 212, 232, 0.3);
+    z-index: 10001;
+    pointer-events: none;
+    transition: all 0.4s ease-in-out;
+    animation: spotlightPulse 2s ease-in-out infinite;
+}
+
+@keyframes spotlightPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85),
+                    0 0 40px rgba(0, 212, 232, 0.8),
+                    inset 0 0 40px rgba(0, 212, 232, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85),
+                    0 0 60px rgba(0, 212, 232, 1),
+                    inset 0 0 60px rgba(0, 212, 232, 0.5);
+    }
+}
+
+/* Tutorial overlay - transparent but blocks clicks */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent; /* Spotlight shadow handles the visual darkening */
+    z-index: 10000;
+    display: none;
+}
+
+.tutorial-overlay.active {
+    display: block;
+}
+
+/* Enhanced tooltip with better visibility */
+.tutorial-tooltip {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    z-index: 10002;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 212, 232, 0.3);
+    animation: slideIn 0.3s ease-out;
+    border: 2px solid #00d4e8;
+}
+
+/* Auto-advance indicator */
+.auto-advance-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00d4e8, #a3e635);
+    width: 0%;
+    transition: width 5s linear;
+    border-radius: 0 0 14px 14px;
+}
+
+.auto-advance-bar.active {
+    width: 100%;
+}
+
+/* Welcome modal for first-time users */
+.tutorial-welcome-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 24px;
+    padding: 48px;
+    max-width: 600px;
+    z-index: 10004;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: none;
+}
+
+.tutorial-welcome-modal.show {
+    display: block;
+    animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.welcome-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-icon svg {
+    width: 60px;
+    height: 60px;
+    color: white;
+}
+
+.welcome-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+}
+
+.welcome-message {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.welcome-stats {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    background: rgba(0, 212, 232, 0.1);
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.complete-stats {
+    font-size: 1rem;
+    color: #10b981;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.welcome-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.welcome-btn {
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.welcome-btn.primary {
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 212, 232, 0.3);
+}
+
+.welcome-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 212, 232, 0.4);
+}
+
+.welcome-btn.secondary {
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+.welcome-btn.secondary:hover {
+    background: #e5e7eb;
+}
+
+/* Step counter badge */
+.tutorial-step-badge {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10004;
+    display: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.tutorial-step-badge.show {
+    display: block;
+    animation: slideInFromTop 0.3s ease-out;
+}
+
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.step-badge-progress {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 8px;
+    font-size: 0.75rem;
+}
+
+/* Hand pointer cursor effect */
+.tutorial-hand-pointer {
+    position: absolute;
+    font-size: 2rem;
+    z-index: 10003;
+    pointer-events: none;
+    animation: handPoint 1s ease-in-out infinite;
+}
+
+@keyframes handPoint {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Skip tutorial button (always visible) */
+.tutorial-skip-all {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ef4444;
+    color: #ef4444;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10004;
+    display: none;
+    transition: all 0.2s;
+}
+
+.tutorial-skip-all.show {
+    display: block;
+}
+
+.tutorial-skip-all:hover {
+    background: #ef4444;
+    color: white;
+    transform: scale(1.05);
+}

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders & Service Requests - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/vendor-orders.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="window.location.href='dashboard-vendor.html'">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Orders</h1>
+                    <p class="dashboard-subtitle">Manage installation requests and track progress</p>
+                </div>
+                <div class="header-actions">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Installation Requests Tab -->
+            <section class="requests-section" id="installation-tab">
+                <div class="info-banner"
+                    style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 24px; height: 24px; color: #10b981;">
+                        <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+                            stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p style="color: #065f46; font-size: 0.875rem; font-weight: 500;">You are one of the eligible
+                        vendors shortlisted for this request.</p>
+                </div>
+                <h2 class="section-title">Installation Requests <span
+                        title="Large and small vendors are balanced by capacity"
+                        style="cursor: help; color: var(--color-primary); font-size: 0.9rem;"></span></h2>
+
+                <!-- Tabs navigation for Orders, Services, and History -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb;">
+                    <button style="background: none; border: none; padding: 0.5rem 1rem; border-bottom: 2px solid var(--color-primary); color: var(--color-primary); font-weight: 600; cursor: pointer;">Orders</button>
+                    <button style="background: none; border: none; padding: 0.5rem 1rem; color: #6b7280; font-weight: 500; cursor: pointer;" onclick="window.location.href='vendor-services.html'">Services</button>
+                    <button style="background: none; border: none; padding: 0.5rem 1rem; color: #6b7280; font-weight: 500; cursor: pointer;" onclick="window.location.href='vendor-history.html'">History</button>
+                </div>
+
+                <div class="requests-list">
+                    <!-- New Request -->
+                    <div class="request-card">
+                        <div class="request-header">
+                            <div class="request-id-badge new">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                NEW
+                            </div>
+                            <span class="request-id">#REQ-2024-1287</span>
+                        </div>
+
+                        <h3 class="request-title">EaaS Solar System Installation</h3>
+
+                        <div class="request-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <img src="../../components/icon-customer.png" alt="Customer" class="detail-img">
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Customer</p>
+                                    <p class="detail-value">Amit Sharma (Home Owner)</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor"
+                                            stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Location</p>
+                                    <p class="detail-value">Andheri West, Mumbai</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <img src="../../components/icon-solar.png" alt="Solar" class="detail-img">
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Requested Asset</p>
+                                    <p class="detail-value">3 kW Solar Panel System</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Requested Date</p>
+                                    <p class="detail-value">Dec 20, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="status-tracker">
+                            <div class="status-step active">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Requested</p>
+                            </div>
+                            <div class="status-line"></div>
+                            <div class="status-step">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Vendor Shortlisted</p>
+                            </div>
+                            <div class="status-line"></div>
+                            <div class="status-step">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Assigned</p>
+                            </div>
+                            <div class="status-line"></div>
+                            <div class="status-step">
+                                <div class="step-dot"></div>
+                                <p class="step-label">In Progress</p>
+                            </div>
+                            <div class="status-line"></div>
+                            <div class="status-step">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Completed</p>
+                            </div>
+                        </div>
+
+                        <div class="request-actions" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="display: flex; gap: 1rem;">
+                                <button class="action-btn accept-btn"
+                                    onclick="submitAvailability('#REQ-2024-1287')">Submit Availability</button>
+                                <button class="action-btn view-btn" onclick="viewDetails('#REQ-2024-1287')">View Request
+                                    Details</button>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--color-text-secondary); margin-top: -0.25rem;">
+                                Final assignment is done after vendor confirmation.</p>
+                        </div>
+                    </div>
+
+                    <!-- In Progress Request -->
+                    <div class="request-card">
+                        <div class="request-header">
+                            <div class="request-id-badge in-progress">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+                                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                IN PROGRESS
+                            </div>
+                            <span class="request-id">#REQ-2024-1245</span>
+                        </div>
+
+                        <h3 class="request-title">5 kW Solar + Battery Installation</h3>
+
+                        <div class="request-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <img src="../../components/icon-customer.png" alt="Customer" class="detail-img">
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Customer</p>
+                                    <p class="detail-value">Priya Patel (Home Owner)</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor"
+                                            stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Location</p>
+                                    <p class="detail-value">Koregaon Park, Pune</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <img src="../../components/icon-solar.png" alt="Solar" class="detail-img">
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Requested Asset</p>
+                                    <p class="detail-value">5 kW Solar + 10 kWh Battery</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Started Date</p>
+                                    <p class="detail-value">Dec 15, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="status-tracker">
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Requested</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Vendor Shortlisted</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Assigned</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step active">
+                                <div class="step-dot"></div>
+                                <p class="step-label">In Progress</p>
+                            </div>
+                            <div class="status-line"></div>
+                            <div class="status-step">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Completed</p>
+                            </div>
+                        </div>
+
+                        <div class="request-actions">
+                            <button class="action-btn update-btn" onclick="updateStatus('#REQ-2024-1245')">Update
+                                Status</button>
+                            <button class="action-btn view-btn" onclick="viewDetails('#REQ-2024-1245')">View
+                                Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Completed Request -->
+                    <div class="request-card">
+                        <div class="request-header">
+                            <div class="request-id-badge completed">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+                                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                COMPLETED
+                            </div>
+                            <span class="request-id">#REQ-2024-1198</span>
+                        </div>
+
+                        <h3 class="request-title">EaaS Solar Maintenance</h3>
+
+                        <div class="request-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <img src="../../components/icon-customer.png" alt="Customer" class="detail-img">
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Customer</p>
+                                    <p class="detail-value">Ravi Kumar (Home Owner)</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor"
+                                            stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Location</p>
+                                    <p class="detail-value">Bandra East, Mumbai</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <img src="../../components/icon-solar.png" alt="Solar" class="detail-img">
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Completed Asset</p>
+                                    <p class="detail-value">1 kW Solar Panel System</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="detail-content">
+                                    <p class="detail-label">Completed Date</p>
+                                    <p class="detail-value">Dec 10, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="status-tracker">
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Requested</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Vendor Shortlisted</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Assigned</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">In Progress</p>
+                            </div>
+                            <div class="status-line completed"></div>
+                            <div class="status-step completed">
+                                <div class="step-dot"></div>
+                                <p class="step-label">Completed</p>
+                            </div>
+                        </div>
+
+                        <div class="request-actions">
+                            <button class="action-btn view-btn" onclick="viewInvoice('#REQ-2024-1198')">View
+                                Invoice</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item " onclick="window.location.href='dashboard-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='vendor-orders.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Orders & Services</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-assets.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Assets</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-revenue.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Revenue</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='profile-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        async function loadOrders() {
+            const email = localStorage.getItem('userEmail') || 'vendor@smartintelli.com';
+            try {
+                const orders = await apiCall(`/vendor/orders?email=${email}`);
+                renderOrders(orders);
+            } catch (error) {
+                console.error('Failed to load orders:', error);
+            }
+        }
+
+        function renderOrders(orders) {
+            const container = document.querySelector('.requests-list');
+            container.innerHTML = '';
+
+            orders.forEach(order => {
+                const card = document.createElement('div');
+                card.className = 'request-card';
+                card.innerHTML = `
+                    <div class="request-header">
+                        <div class="request-id-badge ${order.status.toLowerCase()}">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            ${order.priority}
+                        </div>
+                        <span class="request-id">#${order.id}</span>
+                    </div>
+
+                    <h3 class="request-title">${order.title}</h3>
+
+                    <div class="request-details">
+                        <div class="detail-item">
+                            <div class="detail-icon"><img src="../../components/icon-customer.png" alt="Customer" class="detail-img"></div>
+                            <div class="detail-content">
+                                <p class="detail-label">Customer</p>
+                                <p class="detail-value">${order.customer}</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">Location</p>
+                                <p class="detail-value">${order.location}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request-actions">
+                        ${order.status === 'Shortlisted' || order.status === 'Requested' ?
+                        `<button class="action-btn accept-btn" onclick="acceptOrder('${order.id}')">Accept Project</button>` :
+                        `<span class="order-status-active">Active - ${order.progress || 0}%</span>`
+                    }
+                        <button class="action-btn tertiary" onclick="viewDetails('${order.id}')">View Details</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function acceptOrder(id) {
+            const email = localStorage.getItem('userEmail') || 'vendor@smartintelli.com';
+            try {
+                // Ensure ID is passed correctly (the API expects it as a path param)
+                // Clean the ID if it has # prefix for the URL if needed, but the API handles it
+                await apiCall(`/vendor/orders/${encodeURIComponent(id)}/accept?email=${email}`, 'POST');
+                alert('Order accepted! It will now appear in your active jobs.');
+                loadOrders(); // Refresh list
+            } catch (error) {
+                alert('Failed to accept order: ' + error.message);
+            }
+        }
+
+        function addOrder() {
+            alert('Creating new order/installation request...');
+        }
+
+        function viewDetails(id) {
+            alert('Viewing details for ' + id);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadOrders);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>
+
+

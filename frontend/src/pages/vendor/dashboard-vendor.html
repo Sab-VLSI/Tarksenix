@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Vendor dashboard for service and maintenance order management.">
+    <meta name="theme-color" content="#f8fafb">
+    <link rel="manifest" href="../../components/manifest.json">
+    <title>Vendor Dashboard - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/dashboard-vendor.css">
+
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="dashboard-title h1-compact">Vendor Dashboard</h1>
+                    <p class="dashboard-subtitle text-xs">Manage your energy service portfolio</p>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-vendor.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <button class="profile-btn" onclick="window.location.href='profile-vendor.html'" title="Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="logout-btn-header" onclick="handleLogout()" title="Logout">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <b>LOGOUT</b>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Summary Stats -->
+            <section class="summary-section mb-lg">
+                <h2 class="section-title">Performance Summary <span
+                        title="Requests are distributed fairly based on vendor eligibility and capacity"
+                        class="help-tooltip text-primary text-sm">ⓘ</span></h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <p class="text-secondary text-sm">Eligible Requests</p>
+                        <p class="text-lg font-bold text-green">12</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="text-secondary text-sm">Active Orders</p>
+                        <p class="text-lg font-bold text-blue">8</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="text-secondary text-sm">Assets Under Management</p>
+                        <p class="text-lg font-bold">45</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="text-secondary text-sm">Monthly Revenue Snapshot</p>
+                        <p class="text-lg font-bold text-green">₹24,500</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="window.location.href='dashboard-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-orders.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Orders & Services</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-assets.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Assets</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-revenue.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Revenue</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='profile-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        async function loadVendorDashboard() {
+            const email = localStorage.getItem('userEmail') || 'vendor@smartintelli.com';
+            const loadingSelectors = '.summary-card p:nth-child(2)';
+
+            setLoading(loadingSelectors, true);
+
+            try {
+                const summary = await apiCall(`/vendor/summary?email=${email}`);
+                setLoading(loadingSelectors, false);
+
+                // Update Summary Cards
+                const cards = document.querySelectorAll('.summary-card p:nth-child(2)');
+                cards[0].textContent = summary.eligible_requests;
+                cards[1].textContent = summary.active_orders;
+                cards[2].textContent = summary.total_assets;
+                cards[3].textContent = `₹${summary.monthly_revenue.toLocaleString()}`;
+
+            } catch (error) {
+                setLoading(loadingSelectors, false);
+                console.error('Failed to load vendor dashboard:', error);
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            window.location.href='/login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadVendorDashboard);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>
+

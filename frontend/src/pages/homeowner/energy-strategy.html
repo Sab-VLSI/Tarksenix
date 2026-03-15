@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Energy Strategy — Smart Grid Load Balancing and Peak Shaving.">
+    <title>Energy Strategy - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <style>
+        .strategy-hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-hero::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .strategy-hero h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-hero p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        .score-ring {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.25rem 0;
+        }
+
+        .score-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: conic-gradient(#10b981 0% 75%, #e5e7eb 75% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--card-bg, white);
+        }
+
+        .score-inner {
+            position: relative;
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #10b981;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 0.65rem;
+            color: var(--text-secondary, #6b7280);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .strategy-card {
+            background: var(--card-bg, white);
+            border-radius: 14px;
+            padding: 1rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color, #f0f0f0);
+        }
+
+        .strategy-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-card-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .strategy-card-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary, #6b7280);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin: 0;
+        }
+
+        .action-banner {
+            background: var(--card-bg, white);
+            border-radius: 14px;
+            padding: 1rem;
+            border: 1px solid var(--border-color, #f0f0f0);
+            margin-bottom: 1.25rem;
+        }
+
+        .action-banner h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary, #6b7280);
+            line-height: 1.5;
+        }
+
+        .optimize-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .optimize-btn:active {
+            opacity: 0.85;
+        }
+
+        .optimize-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .algo-steps {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px dashed rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .algo-step {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            margin-bottom: 0.6rem;
+        }
+
+        .algo-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .algo-number {
+            width: 22px;
+            height: 22px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.65rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .algo-text {
+            font-size: 0.78rem;
+            color: var(--text-secondary, #6b7280);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="flex items-center gap-4">
+                    <button class="back-btn" onclick="window.location.href='dashboard-home.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h1 class="dashboard-title h1-compact">Energy Strategy</h1>
+                        <p class="dashboard-subtitle text-xs">Smart Grid Load Balancing & Peak Shaving</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+
+            <!-- Hero -->
+            <section>
+                <div class="strategy-hero">
+                    <h2>⚡ Smart Grid Optimizer</h2>
+                    <p>Our AI algorithm automatically shifts your load to minimize peak usage, maximize solar
+                        self-consumption, and reduce your electricity bill.</p>
+                </div>
+            </section>
+
+            <!-- Peak Avoidance Score Ring -->
+            <section class="mb-4">
+                <h2 class="section-title mb-sm">Peak Avoidance Score</h2>
+                <div class="score-ring">
+                    <div class="score-circle" id="scoreCircle">
+                        <div class="score-inner">
+                            <p class="score-value" id="scoreValue">—</p>
+                            <p class="score-label">/ 100</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Metrics Grid -->
+            <section>
+                <div class="strategy-grid">
+                    <div class="strategy-card">
+                        <div class="strategy-card-icon" style="background: rgba(239,68,68,0.1);">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444"
+                                stroke-width="2">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p class="strategy-card-value" id="peakUsage">—</p>
+                        <p class="strategy-card-label">Peak Usage (kW)</p>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-card-icon" style="background: rgba(16,185,129,0.1);">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981"
+                                stroke-width="2">
+                                <path d="M3 7a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+                                <path d="M21 10v4" stroke-linecap="round" />
+                                <path d="M7 10h6" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <p class="strategy-card-value" id="batteryOpt">—</p>
+                        <p class="strategy-card-label">Battery SOC (%)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Banner -->
+            <section class="action-banner">
+                <h3>🔄 Recommended Load Shift</h3>
+                <p class="action-text" id="loadShiftText">Run the optimizer to see load shift recommendations.</p>
+            </section>
+
+            <!-- Action Taken -->
+            <section class="action-banner" id="actionBanner" style="display:none;">
+                <h3>✅ Action Taken</h3>
+                <p class="action-text" id="actionText">—</p>
+            </section>
+
+            <!-- Optimize Button -->
+            <button class="optimize-btn" id="optimizeBtn" onclick="runOptimizer()">
+                Run Optimization
+            </button>
+
+            <!-- Algorithm Transparency -->
+            <section>
+                <div class="algo-steps">
+                    <h3 style="font-size:0.8rem;font-weight:700;margin-bottom:0.75rem;color: #3b82f6;">
+                        ⚙️ How the Algorithm Works
+                    </h3>
+                    <div class="algo-step">
+                        <span class="algo-number">1</span>
+                        <p class="algo-text">If solar generation &gt; demand → charge battery from surplus</p>
+                    </div>
+                    <div class="algo-step">
+                        <span class="algo-number">2</span>
+                        <p class="algo-text">If peak time &amp; battery SOC &gt; 30% → use battery to meet demand</p>
+                    </div>
+                    <div class="algo-step">
+                        <span class="algo-number">3</span>
+                        <p class="algo-text">If peak time &amp; battery low → draw from grid (minimal cost)</p>
+                    </div>
+                    <div class="algo-step">
+                        <span class="algo-number">4</span>
+                        <p class="algo-text">Otherwise → use solar generation directly</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        const email = localStorage.getItem('userEmail') || 'owner@smartintelli.com';
+
+        function updateScoreCircle(score) {
+            const pct = Math.min(100, Math.max(0, score));
+            const scoreEl = document.getElementById('scoreCircle');
+            const color = pct >= 70 ? '#10b981' : pct >= 40 ? '#f59e0b' : '#ef4444';
+            scoreEl.style.background = `conic-gradient(${color} 0% ${pct}%, #e5e7eb ${pct}% 100%)`;
+            document.getElementById('scoreValue').style.color = color;
+            document.getElementById('scoreValue').textContent = pct;
+        }
+
+        async function runOptimizer() {
+            const btn = document.getElementById('optimizeBtn');
+            btn.disabled = true;
+            btn.textContent = 'Optimizing...';
+
+            try {
+                const result = await apiCall('/api/grid/optimize-load', 'POST', {
+                    user_id: email,
+                    solar_generation_kw: 0.0,
+                    current_demand_kw: 3.5,
+                    battery_soc_percent: 45.0,
+                    is_peak_time: new Date().getHours() >= 18 || new Date().getHours() <= 9,
+                });
+
+                document.getElementById('peakUsage').textContent = result.peak_usage_kw.toFixed(1);
+                document.getElementById('batteryOpt').textContent = result.battery_optimization_percent;
+                document.getElementById('loadShiftText').textContent = result.recommended_load_shift;
+                updateScoreCircle(result.peak_avoidance_score);
+
+                document.getElementById('actionBanner').style.display = 'block';
+                document.getElementById('actionText').textContent = result.action_taken;
+
+                showToast('Optimization complete!', 'success');
+            } catch (err) {
+                showToast('Could not connect to backend. Showing demo data.', 'info');
+                // Demo fallback
+                document.getElementById('peakUsage').textContent = '3.5';
+                document.getElementById('batteryOpt').textContent = '55.0';
+                document.getElementById('loadShiftText').textContent = 'Shift washing machine and EV charging to 10am–2pm (solar peak)';
+                updateScoreCircle(72);
+                document.getElementById('actionBanner').style.display = 'block';
+                document.getElementById('actionText').textContent = 'Using battery to meet peak demand (demo mode)';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Run Optimization Again';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run on load for initial display
+            runOptimizer();
+        });
+    </script>
+</body>
+
+</html>

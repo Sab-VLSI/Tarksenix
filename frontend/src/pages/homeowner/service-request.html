@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Apply for Service — Request EaaS equipment maintenance, repair, or installation.">
+    <title>Apply for Service - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <style>
+        .form-section {
+            background: var(--card-bg, white);
+            border-radius: 16px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color, #f0f0f0);
+            margin-bottom: 1rem;
+        }
+
+        .service-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-type-btn {
+            border: 2px solid var(--border-color, #e5e7eb);
+            border-radius: 12px;
+            padding: 0.75rem 0.5rem;
+            background: var(--card-bg, white);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.18s;
+        }
+
+        .service-type-btn.selected {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.07);
+        }
+
+        .service-type-btn .svc-icon {
+            font-size: 1.4rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .service-type-btn .svc-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-primary, #111);
+        }
+
+        .service-type-btn .svc-desc {
+            font-size: 0.65rem;
+            color: var(--text-secondary, #6b7280);
+            margin-top: 0.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-primary, #1a1f36);
+            margin-bottom: 0.35rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1.5px solid var(--border-color, #e5e7eb);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            background: var(--input-bg, #fafafa);
+            color: var(--text-primary, #111);
+            box-sizing: border-box;
+            transition: border-color 0.18s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        .time-btn {
+            border: 2px solid var(--border-color, #e5e7eb);
+            border-radius: 10px;
+            padding: 0.6rem;
+            background: var(--card-bg, white);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.18s;
+            color: var(--text-primary, #111);
+        }
+
+        .time-btn.selected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+            color: #059669;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: opacity 0.2s;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .submit-btn:active {
+            opacity: 0.85;
+        }
+
+        /* Request History */
+        .request-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.85rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color, #f0f0f0);
+            margin-bottom: 0.6rem;
+            background: var(--card-bg, white);
+        }
+
+        .request-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .request-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .request-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+
+        .request-meta {
+            font-size: 0.7rem;
+            color: var(--text-secondary, #6b7280);
+        }
+
+        .status-pill {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+        }
+
+        .status-requested {
+            background: rgba(245, 158, 11, 0.12);
+            color: #d97706;
+        }
+
+        .status-matching {
+            background: rgba(59, 130, 246, 0.12);
+            color: #2563eb;
+        }
+
+        .status-assigned {
+            background: rgba(139, 92, 246, 0.12);
+            color: #7c3aed;
+        }
+
+        .status-scheduled {
+            background: rgba(16, 185, 129, 0.12);
+            color: #059669;
+        }
+
+        .status-completed {
+            background: rgba(107, 114, 128, 0.12);
+            color: #374151;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-secondary, #9ca3af);
+        }
+
+        .empty-state p {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .success-banner {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: none;
+            text-align: center;
+        }
+
+        .success-banner h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 0.25rem;
+        }
+
+        .success-banner p {
+            font-size: 0.8rem;
+            color: #065f46;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="flex items-center gap-4">
+                    <button class="back-btn" onclick="window.location.href='dashboard-home.html'">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h1 class="dashboard-title h1-compact">Apply for Service</h1>
+                        <p class="dashboard-subtitle text-xs">Request EaaS equipment support</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()">
+                        <svg viewBox="0 0 24 24" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+
+            <!-- Success Banner -->
+            <div class="success-banner" id="successBanner">
+                <h3>✅ Request Submitted!</h3>
+                <p id="successMsg">Your service request has been received. A vendor will be assigned shortly.</p>
+            </div>
+
+            <!-- New Request Form -->
+            <section class="form-section">
+                <h2 class="section-title mb-3">New Service Request</h2>
+
+                <!-- Service Type Selection -->
+                <div class="form-group">
+                    <label class="form-label">Select Service Type</label>
+                    <div class="service-type-grid" id="serviceTypeGrid">
+                        <!-- Populated by JS -->
+                        <div style="text-align:center;padding:1rem;color:#9ca3af;font-size:0.8rem;grid-column:1/-1;">
+                            Loading...</div>
+                    </div>
+                    <input type="hidden" id="selectedServiceType" value="">
+                </div>
+
+                <!-- Issue Description -->
+                <div class="form-group">
+                    <label class="form-label" for="issueDesc">Issue Description</label>
+                    <textarea class="form-textarea" id="issueDesc"
+                        placeholder="Describe the issue or what you need help with..."></textarea>
+                </div>
+
+                <!-- Address -->
+                <div class="form-group">
+                    <label class="form-label" for="serviceAddress">Service Address</label>
+                    <input class="form-input" type="text" id="serviceAddress" placeholder="Enter your property address">
+                </div>
+
+                <!-- Preferred Time -->
+                <div class="form-group">
+                    <label class="form-label">Preferred Time Slot</label>
+                    <div class="time-grid">
+                        <button class="time-btn" onclick="selectTime('Morning (8–12 AM)', this)">🌅
+                            Morning<br><small>8am – 12pm</small></button>
+                        <button class="time-btn" onclick="selectTime('Afternoon (12–4 PM)', this)">☀️
+                            Afternoon<br><small>12pm – 4pm</small></button>
+                        <button class="time-btn" onclick="selectTime('Evening (4–7 PM)', this)">🌆 Evening<br><small>4pm
+                                – 7pm</small></button>
+                        <button class="time-btn" onclick="selectTime('Flexible', this)">📅
+                            Flexible<br><small>Anytime</small></button>
+                    </div>
+                    <input type="hidden" id="selectedTime" value="Flexible">
+                </div>
+
+                <button class="submit-btn" id="submitBtn" onclick="submitServiceRequest()">
+                    Submit Service Request
+                </button>
+            </section>
+
+            <!-- My Requests History -->
+            <section class="form-section">
+                <h2 class="section-title mb-3">My Requests</h2>
+                <div id="requestsContainer">
+                    <div class="empty-state">
+                        <div style="font-size:2rem;">📋</div>
+                        <p>Loading your requests...</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        const email = localStorage.getItem('userEmail') || 'owner@smartintelli.com';
+        const userName = localStorage.getItem('userName') || 'Homeowner';
+        let selectedTime = 'Flexible';
+
+        const SERVICE_ICONS = {
+            maintenance: '🔧', repair: '⚡', installation: '🏗️',
+            inspection: '🔍', meter: '📡', billing: '💳'
+        };
+
+        // Pre-fill address if available
+        window.addEventListener('DOMContentLoaded', async () => {
+            document.getElementById('serviceAddress').value = localStorage.getItem('userState') || '';
+            await loadServiceTypes();
+            await loadMyRequests();
+        });
+
+        async function loadServiceTypes() {
+            const grid = document.getElementById('serviceTypeGrid');
+            try {
+                const types = await apiCall('/api/service/types');
+                grid.innerHTML = types.map(t => `
+                    <button class="service-type-btn" onclick="selectServiceType('${t.id}', '${t.label}', this)" id="svc-${t.id}">
+                        <span class="svc-icon">${SERVICE_ICONS[t.id] || '🔧'}</span>
+                        <span class="svc-label">${t.label}</span>
+                        <span class="svc-desc">${t.description}</span>
+                    </button>
+                `).join('');
+            } catch (e) {
+                // Fallback static types
+                const fallback = [
+                    { id: 'maintenance', label: 'Maintenance', desc: 'Scheduled checkup', icon: '🔧' },
+                    { id: 'repair', label: 'Repair', desc: 'Fix component', icon: '⚡' },
+                    { id: 'installation', label: 'Installation', desc: 'New EaaS setup', icon: '🏗️' },
+                    { id: 'inspection', label: 'Inspection', desc: 'Health audit', icon: '🔍' },
+                    { id: 'meter', label: 'Smart Meter', desc: 'IoT connection', icon: '📡' },
+                    { id: 'billing', label: 'Billing Query', desc: 'Credit issues', icon: '💳' },
+                ];
+                grid.innerHTML = fallback.map(t => `
+                    <button class="service-type-btn" onclick="selectServiceType('${t.id}', '${t.label}', this)" id="svc-${t.id}">
+                        <span class="svc-icon">${t.icon}</span>
+                        <span class="svc-label">${t.label}</span>
+                        <span class="svc-desc">${t.desc}</span>
+                    </button>
+                `).join('');
+            }
+        }
+
+        function selectServiceType(id, label, btn) {
+            document.querySelectorAll('.service-type-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            document.getElementById('selectedServiceType').value = label;
+        }
+
+        function selectTime(time, btn) {
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedTime = time;
+            document.getElementById('selectedTime').value = time;
+        }
+
+        async function submitServiceRequest() {
+            const serviceType = document.getElementById('selectedServiceType').value;
+            const description = document.getElementById('issueDesc').value.trim();
+            const location = document.getElementById('serviceAddress').value.trim();
+
+            if (!serviceType) { showToast('Please select a service type', 'warning'); return; }
+            if (!description) { showToast('Please describe the issue', 'warning'); return; }
+            if (!location) { showToast('Please enter your address', 'warning'); return; }
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const result = await apiCall('/api/service/request', 'POST', {
+                    user_id: email,
+                    customer_name: userName,
+                    service_type: serviceType,
+                    description: description,
+                    location: location,
+                    preferred_time: selectedTime,
+                });
+
+                const banner = document.getElementById('successBanner');
+                const msg = result.assigned_vendor
+                    ? `Request #${result.request_id} submitted. A vendor has been matched and will contact you soon.`
+                    : `Request #${result.request_id} submitted. We are finding the best vendor for you.`;
+                document.getElementById('successMsg').textContent = msg;
+                banner.style.display = 'block';
+                banner.scrollIntoView({ behavior: 'smooth' });
+
+                // Reset form
+                document.querySelectorAll('.service-type-btn').forEach(b => b.classList.remove('selected'));
+                document.getElementById('selectedServiceType').value = '';
+                document.getElementById('issueDesc').value = '';
+
+                showToast('Service request submitted!', 'success');
+                await loadMyRequests();
+
+            } catch (err) {
+                showToast('Failed to submit. Please try again.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Submit Service Request';
+            }
+        }
+
+        async function loadMyRequests() {
+            const container = document.getElementById('requestsContainer');
+            try {
+                const requests = await apiCall(`/api/service/requests/${encodeURIComponent(email)}`);
+                if (!requests || requests.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div style="font-size:2rem;">📋</div>
+                            <p>No service requests yet.<br>Submit your first request above.</p>
+                        </div>`;
+                    return;
+                }
+                const statusMap = {
+                    'Requested': 'status-requested',
+                    'Matching': 'status-matching',
+                    'Assigned': 'status-assigned',
+                    'Scheduled': 'status-scheduled',
+                    'Completed': 'status-completed',
+                };
+                container.innerHTML = requests.slice().reverse().map(r => `
+                    <div class="request-card">
+                        <div class="request-icon" style="background:rgba(59,130,246,0.1);">
+                            ${SERVICE_ICONS[r.service_type?.toLowerCase()] || '🔧'}
+                        </div>
+                        <div class="request-details">
+                            <p class="request-title">${r.service_type || 'Service Request'}</p>
+                            <p class="request-meta">${r.request_date || ''} · ${r.location || ''}</p>
+                            ${r.preferred_time ? `<p class="request-meta">⏰ ${r.preferred_time}</p>` : ''}
+                            ${r.assigned_vendor ? `<p class="request-meta" style="color:#7c3aed;">👤 Vendor assigned</p>` : ''}
+                        </div>
+                        <span class="status-pill ${statusMap[r.status] || 'status-matching'}">${r.status}</span>
+                    </div>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:2rem;">📋</div>
+                        <p>No service requests yet.</p>
+                    </div>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

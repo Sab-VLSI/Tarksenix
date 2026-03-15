@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description"
+        content="Energy Credit Wallet – Virtual Net Metering & Solar Credits for EnergyNest.">
+    <title>Energy Wallet - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <style>
+        :root {
+            --wallet-green: #10b981;
+            --wallet-blue: #3b82f6;
+            --wallet-orange: #f59e0b;
+            --wallet-red: #ef4444;
+        }
+
+        /* ── Wallet Header Card ── */
+        .wallet-header-card {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wallet-header-card::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .wallet-header-card::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 50%;
+        }
+
+        .wallet-balance {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .wallet-balance span {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.85;
+            margin-left: 4px;
+        }
+
+        .wallet-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .wallet-meta {
+            display: flex;
+            gap: 1.25rem;
+            font-size: 0.75rem;
+        }
+
+        .wallet-meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wallet-meta-item strong {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .wallet-meta-item span {
+            opacity: 0.75;
+        }
+
+        /* ── Credit Summary Cards ── */
+        .credits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .credit-card {
+            background: var(--color-white);
+            border-radius: 14px;
+            padding: 1rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--color-border);
+        }
+
+        .credit-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .credit-card-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .credit-card-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0;
+            color: var(--color-text-primary);
+        }
+
+        .credit-card-label {
+            font-size: 0.7rem;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+
+        .credit-card-unit {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        /* ── Expiry Alert ── */
+        .expiry-alert {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #92400e;
+        }
+
+        [data-theme="dark"] .expiry-alert {
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.4);
+            background: rgba(245, 158, 11, 0.08);
+        }
+
+        /* ── Ledger / History Section ── */
+        .ledger-section {
+            background: var(--color-white);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--color-border);
+            margin-bottom: 1rem;
+        }
+
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .ledger-table th {
+            text-align: left;
+            padding: 0.5rem 0.25rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-secondary);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .ledger-table td {
+            padding: 0.75rem 0.25rem;
+            border-bottom: 1px solid var(--color-border);
+            vertical-align: middle;
+            color: var(--color-text-primary);
+        }
+
+        .ledger-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .txn-type-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .txn-solar {
+            background: rgba(16, 185, 129, 0.12);
+            color: #059669;
+        }
+
+        .txn-consumption {
+            background: rgba(59, 130, 246, 0.12);
+            color: #2563eb;
+        }
+
+        .txn-export {
+            background: rgba(245, 158, 11, 0.12);
+            color: #d97706;
+        }
+
+        [data-theme="dark"] .txn-solar {
+            color: #34d399;
+        }
+
+        [data-theme="dark"] .txn-consumption {
+            color: #60a5fa;
+        }
+
+        [data-theme="dark"] .txn-export {
+            color: #fbbf24;
+        }
+
+        .txn-units-positive {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .txn-units-negative {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        [data-theme="dark"] .txn-units-positive {
+            color: #34d399;
+        }
+
+        [data-theme="dark"] .txn-units-negative {
+            color: #f87171;
+        }
+
+        /* ── Marketplace Card ── */
+        .market-card {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border-radius: 20px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-card::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+        }
+
+        .market-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .market-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .market-price {
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .market-price span {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: .2rem .65rem;
+            border-radius: 50px;
+        }
+
+        .trend-up {
+            background: rgba(16, 185, 129, .25);
+            color: #6ee7b7;
+        }
+
+        .trend-down {
+            background: rgba(239, 68, 68, .25);
+            color: #fca5a5;
+        }
+
+        .trend-stable {
+            background: rgba(255, 255, 255, .15);
+            color: white;
+        }
+
+        .market-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: .5rem;
+            margin-top: .75rem;
+        }
+
+        .market-stat {
+            text-align: center;
+        }
+
+        .market-stat-value {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .market-stat-label {
+            font-size: .62rem;
+            opacity: .65;
+        }
+
+        /* ── Trade Panel ── */
+        .trade-tabs {
+            display: flex;
+            gap: .5rem;
+            margin-bottom: .75rem;
+        }
+
+        .trade-tab {
+            flex: 1;
+            padding: .6rem;
+            border-radius: 12px;
+            font-size: .8rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all .18s;
+        }
+
+        .trade-tab.buy {
+            background: rgba(16, 185, 129, .12);
+            color: #059669;
+            border-color: #10b981;
+        }
+
+        .trade-tab.sell {
+            background: rgba(239, 68, 68, .08);
+            color: #dc2626;
+        }
+
+        .trade-tab.sell.active {
+            background: rgba(239, 68, 68, .18);
+            border-color: #ef4444;
+        }
+
+        .trade-tab.buy.active {
+            background: rgba(16, 185, 129, .22);
+        }
+
+        [data-theme="dark"] .trade-tab.buy {
+            background: rgba(16, 185, 129, .15);
+            color: #34d399;
+        }
+
+        [data-theme="dark"] .trade-tab.sell {
+            background: rgba(239, 68, 68, .10);
+            color: #f87171;
+        }
+
+        .trade-panel {
+            background: var(--color-white);
+            border-radius: 16px;
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+            margin-bottom: 1rem;
+        }
+
+        .trade-input-row {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            margin-bottom: .75rem;
+        }
+
+        .trade-qty-input {
+            flex: 1;
+            padding: .65rem;
+            border: 1.5px solid var(--color-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+        }
+
+        .qty-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1.5px solid var(--color-border);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: var(--color-white);
+            color: var(--color-text-primary);
+        }
+
+        .cost-estimate {
+            background: var(--color-bg);
+            border-radius: 10px;
+            padding: .65rem;
+            font-size: .8rem;
+            margin-bottom: .75rem;
+            display: flex;
+            justify-content: space-between;
+            color: var(--color-text-primary);
+        }
+
+        .cost-estimate strong {
+            font-size: 1rem;
+            color: #059669;
+        }
+
+        [data-theme="dark"] .cost-estimate strong {
+            color: #34d399;
+        }
+
+        .trade-btn {
+            width: 100%;
+            padding: .85rem;
+            border: none;
+            border-radius: 14px;
+            font-size: .88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .2s;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .trade-btn-buy {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .trade-btn-sell {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .trade-btn:disabled {
+            opacity: .45;
+            cursor: default;
+        }
+
+        /* ── Market History Rows ── */
+        .mkt-history-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .6rem 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: .8rem;
+            color: var(--color-text-primary);
+        }
+
+        .mkt-history-row:last-child {
+            border-bottom: none;
+        }
+
+        .mkt-badge-buy {
+            background: rgba(16, 185, 129, .12);
+            color: #059669;
+            padding: .2rem .55rem;
+            border-radius: 50px;
+            font-size: .65rem;
+            font-weight: 700;
+        }
+
+        .mkt-badge-sell {
+            background: rgba(239, 68, 68, .12);
+            color: #dc2626;
+            padding: .2rem .55rem;
+            border-radius: 50px;
+            font-size: .65rem;
+            font-weight: 700;
+        }
+
+        [data-theme="dark"] .mkt-badge-buy {
+            color: #34d399;
+        }
+
+        [data-theme="dark"] .mkt-badge-sell {
+            color: #f87171;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+
+        <!-- ══ Header ══════════════════════════════════════════════════ -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="flex items-center gap-4">
+                    <button class="back-btn" onclick="window.location.href='dashboard-home.html'"
+                        title="Back to Dashboard">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h1 class="dashboard-title h1-compact">Energy Wallet</h1>
+                        <p class="dashboard-subtitle text-xs">Virtual Net Metering &amp; Solar Credits</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark / Light Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ══ Main Content ════════════════════════════════════════════ -->
+        <main class="dashboard-main">
+
+            <!-- Expiry Alert Banner -->
+            <div class="expiry-alert" id="expiryAlert" style="display:none;">
+                <svg viewBox="0 0 24 24" style="width:16px;height:16px;flex-shrink:0;" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path
+                        d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span id="expiryAlertText">Credits expiring soon</span>
+            </div>
+
+            <!-- ── Wallet Balance ─────────────────────────────────── -->
+            <section>
+                <div class="wallet-header-card">
+                    <p class="wallet-label">Available Solar Credits</p>
+                    <p class="wallet-balance" id="creditsAvailable">—<span>kWh</span></p>
+                    <div class="wallet-meta">
+                        <div class="wallet-meta-item">
+                            <strong id="creditsUsed">—</strong>
+                            <span>Used (kWh)</span>
+                        </div>
+                        <div class="wallet-meta-item">
+                            <strong id="creditsExpiring">—</strong>
+                            <span>Expiring</span>
+                        </div>
+                        <div class="wallet-meta-item">
+                            <strong id="expiryDate">—</strong>
+                            <span>Expiry Date</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Credit Summary Cards ───────────────────────────── -->
+            <section>
+                <div class="credits-grid">
+
+                    <!-- Solar Received -->
+                    <div class="credit-card">
+                        <div class="credit-card-icon" style="background: rgba(16,185,129,0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path
+                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <p class="credit-card-value" id="totalReceived">—</p>
+                        <p class="credit-card-unit">kWh</p>
+                        <p class="credit-card-label">Solar Received</p>
+                    </div>
+
+                    <!-- Home Consumed -->
+                    <div class="credit-card">
+                        <div class="credit-card-icon" style="background: rgba(59,130,246,0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                                <path
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p class="credit-card-value" id="totalConsumed">—</p>
+                        <p class="credit-card-unit">kWh</p>
+                        <p class="credit-card-label">Home Consumed</p>
+                    </div>
+
+                    <!-- Grid Exported -->
+                    <div class="credit-card">
+                        <div class="credit-card-icon" style="background: rgba(245,158,11,0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p class="credit-card-value" id="totalExported">—</p>
+                        <p class="credit-card-unit">kWh</p>
+                        <p class="credit-card-label">Grid Exported</p>
+                    </div>
+
+                    <!-- Expiring Soon -->
+                    <div class="credit-card">
+                        <div class="credit-card-icon" style="background: rgba(239,68,68,0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <p class="credit-card-value" id="expiringSoon">—</p>
+                        <p class="credit-card-unit">kWh</p>
+                        <p class="credit-card-label">Expiring Soon</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── Community Solar Marketplace ───────────────────── -->
+            <section class="market-card">
+                <div class="market-header">
+                    <div>
+                        <p class="market-title">⚡ Community Solar Marketplace</p>
+                        <p class="market-price" id="mktPrice">₹5.20<span>/kWh</span></p>
+                    </div>
+                    <span class="trend-badge trend-up" id="mktTrend">↑ Rising</span>
+                </div>
+                <div class="market-stats">
+                    <div class="market-stat">
+                        <p class="market-stat-value" id="mktPool">1,240</p>
+                        <p class="market-stat-label">Pool (kWh)</p>
+                    </div>
+                    <div class="market-stat">
+                        <p class="market-stat-value" id="mktSellers">38</p>
+                        <p class="market-stat-label">Sellers</p>
+                    </div>
+                    <div class="market-stat">
+                        <p class="market-stat-value" id="mktBuyers">21</p>
+                        <p class="market-stat-label">Buyers</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Trade Panel ────────────────────────────────────── -->
+            <section class="trade-panel">
+                <div class="trade-tabs">
+                    <button class="trade-tab buy active" id="tabBuy" onclick="switchTab('buy')">🛒 Buy Energy</button>
+                    <button class="trade-tab sell" id="tabSell" onclick="switchTab('sell')">💰 Sell Energy</button>
+                </div>
+
+                <!-- Buy Panel -->
+                <div id="buyPanel">
+                    <p style="font-size:.75rem;color:var(--color-text-secondary);margin-bottom:.6rem;">
+                        Purchase solar credits from the community pool
+                    </p>
+                    <div class="trade-input-row">
+                        <button class="qty-btn" onclick="changeQty('buy',-5)">−</button>
+                        <input class="trade-qty-input" type="number" id="buyQty" value="10" min="1" max="500"
+                            oninput="updateCost('buy')">
+                        <button class="qty-btn" onclick="changeQty('buy',5)">+</button>
+                        <span style="font-size:.8rem;color:var(--color-text-secondary);">kWh</span>
+                    </div>
+                    <div class="cost-estimate">
+                        <span>Estimated Cost</span>
+                        <strong id="buyCost">₹52.00</strong>
+                    </div>
+                    <button class="trade-btn trade-btn-buy" id="buyBtn" onclick="executeBuy()">
+                        ⚡ Buy Energy Credits
+                    </button>
+                </div>
+
+                <!-- Sell Panel (hidden by default) -->
+                <div id="sellPanel" style="display:none;">
+                    <p style="font-size:.75rem;color:var(--color-text-secondary);margin-bottom:.6rem;">
+                        List your surplus solar credits for sale
+                    </p>
+                    <p style="font-size:.75rem;font-weight:600;margin-bottom:.5rem;color:var(--color-text-primary);">
+                        Available to Sell:
+                        <span id="availableToSell" style="color:#059669;">— kWh</span>
+                    </p>
+                    <div class="trade-input-row">
+                        <button class="qty-btn" onclick="changeQty('sell',-5)">−</button>
+                        <input class="trade-qty-input" type="number" id="sellQty" value="10" min="1" max="500"
+                            oninput="updateCost('sell')">
+                        <button class="qty-btn" onclick="changeQty('sell',5)">+</button>
+                        <span style="font-size:.8rem;color:var(--color-text-secondary);">kWh</span>
+                    </div>
+                    <div class="cost-estimate">
+                        <span>Estimated Earnings <small style="color:var(--color-text-muted);">(after 2%
+                                fee)</small></span>
+                        <strong id="sellEarnings" style="color:#dc2626;">₹50.96</strong>
+                    </div>
+                    <button class="trade-btn trade-btn-sell" id="sellBtn" onclick="executeSell()">
+                        💰 Sell Energy Credits
+                    </button>
+                </div>
+            </section>
+
+            <!-- ── Market History ─────────────────────────────────── -->
+            <section class="ledger-section">
+                <h2 class="section-title mb-2">Market History</h2>
+                <div id="mktHistoryContainer">
+                    <p style="font-size:.8rem;color:var(--color-text-muted);text-align:center;padding:1rem;">Loading...
+                    </p>
+                </div>
+            </section>
+
+            <!-- ── Solar Credit Ledger ────────────────────────────── -->
+            <section class="ledger-section">
+                <h2 class="section-title mb-2">Solar Credit Ledger</h2>
+                <div id="ledgerContainer">
+                    <table class="ledger-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th style="text-align:right;">Units</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledgerBody">
+                            <tr>
+                                <td colspan="4" style="text-align:center;padding:1.5rem;color:var(--color-text-muted);">
+                                    Loading transactions...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ══ Bottom Navigation ═══════════════════════════════════════ -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        const email = localStorage.getItem('userEmail') || 'owner@smartintelli.com';
+        let marketPrice = 5.20;
+        let walletBalance = 0;
+        let activeTab = 'buy';
+
+        async function init() {
+            await Promise.all([loadWallet(), loadMarketStatus()]);
+            await loadMarketHistory();
+        }
+
+        // ── Wallet ────────────────────────────────────────────────────
+        async function loadWallet() {
+            try {
+                const data = await apiCall(`/api/wallet/${encodeURIComponent(email)}`);
+
+                walletBalance = data.credit_balance_kwh || data.credits_available || 0;
+
+                document.getElementById('creditsAvailable').innerHTML =
+                    `${(data.credits_available || walletBalance).toFixed(1)}<span>kWh</span>`;
+                document.getElementById('creditsUsed').textContent = data.credits_used || '0';
+                document.getElementById('creditsExpiring').textContent = data.credits_expiring || '0';
+                document.getElementById('expiryDate').textContent = data.expiry_date || '—';
+                document.getElementById('availableToSell').textContent = `${walletBalance.toFixed(1)} kWh`;
+
+                let totalReceived = 0, totalConsumed = 0, totalExported = 0;
+                const txns = data.transactions || [];
+                txns.forEach(t => {
+                    if (t.type === 'solar_allocation') totalReceived += Math.abs(t.units);
+                    else if (t.type === 'home_consumption') totalConsumed += Math.abs(t.units);
+                    else if (t.type === 'grid_export') totalExported += Math.abs(t.units);
+                });
+                document.getElementById('totalReceived').textContent = totalReceived.toFixed(1);
+                document.getElementById('totalConsumed').textContent = totalConsumed.toFixed(1);
+                document.getElementById('totalExported').textContent = totalExported.toFixed(1);
+                document.getElementById('expiringSoon').textContent = data.credits_expiring || '0';
+
+                if (data.credits_expiring > 0) {
+                    document.getElementById('expiryAlertText').textContent =
+                        `${data.credits_expiring} kWh expiring on ${data.expiry_date}. Sell them on the marketplace!`;
+                    document.getElementById('expiryAlert').style.display = 'flex';
+                }
+
+                renderLedger(txns);
+
+            } catch (err) {
+                console.error('Wallet error:', err);
+                document.getElementById('ledgerBody').innerHTML =
+                    '<tr><td colspan="4" style="text-align:center;padding:1.5rem;color:var(--color-text-muted);">No solar credit data available yet</td></tr>';
+            }
+        }
+
+        function renderLedger(txns) {
+            const tbody = document.getElementById('ledgerBody');
+            if (!txns || txns.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:1.5rem;color:var(--color-text-muted);">No transactions yet</td></tr>';
+                return;
+            }
+            const typeMap = {
+                'solar_allocation': { label: 'Solar Allocated', cls: 'txn-solar' },
+                'home_consumption': { label: 'Home Usage', cls: 'txn-consumption' },
+                'grid_export': { label: 'Grid Export', cls: 'txn-export' },
+                'market_buy': { label: 'Market Buy', cls: 'txn-solar' },
+                'market_sell': { label: 'Market Sell', cls: 'txn-export' },
+            };
+            tbody.innerHTML = txns.map(t => {
+                const date = new Date(t.timestamp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                const typeInfo = typeMap[t.type] || { label: t.type, cls: '' };
+                const unitsCls = (t.units > 0) ? 'txn-units-positive' : 'txn-units-negative';
+                const unitsStr = (t.units > 0) ? `+${Math.abs(t.units).toFixed(1)}` : `-${Math.abs(t.units).toFixed(1)}`;
+                return `<tr>
+                    <td>${date}</td>
+                    <td><span class="txn-type-badge ${typeInfo.cls}">${typeInfo.label}</span></td>
+                    <td style="color:var(--color-text-secondary);font-size:.75rem;">${t.description || ''}</td>
+                    <td class="${unitsCls}" style="text-align:right;">${unitsStr} kWh</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // ── Market Status ─────────────────────────────────────────────
+        async function loadMarketStatus() {
+            try {
+                const mkt = await apiCall('/api/marketplace/status');
+                marketPrice = mkt.market_price_per_kwh;
+                document.getElementById('mktPrice').innerHTML = `₹${marketPrice.toFixed(2)}<span>/kWh</span>`;
+                document.getElementById('mktPool').textContent = mkt.total_available_kwh.toLocaleString();
+                document.getElementById('mktSellers').textContent = mkt.sellers_active;
+                document.getElementById('mktBuyers').textContent = mkt.buyers_active;
+
+                const trendEl = document.getElementById('mktTrend');
+                if (mkt.price_trend === 'up') {
+                    trendEl.textContent = '↑ Rising'; trendEl.className = 'trend-badge trend-up';
+                } else if (mkt.price_trend === 'down') {
+                    trendEl.textContent = '↓ Falling'; trendEl.className = 'trend-badge trend-down';
+                } else {
+                    trendEl.textContent = '→ Stable'; trendEl.className = 'trend-badge trend-stable';
+                }
+                updateCost('buy');
+                updateCost('sell');
+            } catch (e) {
+                console.log('Market status not available, using defaults.');
+            }
+        }
+
+        // ── Market History ────────────────────────────────────────────
+        async function loadMarketHistory() {
+            const container = document.getElementById('mktHistoryContainer');
+            try {
+                const history = await apiCall(`/api/marketplace/history/${encodeURIComponent(email)}`);
+                if (!history || history.length === 0) {
+                    container.innerHTML = '<p style="font-size:.8rem;color:var(--color-text-muted);text-align:center;padding:.75rem;">No marketplace trades yet. Buy or sell credits above!</p>';
+                    return;
+                }
+                container.innerHTML = history.map(h => {
+                    const date = new Date(h.timestamp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                    const isBuy = h.type === 'buy';
+                    const badge = isBuy
+                        ? '<span class="mkt-badge-buy">BUY</span>'
+                        : '<span class="mkt-badge-sell">SELL</span>';
+                    const valueStr = isBuy
+                        ? `<span style="color:#dc2626;">−₹${h.total_price.toFixed(2)}</span>`
+                        : `<span style="color:#059669;">+₹${h.total_price.toFixed(2)}</span>`;
+                    return `<div class="mkt-history-row">
+                        <span>${badge} ${date}</span>
+                        <span style="color:var(--color-text-secondary);">${h.energy_kwh} kWh @ ₹${h.price_per_kwh}</span>
+                        ${valueStr}
+                    </div>`;
+                }).join('');
+            } catch (e) {
+                container.innerHTML = '<p style="font-size:.8rem;color:var(--color-text-muted);text-align:center;padding:.75rem;">No marketplace trades yet.</p>';
+            }
+        }
+
+        // ── Trade Actions ─────────────────────────────────────────────
+        function switchTab(tab) {
+            activeTab = tab;
+            document.getElementById('buyPanel').style.display = tab === 'buy' ? '' : 'none';
+            document.getElementById('sellPanel').style.display = tab === 'sell' ? '' : 'none';
+            document.getElementById('tabBuy').classList.toggle('active', tab === 'buy');
+            document.getElementById('tabSell').classList.toggle('active', tab === 'sell');
+        }
+
+        function changeQty(type, delta) {
+            const el = document.getElementById(type === 'buy' ? 'buyQty' : 'sellQty');
+            el.value = Math.max(1, (parseFloat(el.value) || 0) + delta);
+            updateCost(type);
+        }
+
+        function updateCost(type) {
+            if (type === 'buy') {
+                const qty = parseFloat(document.getElementById('buyQty').value) || 0;
+                document.getElementById('buyCost').textContent = `₹${(qty * marketPrice).toFixed(2)}`;
+            } else {
+                const qty = parseFloat(document.getElementById('sellQty').value) || 0;
+                const gross = qty * marketPrice;
+                document.getElementById('sellEarnings').textContent = `₹${(gross * 0.98).toFixed(2)}`;
+            }
+        }
+
+        async function executeBuy() {
+            const qty = parseFloat(document.getElementById('buyQty').value);
+            if (!qty || qty <= 0) { showToast('Enter a valid quantity', 'warning'); return; }
+            const btn = document.getElementById('buyBtn');
+            btn.disabled = true; btn.textContent = 'Processing...';
+            try {
+                const res = await apiCall('/api/marketplace/buy', 'POST', { user_id: email, energy_kwh: qty });
+                showToast(`✅ Bought ${qty} kWh for ₹${res.total_cost.toFixed(2)}!`, 'success');
+                walletBalance = res.new_balance_kwh;
+                document.getElementById('availableToSell').textContent = `${walletBalance.toFixed(1)} kWh`;
+                await Promise.all([loadMarketStatus(), loadMarketHistory()]);
+                await loadWallet();
+            } catch (e) {
+                showToast(e.message?.includes('Only') ? e.message : 'Purchase failed. Try again.', 'error');
+            } finally {
+                btn.disabled = false; btn.textContent = '⚡ Buy Energy Credits';
+            }
+        }
+
+        async function executeSell() {
+            const qty = parseFloat(document.getElementById('sellQty').value);
+            if (!qty || qty <= 0) { showToast('Enter a valid quantity', 'warning'); return; }
+            if (qty > walletBalance) {
+                showToast('Insufficient solar credits. You do not have enough kWh.', 'error');
+                return;
+            }
+            const btn = document.getElementById('sellBtn');
+            btn.disabled = true; btn.textContent = 'Listing...';
+            try {
+                const res = await apiCall('/api/marketplace/sell', 'POST', { user_id: email, energy_kwh: qty });
+                showToast(`💰 Listed ${qty} kWh! Earnings: ₹${res.net_earnings.toFixed(2)}`, 'success');
+                walletBalance = res.updated_wallet_balance;
+                document.getElementById('availableToSell').textContent = `${walletBalance.toFixed(1)} kWh`;
+                await Promise.all([loadMarketStatus(), loadMarketHistory()]);
+                await loadWallet();
+            } catch (e) {
+                const msg = e.message || '';
+                showToast(msg.toLowerCase().includes('insufficient') ? msg : 'Insufficient solar credits.', 'error');
+            } finally {
+                btn.disabled = false; btn.textContent = '💰 Sell Energy Credits';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>

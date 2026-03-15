@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Settings - Homeowner - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/profile.css">
+</head>
+
+<body>
+    <div class="dashboard-container compact-layout">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="flex items-center gap-4">
+                    <button class="back-btn" onclick="window.location.href='dashboard-home.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h1 class="dashboard-title h1-compact">Profile Settings</h1>
+                        <p class="dashboard-subtitle text-xs">Manage your personal energy profile</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-homeowner.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <button class="logout-btn-header" onclick="handleLogout()" title="Logout">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <b>LOGOUT</b>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="profile-grid">
+                <!-- Left Column: Profile Card -->
+                <div class="profile-left-column">
+                    <section class="profile-section">
+                        <div class="profile-card">
+                            <div class="profile-avatar">
+                                <div class="avatar-circle" id="profilePicContainer">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="defaultAvatar">
+                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    <img id="profilePic"
+                                        style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                    <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+                                    <button class="edit-avatar-btn"
+                                        onclick="document.getElementById('profilePicInput').click()">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                                                stroke="currentColor" stroke-width="2" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor"
+                                                stroke-width="2" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="profile-info">
+                                <div class="name-container">
+                                    <h3 class="profile-name" id="profileName">Loading...</h3>
+                                    <button class="edit-btn">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                                stroke="currentColor" stroke-width="2" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="profile-email" id="profileEmail">Loading...</p>
+                                <p class="profile-id">Role: <span id="profileRole">Homeowner</span></p>
+                            </div>
+
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <p class="stat-value">234 days</p>
+                                    <p class="stat-label">Member Since</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-value">₹1,05,315</p>
+                                    <p class="stat-label">Total Savings</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-value">2,840 kWh</p>
+                                    <p class="stat-label">Solar Generated</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Settings and Rest -->
+                <div class="profile-right-column">
+                    <!-- Account Settings -->
+                    <section class="account-section">
+                        <h2 class="section-title">Account Settings</h2>
+                        <div class="settings-list">
+                            <div class="settings-item" id="personalInfoBtn">
+                                <div class="settings-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                            stroke="currentColor" stroke-width="2" fill="none" />
+                                    </svg>
+                                </div>
+                                <div class="settings-content">
+                                    <p class="settings-title">Personal Information</p>
+                                    <p class="settings-description">Update your name, email, and phone</p>
+                                </div>
+                                <svg class="chevron-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+
+                        </div>
+
+                        <div class="settings-item" id="securityBtn">
+                            <div class="settings-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="settings-content">
+                                <p class="settings-title">Security & Privacy</p>
+                                <p class="settings-description">Password, 2FA, and privacy settings</p>
+                            </div>
+                            <svg class="chevron-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </section>
+
+
+                    <!-- Subscription Info -->
+                    <section class="subscription-info-section">
+                        <h2 class="section-title">Subscription Details</h2>
+                        <div class="subscription-info-card">
+                            <div class="subscription-header-info">
+                                <div class="plan-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="plan-details-info">
+                                    <p class="plan-name-info">Standard Plan - 3 kW</p>
+                                    <p class="plan-price-info">₹3,500/month</p>
+                                </div>
+                            </div>
+
+                            <div class="subscription-details-info">
+                                <div class="detail-row">
+                                    <span class="detail-label-info">Next Billing Date</span>
+                                    <span class="detail-value-info">December 31, 2024</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label-info">Auto-Renew</span>
+                                    <span class="detail-value-info">Enabled</span>
+                                </div>
+                            </div>
+
+                            <button class="manage-plan-btn" onclick="window.location.href='../shared/subscription-plans.html'">
+                                Manage Subscription
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <!-- Personal Info Modal -->
+        <div id="personalInfoModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Personal Information</h3>
+                    <span class="close-modal" onclick="closeModal('personalInfoModal')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="modalName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="modalEmail" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="modalPhone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="modalAddress" readonly></textarea>
+                    </div>
+                    <p class="info-note">Email cannot be changed as it is your unique identifier.</p>
+                </div>
+                <div class="modal-footer"
+                    style="padding: 1.5rem; border-top: 1px solid var(--color-bg); display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button id="editProfileBtn" class="btn-secondary" onclick="toggleEditMode(true)"
+                        style="padding: 0.5rem 1.5rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background: white; cursor: pointer;">Edit</button>
+                    <button id="cancelEditBtn" class="btn-secondary" onclick="toggleEditMode(false)"
+                        style="display: none; padding: 0.5rem 1.5rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background: white; cursor: pointer;">Cancel</button>
+                    <button id="saveProfileBtn" class="btn-primary" onclick="saveProfile()"
+                        style="display: none; padding: 0.5rem 1.5rem; border-radius: 0.5rem; border: none; background: var(--gradient-primary); color: white; font-weight: 600; cursor: pointer;">Save
+                        Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Modal -->
+        <div id="securityModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Security & Privacy</h3>
+                    <span class="close-modal" onclick="closeModal('securityModal')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="security-setting">
+                        <div class="setting-label">
+                            <strong>Two-Factor Authentication</strong>
+                            <p>Secure your account with 2FA.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="2faToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="security-setting">
+                        <div class="setting-label">
+                            <strong>Data Sharing Consent</strong>
+                            <p>Allow anonymized data for research.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="dataConsentToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="privacy-notice">
+                        <h4><span class="flag-icon">🇮🇳</span> Data Privacy & Rights</h4>
+                        <p>Your data is processed in compliance with the <strong>Information Technology Act,
+                                2000</strong> and applicable Indian data privacy laws. You have the right to:</p>
+                        <ul>
+                            <li>Access your personal data.</li>
+                            <li>Correct inaccurate information.</li>
+                            <li>Request deletion of your data (Right to be Forgotten).</li>
+                            <li>Withdraw consent for data processing.</li>
+                        </ul>
+                        <p class="privacy-policy-link">Policy Version: <span id="policyVersion">IN-2024-V1</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        // Theme Management
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = true;
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('dark-mode', 'enabled');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('dark-mode', 'disabled');
+                }
+            });
+        }
+
+        async function loadProfileData() {
+            const email = localStorage.getItem('userEmail') || 'owner@smartintelli.com';
+
+            try {
+                // Fetch dynamic stats from Python Backend
+                const stats = await apiCall(`/homeowner/profile?email=${email}`);
+
+                document.getElementById('profileName').textContent = localStorage.getItem('userName') || 'User';
+                document.getElementById('profileEmail').textContent = email;
+                document.getElementById('profileRole').textContent = 'Homeowner';
+
+                // Update Stats
+                const statItems = document.querySelectorAll('.profile-stats .stat-value');
+                statItems[0].textContent = `${stats.member_since_days} days`;
+                statItems[1].textContent = `₹${stats.total_savings.toLocaleString()}`;
+                statItems[2].textContent = `${stats.total_generated_kwh.toLocaleString()} kWh`;
+
+                // Update Plan
+                document.querySelector('.plan-name-info').textContent = stats.plan_name;
+                document.querySelector('.plan-price-info').textContent = `₹${stats.plan_price.toLocaleString()}/month`;
+                document.querySelectorAll('.detail-value-info')[0].textContent = stats.next_billing;
+
+                // Populate Modal Data
+                document.getElementById('modalName').value = localStorage.getItem('userName') || 'User';
+                document.getElementById('modalEmail').value = stats.email || email;
+                document.getElementById('modalPhone').value = stats.phone || 'Not provided';
+                document.getElementById('modalAddress').value = stats.address || 'Not provided';
+
+                // Security Settings
+                document.getElementById('2faToggle').checked = stats.two_factor_enabled || false;
+                document.getElementById('dataConsentToggle').checked = stats.data_sharing_consent || false;
+                document.getElementById('policyVersion').textContent = stats.privacy_policy_version || 'IN-2024-V1';
+
+                // Profile Picture Handle
+                if (stats.profile_pic) {
+                    const img = document.getElementById('profilePic');
+                    const svg = document.getElementById('defaultAvatar');
+                    img.src = stats.profile_pic;
+                    img.style.display = 'block';
+                    svg.style.display = 'none';
+                }
+
+            } catch (error) {
+                console.error('Failed to load profile data:', error);
+            }
+        }
+
+        // Modal Logic
+        const personalInfoBtn = document.getElementById('personalInfoBtn');
+        const securityBtn = document.getElementById('securityBtn');
+        const modals = document.querySelectorAll('.modal');
+
+        personalInfoBtn.addEventListener('click', () => openModal('personalInfoModal'));
+        securityBtn.addEventListener('click', () => openModal('securityModal'));
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            // Reset to view mode when opening
+            if (modalId === 'personalInfoModal') toggleEditMode(false);
+        }
+
+        window.closeModal = function (modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on outside click
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleEditMode(enable) {
+            const fields = ['modalName', 'modalPhone', 'modalAddress'];
+            const editBtn = document.getElementById('editProfileBtn');
+            const saveBtn = document.getElementById('saveProfileBtn');
+            const cancelBtn = document.getElementById('cancelEditBtn');
+
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                el.readOnly = !enable;
+                el.style.border = enable ? '1px solid #00d4e8' : '1px solid #cbd5e1';
+                el.style.background = enable ? '#fff' : '#ffffff'; // Keep white for visibility
+            });
+
+            editBtn.style.display = enable ? 'none' : 'block';
+            saveBtn.style.display = enable ? 'block' : 'none';
+            cancelBtn.style.display = enable ? 'block' : 'none';
+        }
+
+        async function saveProfile() {
+            const saveBtn = document.getElementById('saveProfileBtn');
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = 'Saving...';
+            saveBtn.disabled = true;
+
+            const updateData = {
+                email: document.getElementById('modalEmail').value,
+                name: document.getElementById('modalName').value,
+                phone: document.getElementById('modalPhone').value,
+                address: document.getElementById('modalAddress').value,
+                two_factor_enabled: document.getElementById('2faToggle').checked,
+                data_sharing_consent: document.getElementById('dataConsentToggle').checked
+            };
+
+            try {
+                const result = await apiCall('/homeowner/profile/update', 'POST', updateData);
+                // Update Local Storage Name if changed
+                if (result.name) localStorage.setItem('userName', result.name);
+
+                toggleEditMode(false);
+                loadProfileData(); // Refresh UI
+                alert('Profile updated successfully!');
+            } catch (error) {
+                console.error('Update failed:', error);
+                alert('Failed to update profile: ' + error.message);
+            } finally {
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }
+        }
+
+        async function handleProfilePicUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Optional: Size check
+            if (file.size > 10 * 1024 * 1024) {
+                alert('Image size should be less than 10MB');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function (e) {
+                const base64Image = e.target.result;
+                const email = localStorage.getItem('userEmail');
+
+                try {
+                    await apiCall('/homeowner/profile/update', 'POST', {
+                        email: email,
+                        profile_pic: base64Image
+                    });
+
+                    // Update UI
+                    const img = document.getElementById('profilePic');
+                    const svg = document.getElementById('defaultAvatar');
+                    img.src = base64Image;
+                    img.style.display = 'block';
+                    svg.style.display = 'none';
+
+                    showToast('Profile picture updated!');
+                } catch (error) {
+                    console.error('Failed to upload profile pic:', error);
+                    alert('Failed to upload profile picture: ' + (error.message || 'Unknown error'));
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.getElementById('profilePicInput').addEventListener('change', handleProfilePicUpload);
+
+        function handleLogout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            window.location.href='/login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfileData);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

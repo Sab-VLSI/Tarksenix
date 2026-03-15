@@ -1,0 +1,898 @@
+/* =====================================================
+   vendor-marketplace.css
+   Extends dashboard-common.css – do not use standalone
+   ===================================================== */
+
+/* ── Banner override ── */
+.vm-banner {
+    background: linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%);
+}
+
+.help-tooltip {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    cursor: help;
+}
+
+/* ── Section row ── */
+.vm-section-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.vm-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+/* ── Filter / sort bar ── */
+.vm-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.vm-filter-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.vm-chips {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.vm-chip {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    color: var(--color-text-secondary);
+    background: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+.vm-chip:hover {
+    border-color: #00d4e8;
+    color: var(--color-text-primary);
+}
+
+.vm-chip.active {
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 212, 232, 0.3);
+}
+
+/* ── Vendor list container ── */
+.vm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* =====================================================
+   Vendor Card  (matches action-card / summary-card style)
+   ===================================================== */
+.vm-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--radius-xl);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    animation: vmCardIn 0.35s ease both;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes vmCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.vm-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 212, 232, 0.25);
+}
+
+/* Colour accent stripe on left edge */
+.vm-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--vm-accent, #00d4e8);
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+}
+
+/* ── Top row: avatar + name + rank badge ── */
+.vm-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.vm-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    background: var(--vm-tint, rgba(0, 212, 232, 0.1));
+}
+
+.vm-vendor-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+    flex: 1;
+}
+
+.vm-vendor-location {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.vm-rank-badge {
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+}
+
+.rank-gold {
+    background: rgba(245, 158, 11, .12);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, .25);
+}
+
+.rank-silver {
+    background: rgba(100, 116, 139, .10);
+    color: #475569;
+    border: 1px solid rgba(100, 116, 139, .20);
+}
+
+.rank-bronze {
+    background: rgba(180, 100, 60, .10);
+    color: #92400e;
+    border: 1px solid rgba(180, 100, 60, .20);
+}
+
+.rank-std {
+    background: rgba(59, 130, 246, .10);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, .20);
+}
+
+/* ── 2×2 Metrics grid ── */
+.vm-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+}
+
+.vm-metric {
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    padding: 0.45rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.vm-metric-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+
+.vm-metric-value {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* ── Footer row: stars + score + contact ── */
+.vm-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.vm-stars {
+    font-size: 0.82rem;
+    color: #f59e0b;
+    letter-spacing: 0.05em;
+}
+
+.vm-rating-text {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    margin-left: 0.2rem;
+}
+
+.vm-score-pill {
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 212, 232, .25);
+}
+
+.vm-contact-link {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #00d4e8;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    padding: 0;
+    white-space: nowrap;
+}
+
+.vm-contact-link:hover {
+    text-decoration: underline;
+}
+
+/* =====================================================
+   Skeleton loading cards
+   ===================================================== */
+.vm-skeleton {
+    pointer-events: none;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: default;
+}
+
+.vm-sk-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+}
+
+.vm-sk-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.vm-sk-line {
+    height: 0.85rem;
+    border-radius: var(--radius-sm);
+}
+
+.vm-sk-title {
+    width: 60%;
+}
+
+.vm-sk-sub {
+    width: 80%;
+}
+
+/* =====================================================
+   Modal
+   ===================================================== */
+.vm-modal-content {
+    padding: 1.25rem;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.close-modal-btn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.close-modal-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.vm-modal-header {
+    margin-bottom: 0.85rem;
+}
+
+.vm-modal-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.vm-modal-loc {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+}
+
+.vm-modal-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.vm-modal-row {
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    padding: 0.55rem 0.75rem;
+}
+
+.vm-modal-row-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+
+.vm-modal-row-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.vm-enquire-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    color: #fff;
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 212, 232, .3);
+}
+
+.vm-enquire-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 212, 232, .4);
+}
+
+.vm-modal-confirm {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #22c55e;
+    margin-top: 0.75rem;
+}
+
+/* =====================================================
+   Dark mode adjustments
+   ===================================================== */
+[data-theme="dark"] .vm-card {
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .vm-metric,
+[data-theme="dark"] .vm-modal-row {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .vm-chip {
+    background: #1e293b;
+    border-color: #334155;
+    color: var(--color-text-secondary);
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+@media (max-width: 400px) {
+    .vm-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =====================================================
+   ☀️ Solar Subscription Plans
+   ===================================================== */
+
+/* ── Section divider ── */
+.sp-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+    margin: 1.25rem 0 1rem;
+}
+
+.sp-section-sub {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    margin-top: 0.1rem;
+}
+
+/* ── Plan list (vertical stack, same as vm-list) ── */
+.sp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ── Plan Card ── */
+.sp-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: var(--radius-xl);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    position: relative;
+    overflow: hidden;
+    animation: vmCardIn 0.35s ease both;
+    /* reuse vendor card keyframe */
+    transition: all var(--transition);
+}
+
+.sp-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+    border-color: rgba(0, 212, 232, .2);
+}
+
+/* Colour stripe (same pattern as vm-card) */
+.sp-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--sp-accent, #00d4e8);
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+}
+
+/* Featured card gets a cyan border */
+.sp-card-featured {
+    border: 2px solid var(--sp-accent, #00d4e8);
+    box-shadow: 0 0 0 4px rgba(0, 212, 232, .06);
+}
+
+/* "Best Value" corner ribbon */
+.sp-featured-ribbon {
+    position: absolute;
+    top: 14px;
+    right: -22px;
+    width: 90px;
+    padding: 0.2rem 0;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    color: #fff;
+    transform: rotate(35deg);
+    box-shadow: 0 2px 6px rgba(0, 212, 232, .3);
+}
+
+/* ── Card top row ── */
+.sp-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.sp-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+    background: var(--sp-tint, rgba(0, 212, 232, .08));
+}
+
+.sp-name-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.sp-plan-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.sp-capacity-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(245, 158, 11, .12);
+    color: #b45309;
+    width: fit-content;
+}
+
+.sp-popular-badge {
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(245, 158, 11, .12);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, .25);
+    flex-shrink: 0;
+}
+
+/* ── Price row ── */
+.sp-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+}
+
+.sp-price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+.sp-price-unit {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.sp-price-period {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+/* ── Feature list ── */
+.sp-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.sp-feat {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.sp-feat-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+}
+
+/* ── Custom capacity input ── */
+.sp-custom-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.sp-custom-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.sp-custom-input {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    outline: none;
+    transition: all var(--transition);
+}
+
+.sp-custom-input:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, .12);
+    background: var(--color-white);
+}
+
+/* ── Subscribe button ── */
+.sp-subscribe-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    border: 2px solid var(--sp-accent, #00d4e8);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+    letter-spacing: 0.01em;
+}
+
+.sp-subscribe-btn:hover {
+    background: var(--sp-tint, rgba(0, 212, 232, .08));
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .07);
+}
+
+.sp-subscribe-btn--featured {
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 212, 232, .3);
+}
+
+.sp-subscribe-btn--featured:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 212, 232, .4);
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+}
+
+/* ── Disclaimer ── */
+.sp-disclaimer {
+    font-size: 0.68rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-top: 0.25rem;
+    padding: 0.5rem 0.25rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* ── Subscribe Modal ── */
+.sp-modal-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.sp-modal-plan-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.sp-modal-price {
+    font-size: 0.88rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.85rem;
+}
+
+.sp-modal-perks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.sp-modal-perk {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    padding: 0.5rem 0.75rem;
+}
+
+.sp-cancel-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.sp-cancel-btn:hover {
+    color: var(--color-text-primary);
+}
+
+.sp-success-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.sp-success-sub {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0.4rem 0 1rem;
+    text-align: center;
+}
+
+/* ── Dark mode for subscription cards ── */
+[data-theme="dark"] .sp-card {
+    border-color: rgba(255, 255, 255, .06);
+}
+
+[data-theme="dark"] .sp-custom-input {
+    background: rgba(255, 255, 255, .04);
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .sp-modal-perk {
+    background: rgba(255, 255, 255, .04);
+}
+
+/* =====================================================
+   📊 Bill Analyzer
+   ===================================================== */
+.ba-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.ba-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ba-results {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    animation: vmCardIn 0.35s ease both;
+}
+
+.ba-results-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.ba-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+}
+
+.ba-stat-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    text-align: center;
+}
+
+.ba-stat-highlight {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(0, 212, 232, .1), rgba(163, 230, 53, .1));
+    border-color: rgba(0, 212, 232, .3);
+}
+
+.ba-stat-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ba-stat-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin: 0.2rem 0;
+}
+
+.ba-text-success {
+    color: #10b981;
+}
+
+.ba-text-primary {
+    color: #3b82f6;
+}
+
+.ba-stat-sub {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+}
+
+/* Dark mode overrides for Bill Analyzer */
+[data-theme="dark"] .ba-card {
+    border-color: rgba(255, 255, 255, .06);
+}
+
+[data-theme="dark"] .ba-stat-card {
+    background: rgba(255, 255, 255, .02);
+    border-color: rgba(255, 255, 255, .06);
+}
+
+[data-theme="dark"] .ba-stat-highlight {
+    background: rgba(0, 212, 232, .08);
+    border-color: rgba(0, 212, 232, .2);
+}

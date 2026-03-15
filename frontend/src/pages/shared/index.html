@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>html{background:#0f172a}body{visibility:hidden}body.si-loaded{visibility:visible}</style>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnergyNest</title>
+    <link rel="stylesheet" href="../../components/splash.css">
+</head>
+
+<body>
+    <div class="splash-container">
+        <!-- Professional background -->
+        <div class="splash-bg"></div>
+
+        <!-- Glassmorphism overlay -->
+        <main class="splash-content">
+            <div class="glass-card">
+                <div class="brand-section">
+                    <h1 class="app-title">EnergyNest</h1>
+                    <p class="tagline">Energy Suite</p>
+                </div>
+
+                <div class="status-section">
+                    <p class="status-text">Initializing Secure Connection...</p>
+                    <div class="loading-bar">
+                        <div class="loading-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../components/splash.js"></script>
+    <script>document.addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){document.body.classList.add("si-loaded")})})</script>
+</body>
+
+</html>

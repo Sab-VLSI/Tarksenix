@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Access the Energy Company console on EnergyNest.">
+    <meta name="theme-color" content="#f0f9ff">
+    <link rel="manifest" href="../../components/manifest.json">
+    <title>Login / Energy Company Access - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/login.css">
+    <style>
+        .role-badge {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .form-section-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0.75rem 0 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-bg-light);
+        }
+
+        .alert-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 0.75rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .a-icon {
+            color: #3b82f6;
+            font-size: 1.25rem;
+        }
+
+        .a-text {
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="bg-decoration">
+            <div class="energy-particle" style="--x: 10%; --y: 20%; --delay: 0s;"></div>
+            <div class="energy-particle" style="--x: 85%; --y: 15%; --delay: 1.5s;"></div>
+            <div class="energy-particle" style="--x: 15%; --y: 75%; --delay: 3s;"></div>
+            <div class="energy-particle" style="--x: 90%; --y: 80%; --delay: 4.5s;"></div>
+        </div>
+
+        <div class="login-card">
+            <header class="card-header">
+                <div class="role-badge">ENERGY COMPANY</div>
+                <h1 class="app-name" style="font-size: 1.5rem;">Corporate Portal</h1>
+                <p class="app-subtitle">Select Login or Request Access</p>
+            </header>
+
+            <!-- Tab switcher -->
+            <div class="tab-switcher">
+                <button class="tab-btn" data-tab="login">Login</button>
+                <button class="tab-btn active" data-tab="signup">Signup</button>
+                <div class="tab-indicator" style="transform: translateX(calc(100% + 0.25rem));"></div>
+            </div>
+
+            <div class="forms-container">
+                <!-- Login form -->
+                <form class="auth-form login-form" id="companyLoginForm">
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Work Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="name@company.com"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter password"
+                            required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"
+                        style="background: linear-gradient(135deg, #a855f7, #7c3aed);">
+                        <span>Login to Dashboard</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button type="button" class="forgot-password">Forgot password?</button>
+                </form>
+
+                <!-- Signup form -->
+                <form class="auth-form signup-form active" id="companySignupForm">
+                    <div class="form-group">
+                        <label for="orgName" class="form-label">Organization Name</label>
+                        <input type="text" id="orgName" name="name" class="form-input"
+                            placeholder="e.g. Metro Grid Corp" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Official Work Email</label>
+                        <input type="email" id="email" name="email" class="form-input"
+                            placeholder="name@company-domain.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-input"
+                            placeholder="Use complex credentials" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
+                            placeholder="Repeat your password" required>
+                    </div>
+
+                    <div class="form-section-title">Access Configuration</div>
+
+                    <div class="form-group">
+                        <label for="accessRole" class="form-label">Administrative Role</label>
+                        <select id="accessRole" name="accessRole" class="form-input"
+                            style="appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 0.65rem auto; padding-right: 2.5rem;"
+                            required>
+                            <option value="" disabled selected>Select access level</option>
+                            <option value="operations">Operations Management</option>
+                            <option value="planning">Policy & Planning</option>
+                            <option value="monitoring">Grid Monitoring</option>
+                        </select>
+                    </div>
+
+                    <div class="alert-box">
+                        <span class="a-icon">ⓘ</span>
+                        <p class="a-text">This dashboard is strictly for utility planning and grid monitoring.</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"
+                        style="margin-top: 1.5rem; background: linear-gradient(135deg, #a855f7, #7c3aed);">
+                        <span>Access Energy Dashboard</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+                Not corporate? <a href="/login.html"
+                    style="color: var(--color-energy-blue); font-weight: 600; text-decoration: none;">Change Role</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabIndicator = document.querySelector('.tab-indicator');
+        const loginForm = document.getElementById('companyLoginForm');
+        const signupForm = document.getElementById('companySignupForm');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                if (tab === 'login') {
+                    tabIndicator.style.transform = 'translateX(0)';
+                    loginForm.classList.add('active');
+                    signupForm.classList.remove('active');
+                } else {
+                    tabIndicator.style.transform = 'translateX(calc(100% + 0.25rem))';
+                    loginForm.classList.remove('active');
+                    signupForm.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <script src="../../components/login.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

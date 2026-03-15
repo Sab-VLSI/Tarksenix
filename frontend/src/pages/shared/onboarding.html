@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>html{background:#f0f9ff}body{visibility:hidden}body.si-loaded{visibility:visible}</style>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Onboarding - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/onboarding.css">
+</head>
+
+<body>
+    <div class="onboarding-container">
+        <!-- Background decoration -->
+        <div class="bg-decoration">
+            <div class="energy-wave"></div>
+        </div>
+
+        <!-- Main card -->
+        <div class="onboarding-card">
+            <!-- Header section - Always visible -->
+            <header class="onboarding-header">
+                <h1 class="page-title">Let's set up your energy profile</h1>
+                <p class="page-subtitle">This helps us personalize your energy experience</p>
+            </header>
+
+            <!-- Progress indicator -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-dots">
+                    <div class="dot active" data-step="1"></div>
+                    <div class="dot" data-step="2"></div>
+                    <div class="dot" data-step="3"></div>
+                </div>
+                <p class="progress-text">Step <span class="current-step">1</span> of <span class="total-steps">3</span>
+                </p>
+            </div>
+
+            <!-- Steps container -->
+            <div class="steps-container">
+                <!-- STEP 1: User Type Selection -->
+                <div class="step step-1 active" data-step="1">
+                    <div class="step-content">
+                        <h2 class="step-title">Who are you?</h2>
+                        <p class="step-description">Select the option that best describes you</p>
+
+                        <div class="selection-grid">
+                            <!-- Home Owner Card -->
+                            <div class="selection-card" data-value="homeowner">
+                                <div class="card-icon">
+                                    <img src="../../components/onboarding_homeowner_card_v2_1770134562238.png" alt="Home Owner"
+                                        class="role-icon">
+                                </div>
+                                <h3 class="card-title">Home Owner</h3>
+                                <p class="card-subtitle">For homes & apartments</p>
+                                <div class="card-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Vendor Card -->
+                            <div class="selection-card" data-value="vendor">
+                                <div class="card-icon">
+                                    <img src="../../components/onboarding_vendor_card_v2_1770134577212.png" alt="Vendor"
+                                        class="role-icon">
+                                </div>
+                                <h3 class="card-title">Vendor</h3>
+                                <p class="card-subtitle">Service & equipment providers</p>
+                                <div class="card-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Energy Company Card -->
+                            <div class="selection-card" data-value="energycompany">
+                                <div class="card-icon">
+                                    <img src="../../components/onboarding_company_card_v2_1770134591520.png" alt="Energy Company"
+                                        class="role-icon">
+                                </div>
+                                <h3 class="card-title">Energy Company</h3>
+                                <p class="card-subtitle">Utility or energy provider</p>
+                                <div class="card-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Energy Setup -->
+                <div class="step step-2" data-step="2">
+                    <div class="step-content">
+                        <h2 class="step-title">Tell us about your energy setup</h2>
+                        <p class="step-description">Help us understand your current configuration</p>
+
+                        <!-- Section 1: Household Type -->
+                        <div class="form-section">
+                            <label class="section-label">Household Type</label>
+                            <div class="pill-group">
+                                <button type="button" class="pill-btn" data-value="individual">Individual House</button>
+                                <button type="button" class="pill-btn" data-value="apartment">Apartment</button>
+                                <button type="button" class="pill-btn" data-value="business">Small Business</button>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Solar Capacity -->
+                        <div class="form-section">
+                            <label class="section-label">Solar Capacity</label>
+                            <div class="pill-group">
+                                <button type="button" class="pill-btn" data-value="1kw">1 kW</button>
+                                <button type="button" class="pill-btn" data-value="2kw">2 kW</button>
+                                <button type="button" class="pill-btn" data-value="3kw">3 kW</button>
+                                <button type="button" class="pill-btn" data-value="4kw">4+ kW</button>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Battery Availability -->
+                        <div class="form-section">
+                            <label class="section-label">Do you have battery backup?</label>
+                            <div class="toggle-container">
+                                <button type="button" class="toggle-btn" data-value="no">
+                                    <span class="toggle-option">No</span>
+                                </button>
+                                <button type="button" class="toggle-btn active" data-value="yes">
+                                    <span class="toggle-option">Yes</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Energy Goals -->
+                <div class="step step-3" data-step="3">
+                    <div class="step-content">
+                        <h2 class="step-title">What are your energy goals?</h2>
+                        <p class="step-description">Select all that apply</p>
+
+                        <div class="goals-grid">
+                            <!-- Goal 1: Reduce Bill -->
+                            <div class="goal-card" data-value="reduce-bill">
+                                <div class="goal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <h3 class="goal-title">Reduce electricity bill</h3>
+                                <p class="goal-description">Lower your monthly energy costs</p>
+                                <div class="goal-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Goal 2: Backup Power -->
+                            <div class="goal-card" data-value="backup-power">
+                                <div class="goal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <h3 class="goal-title">Backup power during outages</h3>
+                                <p class="goal-description">Stay powered when grid fails</p>
+                                <div class="goal-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Goal 3: Sell Energy -->
+                            <div class="goal-card" data-value="sell-energy">
+                                <div class="goal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <h3 class="goal-title">Sell excess energy</h3>
+                                <p class="goal-description">Monetize your solar production</p>
+                                <div class="goal-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Goal 4: Monitor Assets -->
+                            <div class="goal-card" data-value="monitor-assets">
+                                <div class="goal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <h3 class="goal-title">Monitor energy assets</h3>
+                                <p class="goal-description">Track performance & efficiency</p>
+                                <div class="goal-checkmark">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation controls -->
+            <div class="navigation-controls">
+                <button type="button" class="nav-btn btn-back" disabled>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>Back</span>
+                </button>
+
+                <button type="button" class="nav-btn btn-next">
+                    <span class="btn-text">Next</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../components/onboarding.js"></script>
+    <script>document.addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){document.body.classList.add("si-loaded")})})</script>
+</body>
+
+</html>

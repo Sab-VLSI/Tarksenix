@@ -1,0 +1,473 @@
+/* ===================================
+   Energy Company Dashboard Specific Styles
+   =================================== */
+
+/* ===================================
+   Quick Access Section
+   =================================== */
+.quick-access-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.quick-access-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.quick-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.quick-icon svg {
+    width: 22px;
+    height: 22px;
+    color: white;
+}
+
+.grid-icon-bg {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.distributed-icon-bg {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.tariff-icon-bg {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.quick-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.quick-description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+/* ===================================
+   Grid Overview Section
+   =================================== */
+.grid-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.grid-overview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.grid-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: var(--spacing-md);
+    transition: all var(--transition);
+}
+
+.grid-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.grid-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.grid-icon svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.demand-card .grid-icon {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.supply-card .grid-icon {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.renewable-card .grid-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.storage-card .grid-icon {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.grid-content {
+    flex: 1;
+}
+
+.grid-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.grid-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.125rem;
+}
+
+.grid-value .unit {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.grid-change {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.grid-change.positive {
+    color: #10b981;
+}
+
+/* ===================================
+   Distributed Energy Section
+   =================================== */
+.distributed-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.distributed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.distributed-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+}
+
+.distributed-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-bg);
+}
+
+.distributed-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #00d4e8, #a3e635);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.distributed-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.distributed-icon.import-icon {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.distributed-icon.export-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.distributed-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.distributed-count {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.distributed-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.stat-item {
+    background: var(--color-bg);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+.stat-label {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+/* ===================================
+   Trading Section
+   =================================== */
+.trading-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.trading-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.trading-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.trading-card:hover {
+    border-color: #00d4e8;
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.trading-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.trading-icon svg {
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.buy-card .trading-icon {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.sell-card .trading-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.pricing-card .trading-icon {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.trading-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.trading-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.125rem;
+}
+
+.trading-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+/* ===================================
+   Regional Section
+   =================================== */
+.regional-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.regional-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.region-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition);
+}
+
+.region-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.region-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.region-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-bg);
+}
+
+.region-stat {
+    text-align: center;
+}
+
+.region-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.region-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.region-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.region-status.healthy {
+    color: #10b981;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ===================================
+   Mobile Responsiveness
+   =================================== */
+@media (max-width: 768px) {
+    .quick-access-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .distributed-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trading-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .regional-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .distributed-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .grid-icon {
+        margin: 0 auto;
+    }
+
+    .region-stats {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+}

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>html{background:#f8fafb}body{visibility:hidden}body.si-loaded{visibility:visible}</style>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue & ROI - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/vendor-revenue.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="window.location.href='dashboard-vendor.html'">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Revenue & ROI</h1>
+                    <p class="dashboard-subtitle">Track your business performance</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Earnings Summary -->
+            <section class="earnings-section">
+                <h2 class="section-title">Monthly Earnings Summary</h2>
+                <div class="earnings-grid">
+                    <div class="earnings-card subscription">
+                        <div class="earnings-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="earnings-content">
+                            <p class="earnings-label">Subscription Earnings</p>
+                            <p class="earnings-value">₹12,450</p>
+                            <p class="earnings-detail">From 142 active subscriptions</p>
+                        </div>
+                    </div>
+
+                    <div class="earnings-card fit">
+                        <div class="earnings-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="earnings-content">
+                            <p class="earnings-label">Feed-in Tariff Earnings</p>
+                            <p class="earnings-value">₹3,280</p>
+                            <p class="earnings-detail">Excess energy sold to grid</p>
+                        </div>
+                    </div>
+
+                    <div class="earnings-card total">
+                        <div class="earnings-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="earnings-content">
+                            <p class="earnings-label">Total Monthly Revenue</p>
+                            <p class="earnings-value">₹15,730</p>
+                            <p class="earnings-detail">+8.5% from last month</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Visualization -->
+            <section class="chart-section">
+                <h2 class="section-title">Revenue Trend</h2>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <p class="chart-period">Last 6 Months</p>
+                        <div class="chart-legend-inline">
+                            <div class="legend-item-inline">
+                                <div class="legend-dot subscription-dot"></div>
+                                <span>Subscriptions</span>
+                            </div>
+                            <div class="legend-item-inline">
+                                <div class="legend-dot fit-dot"></div>
+                                <span>Feed-in Tariff</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-bars">
+                            <div class="month-bar">
+                                <div class="bar-stack">
+                                    <div class="bar-segment subscription-bar" style="height: 60%;"></div>
+                                    <div class="bar-segment fit-bar" style="height: 15%;"></div>
+                                </div>
+                                <p class="bar-label">Jul</p>
+                            </div>
+                            <div class="month-bar">
+                                <div class="bar-stack">
+                                    <div class="bar-segment subscription-bar" style="height: 65%;"></div>
+                                    <div class="bar-segment fit-bar" style="height: 18%;"></div>
+                                </div>
+                                <p class="bar-label">Aug</p>
+                            </div>
+                            <div class="month-bar">
+                                <div class="bar-stack">
+                                    <div class="bar-segment subscription-bar" style="height: 70%;"></div>
+                                    <div class="bar-segment fit-bar" style="height: 20%;"></div>
+                                </div>
+                                <p class="bar-label">Sep</p>
+                            </div>
+                            <div class="month-bar">
+                                <div class="bar-stack">
+                                    <div class="bar-segment subscription-bar" style="height: 75%;"></div>
+                                    <div class="bar-segment fit-bar" style="height: 19%;"></div>
+                                </div>
+                                <p class="bar-label">Oct</p>
+                            </div>
+                            <div class="month-bar">
+                                <div class="bar-stack">
+                                    <div class="bar-segment subscription-bar" style="height: 78%;"></div>
+                                    <div class="bar-segment fit-bar" style="height: 21%;"></div>
+                                </div>
+                                <p class="bar-label">Nov</p>
+                            </div>
+                            <div class="month-bar active">
+                                <div class="bar-stack">
+                                    <div class="bar-segment subscription-bar" style="height: 80%;"></div>
+                                    <div class="bar-segment fit-bar" style="height: 21%;"></div>
+                                </div>
+                                <p class="bar-label">Dec</p>
+                                <div class="bar-tooltip">
+                                    <p class="tooltip-title">December 2024</p>
+                                    <p class="tooltip-row">Subscriptions: ₹12,450</p>
+                                    <p class="tooltip-row">Feed-in Tariff: ₹3,280</p>
+                                    <p class="tooltip-total">Total: ₹15,730</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Break-Even Timeline -->
+            <section class="roi-section">
+                <h2 class="section-title">ROI & Break-Even Analysis</h2>
+                <div class="roi-card">
+                    <div class="roi-stats">
+                        <div class="roi-stat-item">
+                            <p class="roi-stat-label">Initial Investment</p>
+                            <p class="roi-stat-value">₹850,000</p>
+                        </div>
+                        <div class="roi-stat-item">
+                            <p class="roi-stat-label">Total Revenue (YTD)</p>
+                            <p class="roi-stat-value">₹185,600</p>
+                        </div>
+                        <div class="roi-stat-item">
+                            <p class="roi-stat-label">Projected Break-Even</p>
+                            <p class="roi-stat-value">4.5 Years</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-container">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Investment Timeline</h3>
+                            <p class="timeline-subtitle">Projected ROI trajectory based on current performance</p>
+                        </div>
+
+                        <div class="timeline-visual">
+                            <div class="timeline-track">
+                                <div class="timeline-phase investment">
+                                    <div class="phase-marker"></div>
+                                    <div class="phase-content">
+                                        <p class="phase-label">Investment</p>
+                                        <p class="phase-value">₹850K</p>
+                                        <p class="phase-year">Year 0</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-segment recovery"></div>
+
+                                <div class="timeline-phase current">
+                                    <div class="phase-marker pulse"></div>
+                                    <div class="phase-content">
+                                        <p class="phase-label">Current Position</p>
+                                        <p class="phase-value">₹185K recovered</p>
+                                        <p class="phase-year">Year 1</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-segment remaining"></div>
+
+                                <div class="timeline-phase breakeven">
+                                    <div class="phase-marker"></div>
+                                    <div class="phase-content">
+                                        <p class="phase-label">Break-Even Point</p>
+                                        <p class="phase-value">₹0 Net</p>
+                                        <p class="phase-year">Year 4.5</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-segment profit"></div>
+
+                                <div class="timeline-phase profit-zone">
+                                    <div class="phase-marker"></div>
+                                    <div class="phase-content">
+                                        <p class="phase-label">Profit Zone</p>
+                                        <p class="phase-value">Positive ROI</p>
+                                        <p class="phase-year">Year 5+</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-bar-container">
+                            <p class="progress-label">Recovery Progress</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 22%;"></div>
+                            </div>
+                            <p class="progress-percentage">22% recovered • 78% remaining to break-even</p>
+                        </div>
+                    </div>
+
+                    <div class="roi-note">
+                        <div class="note-icon">📊</div>
+                        <div class="note-text">
+                            <p class="note-title">Projected ROI Timeline</p>
+                            <p class="note-description">This timeline is based on current revenue trends, average
+                                subscription growth, and market conditions. Actual results may vary based on operational
+                                efficiency and market dynamics.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Business Metrics -->
+            <section class="metrics-section">
+                <h2 class="section-title">Key Business Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke="currentColor" stroke-width="2"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <p class="metric-label">Monthly Growth Rate</p>
+                        </div>
+                        <p class="metric-value">+8.5%</p>
+                        <p class="metric-detail">Compared to last month</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <p class="metric-label">Active Subscribers</p>
+                        </div>
+                        <p class="metric-value">142</p>
+                        <p class="metric-detail">+12 new this month</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <p class="metric-label">Avg Revenue Per User</p>
+                        </div>
+                        <p class="metric-value">₹87.68</p>
+                        <p class="metric-detail">Per subscriber/month</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+                                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <p class="metric-label">Customer Retention</p>
+                        </div>
+                        <p class="metric-value">94%</p>
+                        <p class="metric-detail">Excellent retention rate</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item " onclick="window.location.href='dashboard-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-orders.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Orders & Services</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='vendor-assets.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Assets</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='vendor-revenue.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Revenue</span>
+            </button>
+            <button class="nav-item " onclick="window.location.href='profile-vendor.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        async function loadRevenueData() {
+            const email = localStorage.getItem('userEmail') || 'vendor@smartintelli.com';
+
+            try {
+                const revenue = await apiCall(`/vendor/revenue?email=${email}`);
+
+                // Update Summary Cards
+                document.querySelector('.earnings-card.subscription .earnings-value').textContent = `₹${revenue.monthly_income.toLocaleString()}`;
+
+                // Active subscriptions logic (mocking based on income)
+                const subCount = Math.floor(revenue.monthly_income / 89);
+                document.querySelector('.earnings-card.subscription .earnings-detail').textContent = `From ${subCount} active subscriptions`;
+
+                // Update Total (assuming total = monthly_income + some fit)
+                const fitEarnings = 3280.0; // Static part for demo
+                document.querySelector('.earnings-card.total .earnings-value').textContent = `₹${(revenue.monthly_income + fitEarnings).toLocaleString()}`;
+
+                // Update Stats
+                const metrics = document.querySelectorAll('.metric-value');
+                metrics[1].textContent = subCount;
+
+                // Render Payouts (assuming there's a payouts list somewhere)
+                // If not, we could inject one or just update the placeholders
+                console.log('Payouts:', revenue.payouts);
+
+            } catch (error) {
+                console.error('Failed to load revenue data:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadRevenueData);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){document.body.classList.add("si-loaded")})})</script>
+</body>
+
+</html>
+

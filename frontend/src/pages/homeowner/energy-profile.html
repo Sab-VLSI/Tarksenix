@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Set up your energy profile to receive personalised energy recommendations.">
+    <meta name="theme-color" content="#f0f9ff">
+    <link rel="manifest" href="../../components/manifest.json">
+    <title>Energy Profile - EnergyNest</title>
+    <!-- Reuse the established design system -->
+    <link rel="stylesheet" href="../../components/login.css">
+    <link rel="stylesheet" href="../../components/energy-profile.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Ambient background particles -->
+        <div class="bg-decoration">
+            <div class="energy-particle" style="--x: 8%;  --y: 18%; --delay: 0s;"></div>
+            <div class="energy-particle" style="--x: 80%; --y: 12%; --delay: 1.8s;"></div>
+            <div class="energy-particle" style="--x: 20%; --y: 72%; --delay: 3.2s;"></div>
+            <div class="energy-particle" style="--x: 88%; --y: 78%; --delay: 5s;"></div>
+        </div>
+
+        <!-- ── Form Card ── -->
+        <div class="login-card ep-card">
+            <header class="card-header">
+                <div class="role-badge">⚡ ENERGY PROFILE</div>
+                <h1 class="app-name" style="font-size: 1.45rem;">Your Energy Details</h1>
+                <p class="app-subtitle">Personalise your recommendations</p>
+            </header>
+
+            <!-- Scrollable form area -->
+            <div class="forms-container">
+                <form class="auth-form active" id="energyProfileForm" novalidate>
+
+                    <!-- State -->
+                    <div class="form-group">
+                        <label for="epState" class="form-label">State</label>
+                        <div class="select-wrapper">
+                            <select id="epState" name="state" class="form-input ep-select" required>
+                                <option value="" disabled selected>Select your state</option>
+                                <option value="AN">Andaman &amp; Nicobar Islands</option>
+                                <option value="AP">Andhra Pradesh</option>
+                                <option value="AR">Arunachal Pradesh</option>
+                                <option value="AS">Assam</option>
+                                <option value="BR">Bihar</option>
+                                <option value="CH">Chandigarh</option>
+                                <option value="CG">Chhattisgarh</option>
+                                <option value="DD">Dadra &amp; Nagar Haveli and Daman &amp; Diu</option>
+                                <option value="DL">Delhi</option>
+                                <option value="GA">Goa</option>
+                                <option value="GJ">Gujarat</option>
+                                <option value="HR">Haryana</option>
+                                <option value="HP">Himachal Pradesh</option>
+                                <option value="JK">Jammu &amp; Kashmir</option>
+                                <option value="JH">Jharkhand</option>
+                                <option value="KA">Karnataka</option>
+                                <option value="KL">Kerala</option>
+                                <option value="LA">Ladakh</option>
+                                <option value="LD">Lakshadweep</option>
+                                <option value="MP">Madhya Pradesh</option>
+                                <option value="MH">Maharashtra</option>
+                                <option value="MN">Manipur</option>
+                                <option value="ML">Meghalaya</option>
+                                <option value="MZ">Mizoram</option>
+                                <option value="NL">Nagaland</option>
+                                <option value="OD">Odisha</option>
+                                <option value="PY">Puducherry</option>
+                                <option value="PB">Punjab</option>
+                                <option value="RJ">Rajasthan</option>
+                                <option value="SK">Sikkim</option>
+                                <option value="TN">Tamil Nadu</option>
+                                <option value="TS">Telangana</option>
+                                <option value="TR">Tripura</option>
+                                <option value="UP">Uttar Pradesh</option>
+                                <option value="UK">Uttarakhand</option>
+                                <option value="WB">West Bengal</option>
+                            </select>
+                            <span class="select-arrow" aria-hidden="true">▾</span>
+                        </div>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <label for="epCity" class="form-label">City</label>
+                        <input type="text" id="epCity" name="city" class="form-input" placeholder="e.g. Bengaluru"
+                            required>
+                    </div>
+
+                    <!-- Consumer Type -->
+                    <div class="form-group">
+                        <label class="form-label">Consumer Type</label>
+                        <div class="consumer-type-grid" role="group" aria-label="Consumer type">
+                            <label class="consumer-option" for="ct-home">
+                                <input type="radio" id="ct-home" name="consumerType" value="home" required>
+                                <span class="consumer-card">
+                                    <span class="consumer-icon">🏠</span>
+                                    <span class="consumer-label">Home</span>
+                                </span>
+                            </label>
+                            <label class="consumer-option" for="ct-apartment">
+                                <input type="radio" id="ct-apartment" name="consumerType" value="apartment">
+                                <span class="consumer-card">
+                                    <span class="consumer-icon">🏢</span>
+                                    <span class="consumer-label">Apartment</span>
+                                </span>
+                            </label>
+                            <label class="consumer-option" for="ct-pg">
+                                <input type="radio" id="ct-pg" name="consumerType" value="pg">
+                                <span class="consumer-card">
+                                    <span class="consumer-icon">🛏️</span>
+                                    <span class="consumer-label">PG / Hostel</span>
+                                </span>
+                            </label>
+                            <label class="consumer-option" for="ct-shop">
+                                <input type="radio" id="ct-shop" name="consumerType" value="shop">
+                                <span class="consumer-card">
+                                    <span class="consumer-icon">🏪</span>
+                                    <span class="consumer-label">Shop</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Rooftop Availability -->
+                    <div class="form-group">
+                        <label class="form-label">Rooftop Availability</label>
+                        <div class="toggle-group" role="group" aria-label="Rooftop availability">
+                            <label class="toggle-option" for="rt-yes">
+                                <input type="radio" id="rt-yes" name="rooftop" value="yes" required>
+                                <span class="toggle-pill">✔ Yes</span>
+                            </label>
+                            <label class="toggle-option" for="rt-no">
+                                <input type="radio" id="rt-no" name="rooftop" value="no">
+                                <span class="toggle-pill">✖ No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Average Monthly Consumption -->
+                    <div class="form-group">
+                        <label for="epConsumption" class="form-label">
+                            Average Monthly Electricity Consumption
+                            <span class="label-unit">(Units / kWh)</span>
+                        </label>
+                        <input type="number" id="epConsumption" name="consumption" class="form-input"
+                            placeholder="e.g. 250" min="0" step="1" required>
+                    </div>
+
+                    <!-- Upload Last Bill (optional) -->
+                    <div class="form-group">
+                        <label for="epBill" class="form-label">
+                            Upload Last Electricity Bill
+                            <span class="label-optional">(optional)</span>
+                        </label>
+                        <label class="file-drop-zone" for="epBill" id="dropZoneLabel">
+                            <input type="file" id="epBill" name="electricityBill" accept=".pdf,.jpg,.jpeg,.png"
+                                class="file-input-hidden">
+                            <div class="file-drop-content" id="fileDropContent">
+                                <svg class="file-icon" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M12 16V8M12 8L9 11M12 8l3 3" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M20 16.7C21.2 15.9 22 14.5 22 13a4 4 0 0 0-4-4h-.8
+                                             A7 7 0 1 0 5 16.3" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                                <p class="file-drop-text">Click to browse or drag &amp; drop</p>
+                                <p class="file-drop-hint">PDF, JPG or PNG · Max 5 MB</p>
+                            </div>
+                        </label>
+                        <p class="file-name-display" id="fileNameDisplay" hidden></p>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary" id="epSubmitBtn">
+                        <span>Get Energy Recommendations</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- ── Recommendations Panel ── -->
+                <section class="recommendations-panel" id="recommendationsPanel" hidden aria-live="polite"
+                    aria-label="Energy recommendations">
+                    <div class="rec-header">
+                        <span class="rec-badge">⚡ AI Recommendations</span>
+                        <h2 class="rec-title">Your Personalised Energy Plan</h2>
+                    </div>
+                    <div class="rec-cards" id="recCards">
+                        <!-- Cards injected by JS -->
+                    </div>
+                    <button class="btn btn-secondary ep-btn-edit" id="epEditBtn" type="button">
+                        ← Edit Profile
+                    </button>
+                </section>
+            </div><!-- /forms-container -->
+        </div><!-- /login-card -->
+    </div><!-- /login-container -->
+
+    <script src="../../components/energy-profile.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            requestAnimationFrame(function () { document.body.classList.add("si-loaded"); });
+
+            const form = document.getElementById('energyProfileForm');
+            const recPanel = document.getElementById('recommendationsPanel');
+            const recCards = document.getElementById('recCards');
+            const editBtn = document.getElementById('epEditBtn');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // 1. Gather Inputs
+                const state = document.getElementById('epState').value;
+                const units = parseInt(document.getElementById('epUnits').value, 10) || 0;
+
+                // Read rooftop availability directly from the radio inputs
+                const hasRooftop = document.querySelector('input[name="rooftop"]:checked').value === 'yes';
+
+                // 2. Determine Recommendation Logic
+                let recType = '';
+                let recIcon = '';
+                let recDesc = '';
+                let recTitle = '';
+
+                if (hasRooftop && units >= 300) {
+                    recType = 'Hybrid (Rooftop + VSP)';
+                    recIcon = '⚡';
+                    recTitle = 'High Energy Hybrid Plan';
+                    const kw = Math.max(2, Math.floor(units / 120));
+                    recDesc = `Based on your high usage (${units} units) and rooftop availability in ${state}, we recommend a **${kw} kW Rooftop Solar** installation to offset base load, combined with a **Virtual Solar Subscription** to cover peak summer usage without overloading your roof space.`;
+                }
+                else if (hasRooftop && units < 300) {
+                    recType = 'Rooftop Solar';
+                    recIcon = '☀️';
+                    recTitle = 'Standard Rooftop Plan';
+                    const kw = Math.max(1, Math.round(units / 120));
+                    recDesc = `Based on your usage (${units} units) and rooftop availability, a straight **${kw} kW Rooftop Solar** system is perfect for your needs in ${state}, potentially wiping out 90% of your bill.`;
+                }
+                else {
+                    recType = 'Virtual Solar Plant (VSP)';
+                    recIcon = '🌐';
+                    recTitle = 'Virtual Solar Subscription';
+                    // Snap to closest VSP plan roughly (50, 100, 200...)
+                    let vspPlan = 50;
+                    if (units > 150) vspPlan = 200;
+                    else if (units > 75) vspPlan = 100;
+
+                    recDesc = `Since you don't have rooftop access, we recommend subscribing to a **${vspPlan} Unit Virtual Solar (VSP)** plan. This allows you to legally offset your ${state} electricity bill using our off-site solar farms.`;
+                }
+
+                // 3. Inject HTML Card
+                recCards.innerHTML = `
+                    <article class="rec-card mb-3" style="padding: 1.25rem; border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-bg); animation: vmCardIn 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                            <div style="font-size: 1.5rem; background: rgba(0, 212, 232, 0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">${recIcon}</div>
+                            <div>
+                                <h3 class="m-0" style="font-size: 1rem; color: var(--color-text-primary);">${recTitle}</h3>
+                                <span style="font-size: 0.7rem; font-weight: 700; color: #00d4e8; text-transform: uppercase;">${recType}</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; margin: 0.5rem 0 1rem;">
+                            ${recDesc.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
+                        </p>
+                        <button class="btn btn-primary" style="width: 100%; padding: 0.75rem; text-align: center;" onclick="window.location.href='vendor-marketplace.html'">
+                            View Matching Plans →
+                        </button>
+                    </article>
+                `;
+
+                // 4. Toggle UI state
+                form.hidden = true;
+                recPanel.hidden = false;
+            });
+
+            editBtn.addEventListener('click', () => {
+                recPanel.hidden = true;
+                form.hidden = false;
+            });
+        });
+    </script>
+</body>
+
+</html>

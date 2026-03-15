@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Settings - Company - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/profile.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="flex items-center gap-4">
+                    <button class="back-btn" onclick="window.location.href='dashboard-company.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h1 class="dashboard-title h1-compact">Company Settings</h1>
+                        <p class="dashboard-subtitle text-xs">Manage your energy enterprise suite</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-company.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span class="notification-badge">7</span>
+                    </button>
+                    <button class="profile-btn" onclick="window.location.href='profile-company.html'" title="Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="logout-btn-header" onclick="handleLogout()" title="Logout">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <b>LOGOUT</b>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="profile-grid">
+                <!-- Left Column: Profile Card -->
+                <div class="profile-left-column">
+                    <section class="profile-section">
+                        <div class="profile-card">
+                            <div class="profile-avatar">
+                                <div class="avatar-circle" id="profilePicContainer">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="defaultAvatar">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <img id="profilePic"
+                                        style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                    <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+                                    <button class="edit-avatar-btn"
+                                        onclick="document.getElementById('profilePicInput').click()"
+                                        style="position: absolute; bottom: 0; right: 0; width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--color-white); background: var(--color-text-primary); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            style="width: 18px; height: 18px;">
+                                            <path
+                                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                                                stroke="currentColor" stroke-width="2" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor"
+                                                stroke-width="2" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="profile-info">
+                                <div class="name-container">
+                                    <h3 class="profile-name" id="profileName">Loading...</h3>
+                                </div>
+                                <p class="profile-email" id="profileEmail">Loading...</p>
+                                <p class="profile-id">Role: <span id="profileRole">Energy Company</span></p>
+                            </div>
+
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <p class="stat-value">Tier 1</p>
+                                    <p class="stat-label">Access Level</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-value">12.4 GW</p>
+                                    <p class="stat-label">Grid Load</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-value">99.9%</p>
+                                    <p class="stat-label">Uptime</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Settings and Compliance -->
+                <div class="profile-right-column">
+                    <!-- Account Settings -->
+                    <section class="account-section">
+                        <h2 class="section-title">Organization Settings</h2>
+                        <div class="settings-list">
+                            <div class="settings-item">
+                                <div class="settings-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1m-5 4h1m4 0h1m-5 4h1m4 0h1"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="settings-content">
+                                    <p class="settings-title">Organization Details</p>
+                                    <p class="settings-description">Manage entity info and legal documentation</p>
+                                </div>
+                                <svg class="chevron-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="settings-item">
+                                <div class="settings-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m12-9a4 4 0 11-8 0 4 4 0 018 0zm2 10V12m0 0l-3 3m3-3l3 3"
+                                            stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="settings-content">
+                                    <p class="settings-title">Team Management</p>
+                                    <p class="settings-description">Manage administrative user access</p>
+                                </div>
+                                <svg class="chevron-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Compliance -->
+                    <section class="preferences-section">
+                        <h2 class="section-title">Compliance & Regulation</h2>
+                        <div class="preferences-card">
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <p class="preference-title">Regulatory Reporting</p>
+                                    <p class="preference-description">Automated monthly reports</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-solar.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Solar</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-buildings.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1m-5 4h1m4 0h1m-5 4h1m4 0h1"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Buildings</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-ai-control.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>AI Control</span>
+            </button>
+            <button class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke-linecap="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+    </div>
+
+
+    <script src="../../components/login.js"></script>
+    <script>
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        async function loadProfile() {
+            try {
+                const summary = await apiCall('/company/grid-summary');
+
+                document.getElementById('profileName').textContent = localStorage.getItem('userName') || 'Organization Name';
+                document.getElementById('profileEmail').textContent = localStorage.getItem('userEmail') || 'corp@example.com';
+                document.getElementById('profileRole').textContent = 'Energy Company';
+
+                const profileData = await apiCall(`/company/profile?email=${email}`);
+                if (profileData.profile_pic) {
+                    const img = document.getElementById('profilePic');
+                    const svg = document.getElementById('defaultAvatar');
+                    img.src = profileData.profile_pic;
+                    img.style.display = 'block';
+                    svg.style.display = 'none';
+                }
+
+                // Update Stats
+                const statValues = document.querySelectorAll('.stat-value');
+                statValues[0].textContent = 'Tier 1';
+                statValues[1].textContent = `${(summary.total_demand / 1000).toFixed(1)} GW`;
+                statValues[2].textContent = '99.9%'; // Static uptime
+
+            } catch (error) {
+                console.error('Failed to load company profile:', error);
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            window.location.href='/login.html';
+        }
+
+        async function handleProfilePicUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function (e) {
+                const base64Image = e.target.result;
+                const email = localStorage.getItem('userEmail');
+
+                try {
+                    await apiCall('/company/profile/update', 'POST', {
+                        email: email,
+                        profile_pic: base64Image
+                    });
+
+                    const img = document.getElementById('profilePic');
+                    const svg = document.getElementById('defaultAvatar');
+                    img.src = base64Image;
+                    img.style.display = 'block';
+                    svg.style.display = 'none';
+                    showToast('Logo updated!');
+                } catch (error) {
+                    console.error('Failed to upload profile pic:', error);
+                    alert('Failed to upload logo.');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.getElementById('profilePicInput').addEventListener('change', handleProfilePicUpload);
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

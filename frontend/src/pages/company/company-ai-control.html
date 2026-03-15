@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="description" content="AI Control — load forecast, peak risk, and capacity intelligence.">
+    <title>AI Control — EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <style>
+        .ai-section {
+            background: var(--color-white);
+            border-radius: 16px;
+            border: 1px solid var(--color-border);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04)
+        }
+
+        .ai-title {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--color-text-secondary);
+            margin-bottom: .8rem;
+            display: flex;
+            align-items: center;
+            gap: .4rem
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: adot 2s infinite
+        }
+
+        @keyframes adot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7)
+            }
+        }
+
+        /* Risk card */
+        .ai-risk-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .6rem;
+            margin-bottom: .5rem
+        }
+
+        .ai-risk-card {
+            background: var(--color-bg);
+            border-radius: 13px;
+            padding: .8rem;
+            border: 1px solid var(--color-border)
+        }
+
+        .ai-risk-val {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--color-text-primary)
+        }
+
+        .ai-risk-unit {
+            font-size: .67rem;
+            color: var(--color-text-secondary);
+            margin-left: 2px
+        }
+
+        .ai-risk-lbl {
+            font-size: .62rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--color-text-muted);
+            margin-top: .25rem
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: .28rem .75rem;
+            border-radius: 50px;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-top: .5rem
+        }
+
+        .risk-Low {
+            background: rgba(16, 185, 129, .1);
+            color: #059669
+        }
+
+        .risk-Medium {
+            background: rgba(245, 158, 11, .1);
+            color: #d97706
+        }
+
+        .risk-High {
+            background: rgba(239, 68, 68, .1);
+            color: #dc2626
+        }
+
+        .cap-bar {
+            height: 8px;
+            border-radius: 99px;
+            background: var(--color-border);
+            overflow: hidden;
+            margin: .5rem 0 .25rem
+        }
+
+        .cap-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 1s ease
+        }
+
+        /* Forecast chart */
+        #forecastCanvas {
+            width: 100% !important
+        }
+
+        .fc-legend {
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+            font-size: .7rem;
+            margin-bottom: .55rem
+        }
+
+        .fc-ldot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 3px
+        }
+
+        /* AI Alerts */
+        .alert-item {
+            display: flex;
+            gap: .65rem;
+            padding: .65rem 0;
+            border-bottom: 1px solid var(--color-border)
+        }
+
+        .alert-item:last-child {
+            border-bottom: none
+        }
+
+        .alert-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: .85rem
+        }
+
+        .alert-msg {
+            font-size: .75rem;
+            color: var(--color-text-primary);
+            line-height: 1.45;
+            flex: 1
+        }
+
+        .alert-meta {
+            font-size: .62rem;
+            color: var(--color-text-muted);
+            margin-top: .15rem
+        }
+
+        .ai-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            font-size: .82rem
+        }
+
+        .ai-spinner::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid var(--color-border);
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin .8s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .ai-empty {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--color-text-muted);
+            font-size: .82rem
+        }
+
+        .ai-refresh {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .67rem;
+            color: var(--color-text-muted);
+            padding: 0 .1rem .65rem
+        }
+
+        .ai-live {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            display: inline-block;
+            margin-right: 4px;
+            animation: adot 1.5s infinite
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="dashboard-title h1-compact">AI Control</h1>
+                    <p class="dashboard-subtitle text-xs">Load forecast, peak risk &amp; capacity intelligence</p>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-company.html'">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="ai-refresh">
+                <span><span class="ai-live"></span>Live · refreshes every 5 s</span>
+                <span id="aiUpdated">—</span>
+            </div>
+
+            <!-- Peak risk & utilization -->
+            <div class="ai-section">
+                <p class="ai-title"><span class="live-dot" style="background:#8b5cf6"></span>Capacity &amp; Peak Risk
+                </p>
+                <div id="riskContent" class="ai-spinner">Loading…</div>
+            </div>
+
+            <!-- Load Forecast Chart -->
+            <div class="ai-section">
+                <p class="ai-title"><span class="live-dot" style="background:#f59e0b"></span>8-Hour Load Forecast</p>
+                <div class="fc-legend">
+                    <span><span class="fc-ldot" style="background:#f59e0b"></span>Load (MW)</span>
+                    <span><span class="fc-ldot" style="background:#ef4444"></span>High risk</span>
+                    <span><span class="fc-ldot" style="background:#f59e0b"></span>Medium</span>
+                    <span><span class="fc-ldot" style="background:#10b981"></span>Low</span>
+                </div>
+                <canvas id="forecastCanvas" height="150"></canvas>
+                <p id="fcEmpty" class="ai-empty" style="display:none">No forecast available.</p>
+            </div>
+
+            <!-- AI Alerts -->
+            <div class="ai-section" style="margin-bottom:5.5rem">
+                <p class="ai-title"><span class="live-dot" style="background:#10b981"></span>AI Alerts</p>
+                <div id="alertsContent" class="ai-spinner">Loading…</div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-solar.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Solar</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-buildings.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1m-5 4h1m4 0h1m-5 4h1m4 0h1"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Buildings</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='company-ai-control.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>AI Control</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke-linecap="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        function fmt(v, d = 1) { if (v == null || isNaN(v)) return '—'; return parseFloat(v).toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+        const RISK_COLOR = { High: '#ef4444', Medium: '#f59e0b', Low: '#10b981' };
+
+        async function loadRisk() {
+            const el = document.getElementById('riskContent');
+            try {
+                const d = await apiCall('/api/company/ai-status');
+                const uc = d.capacity_utilization_percent > 85 ? '#ef4444' : d.capacity_utilization_percent > 70 ? '#f59e0b' : '#10b981';
+                el.innerHTML = `
+        <div class="ai-risk-grid">
+            <div class="ai-risk-card">
+                <div class="ai-risk-val" style="color:${uc}">${d.capacity_utilization_percent}<span class="ai-risk-unit">%</span></div>
+                <div class="ai-risk-lbl">Capacity Utilized</div>
+            </div>
+            <div class="ai-risk-card">
+                <div class="ai-risk-val">${fmt(d.current_load_mw)}<span class="ai-risk-unit">MW</span></div>
+                <div class="ai-risk-lbl">Current Load</div>
+            </div>
+            <div class="ai-risk-card">
+                <div class="ai-risk-val">${fmt(d.grid_capacity_mw)}<span class="ai-risk-unit">MW</span></div>
+                <div class="ai-risk-lbl">Grid Capacity</div>
+            </div>
+            <div class="ai-risk-card">
+                <div class="ai-risk-val" style="color:${d.solar_available ? '#10b981' : '#6b7280'}">${d.solar_available ? 'ON' : 'OFF'}</div>
+                <div class="ai-risk-lbl">Solar Available</div>
+            </div>
+        </div>
+        <div class="cap-bar"><div class="cap-fill" style="width:${Math.min(100, d.capacity_utilization_percent)}%;background:${uc}"></div></div>
+        <p style="font-size:.62rem;color:var(--color-text-muted);margin-bottom:.35rem">${fmt(d.subscribed_kw, 1)} kW of ${fmt(d.total_capacity_kw, 0)} kW subscribed</p>
+        <span class="risk-badge risk-${d.peak_risk}">${{ High: '🔴 High Risk', Medium: '⚠️ Medium Risk', Low: '✅ Low Risk' }[d.peak_risk] || d.peak_risk}</span>`;
+            } catch (e) { el.innerHTML = '<p class="ai-empty">Risk data unavailable.</p>'; }
+        }
+
+        async function loadForecast() {
+            try {
+                const d = await apiCall('/api/grid/prediction');
+                const fc = d.hourly_forecast || [];
+                if (!fc.length) { document.getElementById('fcEmpty').style.display = 'block'; return; }
+                const canvas = document.getElementById('forecastCanvas');
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                const W = canvas.offsetWidth || 320, H = 150;
+                canvas.width = W; canvas.height = H;
+                const ctx = canvas.getContext('2d');
+                const PAD = { top: 14, right: 12, bottom: 28, left: 44 };
+                const pW = W - PAD.left - PAD.right, pH = H - PAD.top - PAD.bottom;
+                const vals = fc.map(f => f.load_mw);
+                const maxV = Math.max(...vals) * 1.15 || 1;
+                const tc = isDark ? '#9ca3af' : '#6b7280', gc = isDark ? 'rgba(255,255,255,.06)' : 'rgba(0,0,0,.05)';
+                ctx.clearRect(0, 0, W, H);
+                ctx.font = '10px Inter,sans-serif'; ctx.fillStyle = tc; ctx.textAlign = 'right';
+                for (let i = 0; i <= 4; i++) {
+                    const y = PAD.top + (pH * i) / 4;
+                    ctx.strokeStyle = gc; ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + pW, y); ctx.stroke();
+                    ctx.fillText((maxV * (1 - i / 4)).toFixed(1), PAD.left - 4, y + 3);
+                }
+                ctx.textAlign = 'center';
+                fc.forEach((f, i) => {
+                    const x = PAD.left + (i / (fc.length - 1 > 0 ? fc.length - 1 : 1)) * pW;
+                    ctx.fillStyle = tc; ctx.fillText(f.time, x, H - 4);
+                    // bar
+                    const barW = pW / (fc.length * 1.6);
+                    const bH = (f.load_mw / maxV) * pH;
+                    const bX = x - barW / 2;
+                    const bY = PAD.top + pH - bH;
+                    const bC = RISK_COLOR[f.risk] || '#3b82f6';
+                    // gradient bar
+                    const grad = ctx.createLinearGradient(0, bY, 0, bY + bH);
+                    grad.addColorStop(0, bC);
+                    grad.addColorStop(1, bC.replace(')', ',0.5)').replace('rgb', 'rgba'));
+                    ctx.fillStyle = grad;
+                    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bX, bY, barW, bH, 3) : ctx.rect(bX, bY, barW, bH);
+                    ctx.fill();
+                });
+                // capacity line
+                const capY = PAD.top + pH - (d.grid_capacity / maxV) * pH;
+                ctx.setLineDash([4, 3]); ctx.strokeStyle = 'rgba(239,68,68,.5)'; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(PAD.left, capY); ctx.lineTo(PAD.left + pW, capY); ctx.stroke();
+                ctx.setLineDash([]);
+            } catch (e) { document.getElementById('fcEmpty').style.display = 'block'; }
+        }
+
+        async function loadAlerts() {
+            const el = document.getElementById('alertsContent');
+            try {
+                const d = await apiCall('/api/grid/prediction');
+                const alerts = d.alerts || [];
+                if (!alerts.length) { el.innerHTML = '<p class="ai-empty">No active alerts.</p>'; return; }
+                const colorMap = { high: 'rgba(239,68,68,.12)', medium: 'rgba(245,158,11,.12)', low: 'rgba(16,185,129,.12)', info: 'rgba(59,130,246,.12)' };
+                el.innerHTML = alerts.map(a => `
+        <div class="alert-item">
+            <div class="alert-icon" style="background:${colorMap[a.severity] || colorMap.info}">${{ high: '🔴', medium: '⚠️', low: '✅', info: '📊' }[a.severity] || '💡'}</div>
+            <div>
+                <p class="alert-msg">${a.message}</p>
+                <p class="alert-meta">${a.time}</p>
+            </div>
+        </div>`).join('');
+            } catch (e) { el.innerHTML = '<p class="ai-empty">Alert data unavailable.</p>'; }
+        }
+
+        async function refresh() {
+            await Promise.all([loadRisk(), loadForecast(), loadAlerts()]);
+            document.getElementById('aiUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        document.addEventListener('DOMContentLoaded', () => { refresh(); setInterval(refresh, 5000); });
+        window.addEventListener('resize', loadForecast);
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }); })</script>
+</body>
+
+</html>

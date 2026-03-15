@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>html{background:#f8fafb}body{visibility:hidden}body.si-loaded{visibility:visible}</style>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/help-support.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <button class="back-btn" onclick="history.back()">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="header-text">
+                    <h1 class="dashboard-title">Help & Support</h1>
+                    <p class="dashboard-subtitle">We are here to help you</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Contact Support Section -->
+            <section class="contact-section">
+                <h2 class="section-title">Contact Support</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon email-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="contact-title">Email Support</h3>
+                        <p class="contact-detail">support@smartintellientergy.com</p>
+                        <p class="contact-time">Response within 24 hours</p>
+                        <button class="contact-btn">Send Email</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon phone-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="contact-title">Phone Support</h3>
+                        <p class="contact-detail">1-800-ENERGY-24</p>
+                        <p class="contact-time">Mon-Fri, 9 AM - 6 PM</p>
+                        <button class="contact-btn">Call Now</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon chat-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="contact-title">Live Chat</h3>
+                        <p class="contact-detail">Chat with our support team</p>
+                        <p class="contact-time">Available 24/7</p>
+                        <button class="contact-btn primary">Start Chat</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What is Energy-as-a-Service?</span>
+                            <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Energy-as-a-Service (EaaS) is a comprehensive energy solution where we handle all aspects
+                                of your energy needs - from solar panel installation to maintenance, monitoring, and
+                                billing. You pay a fixed monthly subscription instead of investing large upfront
+                                capital, making clean energy accessible and affordable.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How does the Virtual Solar Plant work?</span>
+                            <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>The Virtual Solar Plant is a community-owned solar installation where you can purchase
+                                shares without needing rooftop space. Your share generates clean energy that feeds into
+                                the grid, and you receive credits on your electricity bill proportional to your
+                                ownership percentage. It's perfect for apartments or homes without suitable roof space.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How is billing calculated?</span>
+                            <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Your monthly bill includes your subscription fee based on your plan (Basic, Standard, or
+                                Premium) plus any additional energy consumed beyond your plan's quota. Solar energy
+                                generated by your system is credited at the feed-in tariff rate. You can track real-time
+                                consumption and costs in your Energy Monitoring dashboard.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What is the lock-in period?</span>
+                            <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our standard subscription has a 24-month lock-in period to ensure system ROI. This
+                                commitment allows us to offer competitive pricing and quality service. After the lock-in
+                                period, you can upgrade, downgrade, or cancel with 30 days notice. Early termination
+                                fees may apply if you cancel before the lock-in period ends.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I cancel my subscription?</span>
+                            <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>After completing your lock-in period, you can cancel by submitting a cancellation request
+                                through your Profile & Settings page or by contacting our support team. We require 30
+                                days notice for cancellation. Our team will schedule equipment removal and process your
+                                final bill with any applicable credits or refunds.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What happens during a power outage?</span>
+                            <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>If you have a battery backup system included in your plan, your essential appliances will
+                                continue running during grid outages. Solar panels with battery storage can provide
+                                power for 4-8 hours depending on your usage and battery capacity. Without battery
+                                backup, your solar system will automatically shut down for safety reasons during grid
+                                outages.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Raise Ticket Section -->
+            <section class="ticket-section">
+                <h2 class="section-title">Raise a Support Ticket</h2>
+                <div class="ticket-card">
+                    <p class="ticket-description">Can't find what you're looking for? Submit a support ticket and our
+                        team will get back to you.</p>
+
+                    <form class="ticket-form" onsubmit="event.preventDefault(); submitTicket();">
+                        <div class="form-group">
+                            <label class="form-label">Issue Category</label>
+                            <select class="form-select" id="issue-category">
+                                <option value="">Select a category</option>
+                                <option value="billing">Billing & Payments</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="installation">Installation Request</option>
+                                <option value="account">Account Management</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Issue Description</label>
+                            <textarea class="form-textarea" id="issue-description" rows="5"
+                                placeholder="Please describe your issue in detail..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Priority</label>
+                            <div class="priority-options">
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="low" checked>
+                                    <span class="priority-label low">Low</span>
+                                </label>
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="medium">
+                                    <span class="priority-label medium">Medium</span>
+                                </label>
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="high">
+                                    <span class="priority-label high">High</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke="currentColor" stroke-width="2"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Submit Ticket
+                        </button>
+                    </form>
+
+                    <div class="success-message" id="success-message">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+                                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <p>Ticket submitted successfully! We'll get back to you within 24 hours.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section class="resources-section">
+                <h2 class="section-title">Helpful Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="resource-title">User Guide</h3>
+                        <p class="resource-description">Complete documentation on using all features</p>
+                        <button class="resource-btn">View Guide</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="resource-title">Video Tutorials</h3>
+                        <p class="resource-description">Step-by-step video guides and walkthroughs</p>
+                        <button class="resource-btn">Watch Videos</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                    stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="resource-title">Terms & Policies</h3>
+                        <p class="resource-description">Service agreements and privacy policies</p>
+                        <button class="resource-btn">Read Policies</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href="../homeowner/dashboard-home.html"">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href="../homeowner/energy-monitoring.html"">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href="../homeowner/virtual-solar.html"">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href="../homeowner/profile-homeowner.html"">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        // FAQ Toggle
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Submit Ticket
+        function submitTicket() {
+            const category = document.getElementById('issue-category').value;
+            const description = document.getElementById('issue-description').value;
+
+            if (!category || !description.trim()) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Show success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.add('show');
+
+            // Reset form
+            document.querySelector('.ticket-form').reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
+    </script>
+    <script>document.addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){document.body.classList.add("si-loaded")})})</script>
+</body>
+
+</html>

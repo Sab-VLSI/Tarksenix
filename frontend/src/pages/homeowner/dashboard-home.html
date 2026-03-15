@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Professional energy management dashboard for EnergyNest.">
+    <meta name="theme-color" content="#f8fafb">
+    <link rel="manifest" href="../../components/manifest.json">
+    <title>Home Dashboard - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/dashboard-home.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="dashboard-title h1-compact">Home Energy Dashboard</h1>
+                    <p class="dashboard-subtitle text-xs">Monitor your central energy usage</p>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-homeowner.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="profile-btn" onclick="window.location.href='profile-homeowner.html'" title="Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+
+            <!-- Vendor Selection Banner -->
+            <section class="vendor-banner mb-sm" id="vendorBanner">
+                <div class="vb-inner">
+                    <div class="vb-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>How your vendor is selected</strong>
+                        <span class="vb-info-icon" title="More info">ⓘ</span>
+                        <p class="vb-sub">Matched based on location, capacity, and performance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="qa-section mb-sm">
+                <h2 class="section-title text-sm mb-2">Quick Actions</h2>
+                <div class="qa-grid">
+                    <button class="qa-card" onclick="window.location.href='services-hub.html'">
+                        <div class="qa-icon qa-icon-service">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                        </div>
+                        <span class="qa-label">Apply for Service</span>
+                        <span class="qa-sublabel">Maintenance, Repair</span>
+                    </button>
+                    <button class="qa-card" onclick="window.location.href='energy-wallet.html'">
+                        <div class="qa-icon qa-icon-wallet">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" />
+                            </svg>
+                        </div>
+                        <span class="qa-label">Energy Wallet</span>
+                        <span class="qa-sublabel">Solar Credits & Net Metering</span>
+                    </button>
+                    <button class="qa-card" onclick="window.location.href='energy-strategy.html'">
+                        <div class="qa-icon qa-icon-strategy">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <line x1="3" y1="9" x2="21" y2="9" />
+                                <line x1="9" y1="21" x2="9" y2="9" />
+                            </svg>
+                        </div>
+                        <span class="qa-label">Energy Strategy</span>
+                        <span class="qa-sublabel">Smart Grid Optimizer</span>
+                    </button>
+                    <button class="qa-card" onclick="window.location.href='energy-credit-wallet.html'">
+                        <div class="qa-icon qa-icon-credits">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                        </div>
+                        <span class="qa-label">Solar Credits</span>
+                        <span class="qa-sublabel">GST Credit Allocation</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Energy Summary -->
+            <section class="es-section mb-sm">
+                <h2 class="section-title text-sm mb-2">Energy Summary</h2>
+                <div class="es-grid">
+                    <div class="es-card">
+                        <div class="es-card-icon es-icon-solar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="23" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                <line x1="1" y1="12" x2="3" y2="12" />
+                                <line x1="21" y1="12" x2="23" y2="12" />
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                            </svg>
+                        </div>
+                        <span class="es-card-label">Solar Generation</span>
+                        <span class="es-card-value" id="esSolarVal">— kWh</span>
+                        <span class="es-card-status es-status-warn" id="esSolarStatus">No device data connected yet.
+                            Connect your smart meter to see live data.</span>
+                    </div>
+                    <div class="es-card">
+                        <div class="es-card-icon es-icon-grid">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                        </div>
+                        <span class="es-card-label">Grid Consumption</span>
+                        <span class="es-card-value" id="esGridVal">— kWh</span>
+                        <span class="es-card-status es-status-warn" id="esGridStatus">Smart meter not connected</span>
+                    </div>
+                    <div class="es-card">
+                        <div class="es-card-icon es-icon-battery">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                                <rect x="1" y="6" width="18" height="12" rx="2" ry="2" />
+                                <line x1="23" y1="13" x2="23" y2="11" />
+                            </svg>
+                        </div>
+                        <span class="es-card-label">Battery Status</span>
+                        <span class="es-card-value" id="esBattVal">—%</span>
+                        <span class="es-card-status es-status-ok" id="esBattStatus">Charging</span>
+                    </div>
+                    <div class="es-card">
+                        <div class="es-card-icon es-icon-savings">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        <span class="es-card-label">Monthly Savings</span>
+                        <span class="es-card-value" id="esSavingsVal">₹—</span>
+                        <span class="es-card-status es-status-neutral" id="esSavingsStatus">Available after billing
+                            cycle</span>
+                    </div>
+                </div>
+            </section>
+
+            </section>
+
+            <!-- Monthly Energy Summary (Demo) -->
+            <section class="mb-sm">
+                <style>
+                    .demo-summary-box {
+                        background: linear-gradient(135deg, #1e293b, #0f172a);
+                        border-radius: var(--radius-lg);
+                        padding: 1.5rem;
+                        color: white;
+                        margin-bottom: 1rem;
+                        border: 1px solid var(--color-border);
+                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                    }
+                    [data-theme="light"] .demo-summary-box {
+                        background: white;
+                        color: var(--color-text-primary);
+                    }
+                    .ds-row {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.5rem 0;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    }
+                    [data-theme="light"] .ds-row {
+                        border-bottom: 1px solid var(--color-border);
+                    }
+                    .ds-total {
+                        font-size: 1.25rem;
+                        font-weight: 700;
+                        padding-top: 1rem;
+                        margin-top: 0.5rem;
+                        border-top: 2px dashed rgba(255,255,255,0.2);
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    [data-theme="light"] .ds-total {
+                        border-top: 2px dashed var(--color-border);
+                    }
+                    .pay-btn {
+                        width: 100%;
+                        background: linear-gradient(135deg, #00d4e8, #00b0c2);
+                        color: white;
+                        border: none;
+                        padding: 1rem;
+                        border-radius: var(--radius-md);
+                        font-weight: 600;
+                        font-size: 1.05rem;
+                        cursor: pointer;
+                        margin-top: 1.5rem;
+                        transition: transform 0.2s;
+                    }
+                </style>
+                <h2 class="section-title text-sm mb-2">Monthly Energy Summary</h2>
+                <div class="demo-summary-box">
+                    <div class="ds-row">
+                        <span>Total Units Used</span>
+                        <strong id="dsTotalUnits">-- kWh</strong>
+                    </div>
+                    <div class="ds-row">
+                        <span style="color: #10b981;">Solar Energy Used</span>
+                        <strong id="dsSolarUsed">-- kWh</strong>
+                    </div>
+                    <div class="ds-row">
+                        <span style="color: #ef4444;">Grid Energy Used</span>
+                        <strong id="dsGridUsed">-- kWh</strong>
+                    </div>
+                    
+                    <div class="ds-total">
+                        <span>Estimated Bill</span>
+                        <span id="dsEstimatedBill">₹--</span>
+                    </div>
+
+                    <button class="pay-btn" onclick="window.location.href='billing.html'">Pay Bill Summary -> </button>
+                </div>
+            </section>
+
+            <!-- Bill Reduction Card (Demo) -->
+            <section class="mb-sm">
+                <h2 class="section-title text-sm mb-2">Impact of Solar EaaS</h2>
+                <div class="demo-summary-box" style="background: linear-gradient(135deg, #064e3b, #022c22); border-color: #059669; color: white;">
+                    <div class="ds-row" style="border-bottom-color: rgba(255,255,255,0.2);">
+                        <span>Bill Without Solar</span>
+                        <strong style="text-decoration: line-through; opacity: 0.8;" id="dsBillWithoutSolar">₹--</strong>
+                    </div>
+                    <div class="ds-row" style="border-bottom-color: rgba(255,255,255,0.2);">
+                        <span>Bill With Solar</span>
+                        <strong id="dsBillWithSolar">₹--</strong>
+                    </div>
+                    
+                    <div class="ds-total" style="border-top-color: rgba(255,255,255,0.3); color: #34d399;">
+                        <span>Total Savings</span>
+                        <span id="dsTotalSavings">₹-- / month</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solar Savings Impact -->
+            <section class="ssi-section mb-sm">
+                <h2 class="section-title text-sm mb-2">🏆 Solar Savings Impact</h2>
+                <div class="ssi-card">
+                    <div class="ssi-row">
+                        <div class="ssi-stat">
+                            <span class="ssi-stat-value" id="ssiSolarGen">234.1</span>
+                            <span class="ssi-stat-label">SOLAR ENERGY GEN</span>
+                            <span class="ssi-stat-unit">kWh this month</span>
+                        </div>
+                        <div class="ssi-stat">
+                            <span class="ssi-stat-value" id="ssiAvoided">234.1</span>
+                            <span class="ssi-stat-label">SOLAR UNITS AVOIDED</span>
+                            <span class="ssi-stat-unit">kWh drawn from grid</span>
+                        </div>
+                    </div>
+                    <div class="ssi-row">
+                        <div class="ssi-stat">
+                            <span class="ssi-stat-value ssi-green" id="ssiSavings">₹1287.55</span>
+                            <span class="ssi-stat-label">MONEY SAVED</span>
+                            <span class="ssi-stat-unit">in this billing cycle</span>
+                        </div>
+                        <div class="ssi-stat">
+                            <span class="ssi-stat-value ssi-green" id="ssiCo2">191.06 kg</span>
+                            <span class="ssi-stat-label">CARBON SAVED</span>
+                            <span class="ssi-stat-unit">kg CO₂ offset</span>
+                        </div>
+                    </div>
+                    <div class="ssi-footer">
+                        <span>energy_saved = solar_units × ₹5.5/kWh</span>
+                        <span>carbon_saved = solar_units × 0.82 kg CO₂/kWh</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="../../components/login.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            requestAnimationFrame(function () { document.body.classList.add("si-loaded"); });
+            
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                try {
+                    const billingData = await apiCall(`/api/billing/${userId}`, 'GET');
+                    if (billingData) {
+                        const totalUnits = (billingData.grid_units + billingData.solar_credits).toFixed(1);
+                        document.getElementById('dsTotalUnits').textContent = `${totalUnits} kWh`;
+                        document.getElementById('dsSolarUsed').textContent = `${billingData.solar_credits} kWh`;
+                        document.getElementById('dsGridUsed').textContent = `${billingData.grid_units} kWh`;
+                        document.getElementById('dsEstimatedBill').textContent = `₹${billingData.final_bill}`;
+                        
+                        const withoutSolar = billingData.grid_cost + (billingData.solar_credits * billingData.tariff_per_unit) + billingData.subscription_cost;
+                        
+                        document.getElementById('dsBillWithoutSolar').textContent = `₹${withoutSolar.toFixed(2)}`;
+                        document.getElementById('dsBillWithSolar').textContent = `₹${billingData.final_bill}`;
+                        document.getElementById('dsTotalSavings').textContent = `₹${billingData.solar_savings_inr} / month`;
+
+                        document.getElementById('ssiSolarGen').textContent = `${billingData.solar_credits}`;
+                        document.getElementById('ssiAvoided').textContent = `${billingData.solar_credits}`;
+                        document.getElementById('ssiSavings').textContent = `₹${billingData.solar_savings_inr}`;
+                        const co2Saved = (billingData.solar_credits * 0.82).toFixed(2);
+                        document.getElementById('ssiCo2').textContent = `${co2Saved} kg`;
+
+                        document.getElementById('esSolarVal').textContent = `${billingData.solar_credits} kWh`;
+                        document.getElementById('esSolarStatus').textContent = `Active virtual coverage`;
+                        document.getElementById('esSolarStatus').className = 'es-card-status es-status-ok';
+
+                        document.getElementById('esGridVal').textContent = `${billingData.grid_units} kWh`;
+                        document.getElementById('esGridStatus').textContent = `Billed directly`;
+                        document.getElementById('esGridStatus').className = 'es-card-status es-status-ok';
+                        
+                        document.getElementById('esSavingsVal').textContent = `₹${billingData.solar_savings_inr}`;
+                        document.getElementById('esSavingsStatus').textContent = `Saved this month`;
+                        document.getElementById('esSavingsStatus').className = 'es-card-status es-status-ok';
+                    }
+                } catch (e) {
+                    console.error("Failed to load dashboard data", e);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

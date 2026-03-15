@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="description" content="Energy Company Dashboard — Virtual Solar Plant management console.">
+    <meta name="theme-color" content="#f8fafb">
+    <link rel="manifest" href="../../components/manifest.json">
+    <title>Dashboard — EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+
+        /* Hero gradient banner */
+        .dc-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0d4c2e 100%);
+            border-radius: 20px;
+            padding: 1.25rem 1.1rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .dc-hero-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: .15rem
+        }
+
+        .dc-hero-sub {
+            font-size: .7rem;
+            opacity: .7;
+            margin-bottom: 1rem
+        }
+
+        .dc-hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: .5rem;
+            background: rgba(255, 255, 255, .07);
+            border-radius: 12px;
+            padding: .65rem
+        }
+
+        .dchs-val {
+            font-size: 1.1rem;
+            font-weight: 800;
+            line-height: 1
+        }
+
+        .dchs-lbl {
+            font-size: .58rem;
+            opacity: .65;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-top: .2rem
+        }
+
+        /* 2×2 stat cards */
+        .dc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .65rem;
+            margin-bottom: 1rem
+        }
+
+        .dc-card {
+            background: var(--color-white);
+            border-radius: 16px;
+            border: 1px solid var(--color-border);
+            padding: .9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04)
+        }
+
+        .dc-card.wide {
+            grid-column: 1/-1
+        }
+
+        .dc-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: .45rem
+        }
+
+        .dc-icon svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .dc-val {
+            font-size: 1.45rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--color-text-primary)
+        }
+
+        .dc-unit {
+            font-size: .67rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            margin-left: 2px
+        }
+
+        .dc-lbl {
+            font-size: .62rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--color-text-muted);
+            margin-top: .28rem
+        }
+
+        /* Quick-action row */
+        .dc-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: .5rem;
+            margin-bottom: 1rem
+        }
+
+        .dc-action-btn {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 14px;
+            padding: .7rem .4rem;
+            cursor: pointer;
+            text-align: center;
+            transition: .15s
+        }
+
+        .dc-action-btn:active {
+            transform: scale(.95)
+        }
+
+        .dc-action-icon {
+            font-size: 1.2rem;
+            margin-bottom: .25rem
+        }
+
+        .dc-action-lbl {
+            font-size: .6rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .dc-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            font-size: .82rem
+        }
+
+        .dc-spinner::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, .2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin .8s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .dc-refresh {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .67rem;
+            color: var(--color-text-muted);
+            padding: 0 .1rem .65rem
+        }
+
+        .dc-live {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            display: inline-block;
+            margin-right: 4px;
+            animation: lpulse 1.5s infinite
+        }
+
+        @keyframes lpulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="dashboard-title h1-compact">Energy Company</h1>
+                    <p class="dashboard-subtitle text-xs">Virtual Solar Plant Management Console</p>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-company.html'">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="notification-badge" id="notifBadge" style="display:none"></span>
+                    </button>
+                    <button class="profile-btn" onclick="window.location.href='profile-company.html'">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="dc-refresh">
+                <span><span class="dc-live"></span>Live · refreshes every 5 s</span>
+                <span id="dcUpdated">—</span>
+            </div>
+
+            <!-- Hero / primary stats -->
+            <div class="dc-hero">
+                <p class="dc-hero-title">☀️ Today's Solar Overview</p>
+                <p class="dc-hero-sub">Virtual Solar Plant → DISCOM → Buildings → Subscribers</p>
+                <div class="dc-hero-stats" id="heroStats">
+                    <div class="dc-spinner" style="grid-column:1/-1;padding:1rem"></div>
+                </div>
+            </div>
+
+            <!-- 4 metric cards -->
+            <div class="dc-grid" id="metricCards">
+                <!-- populated by JS -->
+            </div>
+
+            <!-- Quick nav actions -->
+            <div class="dc-actions">
+                <button class="dc-action-btn" onclick="window.location.href='company-solar.html'">
+                    <div class="dc-action-icon">☀️</div>
+                    <div class="dc-action-lbl">Solar</div>
+                </button>
+                <button class="dc-action-btn" onclick="window.location.href='company-buildings.html'">
+                    <div class="dc-action-icon">🏢</div>
+                    <div class="dc-action-lbl">Buildings</div>
+                </button>
+                <button class="dc-action-btn" onclick="window.location.href='company-ai-control.html'">
+                    <div class="dc-action-icon">🤖</div>
+                    <div class="dc-action-lbl">AI Control</div>
+                </button>
+                <button class="dc-action-btn" onclick="window.location.href='alerts-company.html'">
+                    <div class="dc-action-icon">🔔</div>
+                    <div class="dc-action-lbl">Alerts</div>
+                </button>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="window.location.href='dashboard-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-solar.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Solar</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-buildings.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1m-5 4h1m4 0h1m-5 4h1m4 0h1"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Buildings</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='company-ai-control.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>AI Control</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-company.html'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke-linecap="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        function fmt(v, d = 1) { if (v == null || isNaN(v)) return '—'; return parseFloat(v).toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+
+        async function loadDashboard() {
+            try {
+                const d = await apiCall('/api/company/overview');
+                // Hero 3-stat bar
+                document.getElementById('heroStats').innerHTML = `
+        <div><div class="dchs-val">${fmt(d.solar_generated_today, 0)}</div><div class="dchs-lbl">kWh Generated</div></div>
+        <div><div class="dchs-val">${fmt(d.allocated_today, 0)}</div><div class="dchs-lbl">kWh Allocated</div></div>
+        <div><div class="dchs-val">${d.active_subscribers}</div><div class="dchs-lbl">Subscribers</div></div>`;
+
+                // 4 metric cards
+                document.getElementById('metricCards').innerHTML = `
+        <div class="dc-card">
+            <div class="dc-icon" style="background:rgba(245,158,11,.12)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round"/></svg>
+            </div>
+            <div class="dc-val">${fmt(d.solar_generated_today, 0)}<span class="dc-unit">kWh</span></div>
+            <div class="dc-lbl">Solar Generated</div>
+        </div>
+        <div class="dc-card">
+            <div class="dc-icon" style="background:rgba(16,185,129,.12)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="dc-val">${fmt(d.allocated_today, 0)}<span class="dc-unit">kWh</span></div>
+            <div class="dc-lbl">Allocated Today</div>
+        </div>
+        <div class="dc-card">
+            <div class="dc-icon" style="background:rgba(59,130,246,.12)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1m-5 4h1m4 0h1m-5 4h1m4 0h1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="dc-val">${d.active_buildings}<span class="dc-unit">bldg</span></div>
+            <div class="dc-lbl">Active Buildings</div>
+        </div>
+        <div class="dc-card">
+            <div class="dc-icon" style="background:rgba(239,68,68,.1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="dc-val">${fmt(d.grid_backup_today, 0)}<span class="dc-unit">kWh</span></div>
+            <div class="dc-lbl">Grid Backup Used</div>
+        </div>`;
+
+                // Alert badge
+                const ai = await apiCall('/api/grid/prediction');
+                const highAlerts = (ai.alerts || []).filter(a => a.severity === 'high').length;
+                const badge = document.getElementById('notifBadge');
+                if (highAlerts > 0) { badge.textContent = highAlerts; badge.style.display = 'block'; }
+            } catch (e) {
+                document.getElementById('heroStats').innerHTML = '<p style="grid-column:1/-1;text-align:center;opacity:.6;font-size:.8rem;padding:.5rem">No data available.</p>';
+            }
+        }
+
+        async function refresh() {
+            await loadDashboard();
+            document.getElementById('dcUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        document.addEventListener('DOMContentLoaded', () => { refresh(); setInterval(refresh, 5000); });
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }); })</script>
+</body>
+
+</html>

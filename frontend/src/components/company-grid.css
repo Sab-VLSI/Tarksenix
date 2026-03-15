@@ -1,0 +1,482 @@
+/* ===================================
+   Energy Company Grid Overview Styles
+   =================================== */
+
+/* Back Button */
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.back-btn:hover {
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-primary);
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Compact Layout Overrides */
+.dashboard-main {
+    padding-bottom: 80px;
+    /* Space for nav */
+}
+
+/* Summary Section Compact */
+.summary-section {
+    margin-bottom: var(--spacing-md);
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.summary-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    transition: all var(--transition);
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.summary-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.summary-icon svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.summary-card.demand .summary-icon {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.summary-card.supply .summary-icon {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.summary-card.balance .summary-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.summary-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.summary-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0;
+}
+
+.summary-value .unit {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.summary-detail {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.status-healthy {
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* Split View Layout */
+.grid-split-view {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    align-items: stretch;
+}
+
+.chart-section,
+.renewable-section {
+    margin-bottom: 0;
+}
+
+/* Compact Charts */
+.chart-card,
+.renewable-chart-card,
+.renewable-stats {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.demand-dot {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.supply-dot {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.chart-container {
+    height: 160px;
+    /* Smaller height */
+}
+
+.chart-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+    gap: var(--spacing-md);
+}
+
+.hour-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.bar {
+    width: 100%;
+    max-width: 30px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    transition: all var(--transition);
+}
+
+.demand-bar {
+    background: linear-gradient(to top, #ef4444, #f87171);
+}
+
+.supply-bar {
+    background: linear-gradient(to top, #3b82f6, #60a5fa);
+}
+
+.hour-group:hover .bar {
+    opacity: 0.8;
+}
+
+.hour-label {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
+.hour-group.active .hour-label {
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.section-title {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Renewable Compact */
+.renewable-grid {
+    display: flex;
+    gap: var(--spacing-md);
+    height: 100%;
+}
+
+.renewable-grid>* {
+    flex: 1;
+}
+
+.renewable-chart-card {
+    justify-content: center;
+    align-items: center;
+}
+
+.donut-chart {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.donut-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.donut-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.donut-percentage {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0;
+}
+
+.donut-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.renewable-stats {
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon svg {
+    width: 16px;
+    height: 16px;
+    color: white;
+}
+
+.stat-icon.solar {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.stat-icon.wind {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+}
+
+.stat-icon.thermal {
+    background: linear-gradient(135deg, #6b7280, #9ca3af);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+}
+
+.stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0;
+}
+
+.stat-percentage {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+}
+
+/* Peak Load Section Compact */
+.peak-section {
+    margin-bottom: var(--spacing-md);
+}
+
+.peak-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+}
+
+.heatmap-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    /* Tighter rows */
+    margin-bottom: var(--spacing-md);
+}
+
+.heatmap-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.row-label {
+    min-width: 60px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.heatmap-cells {
+    display: flex;
+    gap: 2px;
+    flex: 1;
+}
+
+.heat-cell {
+    flex: 1;
+    height: 24px;
+    /* Slimmer bars */
+    border-radius: var(--radius-md);
+    transition: all var(--transition);
+}
+
+.heat-cell:hover {
+    transform: scale(1.05);
+}
+
+.heat-cell.low {
+    background: #4ade80;
+    /* Green */
+}
+
+.heat-cell.medium {
+    background: #facc15;
+    /* Yellow */
+}
+
+.heat-cell.high {
+    background: #fb923c;
+    /* Orange */
+}
+
+.heat-cell.very-high {
+    background: #ef4444;
+    /* Red */
+}
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-sm);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+}
+
+.legend-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.legend-scale {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.scale-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.scale-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .grid-split-view {
+        grid-template-columns: 1fr;
+    }
+
+    .renewable-grid {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 768px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .renewable-grid {
+        flex-direction: column;
+    }
+
+    .chart-bars {
+        gap: var(--spacing-sm);
+    }
+
+    .heatmap-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .row-label {
+        min-width: auto;
+    }
+
+    .legend-scale {
+        flex-wrap: wrap;
+    }
+}

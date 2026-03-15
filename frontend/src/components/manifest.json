@@ -1,0 +1,16 @@
+{
+    "name": "EnergyNest",
+    "short_name": "SmartIntelli",
+    "description": "Professional Energy Management and Planning Suite",
+    "start_url": '../pages/shared/index.html',
+    "display": "standalone",
+    "background_color": "#f8fafb",
+    "theme_color": "#3b82f6",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        }
+    ]
+}

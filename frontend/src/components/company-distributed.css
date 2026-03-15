@@ -1,0 +1,576 @@
+/* ===================================
+   Distributed Energy Monitoring Styles
+   =================================== */
+
+/* Back Button */
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.back-btn:hover {
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-primary);
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Summary Section */
+.summary-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.summary-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: var(--spacing-md);
+    transition: all var(--transition);
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.summary-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.summary-icon svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.summary-card.homes .summary-icon {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.summary-card.generation .summary-icon {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.summary-card.import .summary-icon {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.summary-card.export .summary-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.summary-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.summary-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.125rem;
+}
+
+.summary-value .unit {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.summary-detail {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+}
+
+/* Energy Flow Section */
+.flow-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.flow-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+}
+
+.flow-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.import-dot {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.export-dot {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.flow-container {
+    height: 200px;
+}
+
+.flow-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+    gap: var(--spacing-lg);
+}
+
+.hour-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.bar-pair {
+    width: 100%;
+    max-width: 60px;
+    height: 100%;
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+}
+
+.import-bar,
+.export-bar {
+    flex: 1;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    transition: all var(--transition);
+}
+
+.import-bar {
+    background: linear-gradient(to top, #3b82f6, #60a5fa);
+}
+
+.export-bar {
+    background: linear-gradient(to top, #10b981, #34d399);
+}
+
+.hour-group:hover .import-bar,
+.hour-group:hover .export-bar {
+    opacity: 0.8;
+}
+
+.hour-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-sm);
+}
+
+.hour-group.active .hour-label {
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* Community Section */
+.community-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.community-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+}
+
+.community-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.community-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.time-badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50px;
+}
+
+.generation-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.stat-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.trend-chart {
+    height: 200px;
+}
+
+.trend-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+    gap: var(--spacing-sm);
+}
+
+.trend-bar {
+    flex: 1;
+    max-width: 40px;
+    background: linear-gradient(to top, #f59e0b, #fbbf24);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    transition: all var(--transition);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.trend-bar:hover {
+    opacity: 0.8;
+}
+
+.trend-bar.active {
+    background: var(--gradient-primary);
+}
+
+.trend-label {
+    position: absolute;
+    bottom: -24px;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.trend-bar.active .trend-label {
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* Clusters Section */
+.clusters-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.clusters-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.cluster-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition);
+}
+
+.cluster-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.cluster-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.cluster-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.cluster-detail {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.cluster-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+.cluster-status.active {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.cluster-status.moderate {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.cluster-status.low {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.metric-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--color-bg);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 50px;
+    transition: width var(--transition);
+}
+
+.progress-fill.moderate {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.progress-fill.low {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.metric-percentage {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+}
+
+/* Performers Section */
+.performers-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.performers-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+}
+
+.performer-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.performer-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition);
+}
+
+.performer-item:hover {
+    background: #e5e7eb;
+}
+
+.rank-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.rank-badge.gold {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.rank-badge.silver {
+    background: linear-gradient(135deg, #6b7280, #9ca3af);
+}
+
+.rank-badge.bronze {
+    background: linear-gradient(135deg, #d97706, #f59e0b);
+}
+
+.performer-info {
+    flex: 1;
+}
+
+.performer-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.performer-detail {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.performer-stats {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.stat-chip {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 0.5rem 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+.stat-chip svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .community-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-bars {
+        gap: var(--spacing-sm);
+    }
+
+    .bar-pair {
+        max-width: 40px;
+    }
+
+    .performer-item {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-value {
+        font-size: 1.75rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .cluster-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+}

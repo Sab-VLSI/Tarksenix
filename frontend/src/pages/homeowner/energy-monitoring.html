@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html {
+            background: #f8fafb
+        }
+
+        body {
+            visibility: hidden
+        }
+
+        body.si-loaded {
+            visibility: visible
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Monitoring - EnergyNest</title>
+    <link rel="stylesheet" href="../../components/dashboard-common.css">
+    <link rel="stylesheet" href="../../components/energy-monitoring.css">
+</head>
+
+<body>
+    <div class="dashboard-container compact-layout">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="flex items-center gap-4">
+                    <button class="back-btn" onclick="window.location.href='dashboard-home.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h1 class="dashboard-title h1-compact">Energy Monitoring</h1>
+                        <p class="dashboard-subtitle text-xs">Track your real-time energy usage</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="notification-btn" onclick="window.location.href='alerts-homeowner.html'">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="profile-btn" onclick="window.location.href='profile-homeowner.html'" title="Profile">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Time Filter -->
+            <section class="filter-section">
+                <div class="time-filter">
+                    <button class="filter-btn active" onclick="updatePeriod('hourly', this)">Hourly</button>
+                    <button class="filter-btn" onclick="updatePeriod('daily', this)">Daily</button>
+                    <button class="filter-btn" onclick="updatePeriod('monthly', this)">Monthly</button>
+                    <button class="filter-btn" onclick="updatePeriod('yearly', this)">Yearly</button>
+                </div>
+            </section>
+
+            <!-- Live Energy Usage Graph -->
+            <section class="graph-section">
+                <div class="graph-card">
+                    <div class="graph-header"
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2 class="section-title mb-0">Live Energy Usage</h2>
+                        <div class="live-status"
+                            style="display: flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.1); padding: 0.4rem 0.8rem; border-radius: 50px;">
+                            <span class="status-dot"
+                                style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite;"></span>
+                            <span id="live-power-txt"
+                                style="font-size: 0.8rem; font-weight: 700; color: #10b981; letter-spacing: 0.05em;">LIVE:
+                                4.6 kW</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-bars-horizontal" id="usage-chart">
+                            <div class="hour-bar" style="--height: 60%;">
+                                <span class="bar-value">3.2 kW</span>
+                                <span class="bar-label">00:00</span>
+                            </div>
+                            <div class="hour-bar" style="--height: 45%;">
+                                <span class="bar-value">2.4 kW</span>
+                                <span class="bar-label">04:00</span>
+                            </div>
+                            <div class="hour-bar" style="--height: 70%;">
+                                <span class="bar-value">4.1 kW</span>
+                                <span class="bar-label">08:00</span>
+                            </div>
+                            <div class="hour-bar" style="--height: 85%;">
+                                <span class="bar-value">5.2 kW</span>
+                                <span class="bar-label">12:00</span>
+                            </div>
+                            <div class="hour-bar active" style="--height: 75%;">
+                                <span class="bar-value">4.6 kW</span>
+                                <span class="bar-label">16:00</span>
+                            </div>
+                            <div class="hour-bar" style="--height: 90%;">
+                                <span class="bar-value">5.8 kW</span>
+                                <span class="bar-label">20:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Energy Source Breakdown -->
+            <section class="source-section">
+                <h2 class="section-title">Energy Source Breakdown</h2>
+                <div class="source-grid">
+                    <div class="source-card solar-source">
+                        <div class="source-icon">
+                            <img src="../../components/icon-solar.png" alt="Solar" class="source-img">
+                        </div>
+                        <div class="source-content">
+                            <p class="source-label">Solar Consumption</p>
+                            <p class="source-value" id="solar-val">8.4 <span class="unit">kWh</span></p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="solar-fill" style="width: 68%;"></div>
+                            </div>
+                            <p class="source-percentage" id="solar-pct">68% of total</p>
+                        </div>
+                    </div>
+
+                    <div class="source-card grid-source">
+                        <div class="source-icon">
+                            <img src="../../components/icon-grid.png" alt="Grid" class="source-img">
+                        </div>
+                        <div class="source-content">
+                            <p class="source-label">Grid Consumption</p>
+                            <p class="source-value" id="grid-val">4.0 <span class="unit">kWh</span></p>
+                            <div class="progress-bar">
+                                <div class="progress-fill grid-fill" id="grid-fill" style="width: 32%;"></div>
+                            </div>
+                            <p class="source-percentage" id="grid-pct">32% of total</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Battery Status -->
+            <section class="battery-section">
+                <h2 class="section-title">Battery Status</h2>
+                <div class="battery-card">
+                    <div class="battery-visual">
+                        <div class="battery-icon-large">
+                            <div class="battery-body">
+                                <div class="battery-level" id="batt-level" style="width: 85%;"></div>
+                            </div>
+                            <div class="battery-terminal"></div>
+                        </div>
+                    </div>
+                    <div class="battery-info">
+                        <div class="battery-stat">
+                            <p class="stat-label">Charge Level</p>
+                            <p class="stat-value" id="batt-pct">85%</p>
+                        </div>
+                        <div class="battery-stat">
+                            <p class="stat-label">Status</p>
+                            <p class="stat-value status-charging">
+                                <span class="status-dot"></span>
+                                Charging
+                            </p>
+                        </div>
+                        <div class="battery-stat">
+                            <p class="stat-label">Capacity</p>
+                            <p class="stat-value">5.2 kWh</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="window.location.href='dashboard-home.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item active" onclick="window.location.href='energy-monitoring.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Energy</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='services-hub.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span>Services</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='profile-homeowner.html'">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+    <script src="../../components/login.js"></script>
+    <script>
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        async function updatePeriod(period, btn) {
+            // Update active button state
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const chart = document.getElementById('usage-chart');
+
+            try {
+                // Fetch daily usage from Python Backend
+                const periodData = await apiCall(`/homeowner/energy/usage?period=${period}`);
+
+                chart.innerHTML = '';
+                if (periodData.length === 0 || (periodData[0] && periodData[0].note)) {
+                    chart.innerHTML = `<div style="text-align:center;padding:2rem;color:#9ca3af;font-size:0.85rem;line-height:1.6;">
+                        <span style="font-size:1.5rem;display:block;margin-bottom:0.5rem;">🔌</span>
+                        Waiting for Smart Meter Connection.<br>Connect an IoT energy meter to view real-time energy consumption.
+                    </div>`;
+                } else {
+                    periodData.forEach(item => {
+                        const bar = document.createElement('div');
+                        bar.className = 'hour-bar' + (item.active ? ' active' : '');
+                        bar.style.setProperty('--height', item.height);
+                        bar.innerHTML = `
+                            <span class="bar-value">${item.value}</span>
+                            <span class="bar-label">${item.label}</span>
+                        `;
+                        chart.appendChild(bar);
+                    });
+                }
+            } catch (error) {
+                chart.innerHTML = `<div style="text-align:center;padding:2rem;color:#9ca3af;font-size:0.85rem;line-height:1.6;">
+                        <span style="font-size:1.5rem;display:block;margin-bottom:0.5rem;">🔌</span>
+                        Waiting for Smart Meter Connection.<br>Connect an IoT energy meter to view real-time energy consumption.
+                    </div>`;
+                console.error('Failed to fetch usage data:', error);
+            }
+        }
+
+        async function loadIoTData() {
+            const email = localStorage.getItem('userEmail') || 'owner@smartintelli.com';
+            try {
+                const iot = await apiCall(`/api/iot/energy/${encodeURIComponent(email)}`);
+                if (!iot.connected) {
+                    // Show "Waiting for smart meter" in live status (disabled for hackathon demo to show numbers)
+                    // document.getElementById('live-power-txt').textContent = 'Waiting for meter';
+                }
+            } catch (e) {
+                console.log('IoT endpoint not reachable, simulating local demo data.');
+            }
+
+            // Hackathon Demo Simulation: Initialize Live Data Updates
+            simulateLiveData();
+        }
+
+        function simulateLiveData() {
+            let solarKwh = 8.4;
+            let gridKwh = 4.0;
+            let battPct = 85;
+
+            setInterval(() => {
+                // Randomly fluctuate values slightly to look alive
+                const livePower = (4.0 + Math.random() * 1.5).toFixed(1);
+                const liveTxt = document.getElementById('live-power-txt');
+                if (liveTxt) liveTxt.textContent = `LIVE: ${livePower} kW`;
+
+                solarKwh += Math.random() * 0.05;
+                gridKwh += Math.random() * 0.02;
+                
+                const total = solarKwh + gridKwh;
+                const solarPct = Math.round((solarKwh / total) * 100);
+                const gridPct = 100 - solarPct;
+
+                document.getElementById('solar-val').innerHTML = `${solarKwh.toFixed(1)} <span class="unit">kWh</span>`;
+                document.getElementById('solar-fill').style.width = `${solarPct}%`;
+                document.getElementById('solar-pct').textContent = `${solarPct}% of total`;
+
+                document.getElementById('grid-val').innerHTML = `${gridKwh.toFixed(1)} <span class="unit">kWh</span>`;
+                document.getElementById('grid-fill').style.width = `${gridPct}%`;
+                document.getElementById('grid-pct').textContent = `${gridPct}% of total`;
+
+                // Battery slowly charges up
+                if (battPct < 100) {
+                    battPct += Math.random() * 0.5;
+                }
+                const bPct = Math.min(100, battPct).toFixed(0);
+                document.getElementById('batt-level').style.width = `${bPct}%`;
+                document.getElementById('batt-pct').textContent = `${bPct}%`;
+
+            }, 2500); // update every 2.5 seconds
+        }
+
+        // Load initial data
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeBtn = document.querySelector('.filter-btn.active');
+            if (activeBtn) updatePeriod('hourly', activeBtn);
+        });
+    </script>
+
+    <script>document.addEventListener("DOMContentLoaded", function () { requestAnimationFrame(function () { document.body.classList.add("si-loaded") }) })</script>
+</body>
+
+</html>

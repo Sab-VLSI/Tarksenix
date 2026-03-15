@@ -1,0 +1,584 @@
+/* CSS Variables & Theme */
+:root,
+[data-theme="light"] {
+    /* Colors - Clean Energy Theme */
+    --color-bg-light: #f8fafb;
+    --color-bg-white: #ffffff;
+    --color-text-primary: #1a1f36;
+    --color-text-secondary: #697386;
+    --color-text-muted: #64748b;
+    --color-border: #e2e8f0;
+}
+
+[data-theme="dark"] {
+    --color-bg-light: #0f172a;
+    --color-bg-white: #1e293b;
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-border: #334155;
+}
+
+:root {
+
+    /* Energy accent colors */
+    --color-energy-cyan: #00d4e8;
+    --color-energy-lime: #a3e635;
+    --color-energy-blue: #3b82f6;
+    --color-energy-green: #22c55e;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #00d4e8 0%, #a3e635 100%);
+    --gradient-soft: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: 'Exo 2', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    /* Border radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================================
+   Global Reset & Base Styles
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--gradient-soft);
+    color: var(--color-text-primary);
+    line-height: 1.5;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================
+   Login Container
+   =================================== */
+.login-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    overflow: hidden;
+}
+
+/* ===================================
+   Background Decoration
+   =================================== */
+.bg-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.energy-particle {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    left: var(--x);
+    top: var(--y);
+    background: radial-gradient(circle, rgba(0, 212, 232, 0.15), transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: particleFloat 8s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes particleFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translate(30px, -30px) scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+/* ===================================
+   Main Card
+   =================================== */
+.login-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 440px;
+    max-height: calc(100vh - 40px);
+    background: var(--color-bg-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    animation: cardSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   Header Section
+   =================================== */
+.card-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.logo-icon {
+    width: 44px;
+    height: 44px;
+    animation: logoReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes logoReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-90deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.app-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.app-subtitle {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ===================================
+   Tab Switcher
+   =================================== */
+.tab-switcher {
+    position: relative;
+    display: flex;
+    background: var(--color-bg-light);
+    border-radius: var(--radius-lg);
+    padding: 0.2rem;
+    margin-bottom: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+.tab-btn:hover {
+    color: var(--color-text-primary);
+}
+
+.tab-btn.active {
+    color: var(--color-text-primary);
+}
+
+.tab-indicator {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    height: calc(100% - 0.5rem);
+    width: calc(50% - 0.25rem);
+    background: var(--color-bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-slow);
+    z-index: 1;
+}
+
+.tab-btn[data-tab="signup"].active~.tab-indicator {
+    transform: translateX(calc(100% + 0.25rem));
+}
+
+/* ===================================
+   Forms Container
+   =================================== */
+.forms-container {
+    position: relative;
+    overflow-y: auto;
+    padding-right: 4px;
+    flex-grow: 1;
+}
+
+.forms-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.forms-container::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+.auth-form {
+    display: none;
+    animation: formSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-form.active {
+    display: block;
+}
+
+@keyframes formSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===================================
+   Form Elements
+   =================================== */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    color: var(--color-text-primary);
+    background: var(--color-bg-light);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: all var(--transition-base);
+}
+
+.form-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.form-input:focus {
+    background: var(--color-bg-white);
+    border-color: var(--color-energy-cyan);
+    box-shadow: 0 0 0 4px rgba(0, 212, 232, 0.1);
+}
+
+.form-input:hover:not(:focus) {
+    border-color: rgba(0, 212, 232, 0.2);
+}
+
+/* ===================================
+   Buttons
+   =================================== */
+.btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* Primary button */
+.btn-primary {
+    color: white;
+    background: var(--gradient-primary);
+    box-shadow: 0 4px 12px rgba(0, 212, 232, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 212, 232, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary button */
+.btn-secondary {
+    color: var(--color-text-primary);
+    background: var(--color-bg-light);
+    border: 2px solid rgba(0, 212, 232, 0.2);
+}
+
+.btn-secondary:hover {
+    background: var(--color-bg-white);
+    border-color: var(--color-energy-cyan);
+}
+
+/* Button icon */
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--transition-base);
+}
+
+.btn:hover .btn-icon {
+    transform: translateX(4px);
+}
+
+/* ===================================
+   Forgot Password Button
+   =================================== */
+.forgot-password {
+    display: block;
+    width: auto;
+    margin: var(--spacing-md) auto;
+    padding: var(--spacing-xs) 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+.forgot-password:hover {
+    color: var(--color-energy-cyan);
+    text-decoration: underline;
+}
+
+/* ===================================
+   Divider
+   =================================== */
+.divider {
+    position: relative;
+    text-align: center;
+    margin: var(--spacing-xl) 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right,
+            transparent,
+            var(--color-text-muted) 20%,
+            var(--color-text-muted) 80%,
+            transparent);
+    opacity: 0.3;
+}
+
+.divider span {
+    position: relative;
+    display: inline-block;
+    padding: 0 var(--spacing-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-bg-white);
+    letter-spacing: 0.1em;
+}
+
+/* ===================================
+   Footer
+   =================================== */
+.page-footer {
+    margin-top: var(--spacing-xl);
+    text-align: center;
+}
+
+.page-footer p {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    max-width: 400px;
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 640px) {
+    .login-container {
+        padding: var(--spacing-md);
+    }
+
+    .login-card {
+        padding: var(--spacing-xl);
+    }
+
+    .app-name {
+        font-size: 1.5rem;
+    }
+
+    .form-input {
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: var(--spacing-lg);
+    }
+
+    .card-header {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .app-name {
+        font-size: 1.25rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.75rem;
+    }
+}
+
+/* ===================================
+   Accessibility
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus visible for keyboard navigation */
+.btn:focus-visible,
+.form-input:focus-visible,
+.tab-btn:focus-visible,
+.forgot-password:focus-visible {
+    outline: 2px solid var(--color-energy-cyan);
+    outline-offset: 2px;
+}
+
+/* ===================================
+   Role Selection
+   =================================== */
+.role-option input:checked+.role-card {
+    border-color: var(--color-energy-cyan);
+    background-color: rgba(0, 212, 232, 0.05);
+    box-shadow: 0 0 0 2px rgba(0, 212, 232, 0.2);
+}
+
+.role-card:hover {
+    border-color: var(--color-energy-cyan);
+    background-color: var(--color-bg-light);
+}
+
+/* ===================================
+   Import Fonts
+   =================================== */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');

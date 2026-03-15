@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnergyNest</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a2c42;
+            margin-bottom: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #dfe6e9;
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #636e72;
+            position: relative;
+            top: 1px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button.active {
+            color: #0984e3;
+            border-bottom-color: #0984e3;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h2 {
+            margin-top: 0;
+            color: #1a2c42;
+            font-size: 1.25rem;
+            border-bottom: 1px solid #dfe6e9;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-summary, .quick-setup, .service-request {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .profile-summary-grid, .form-grid {
+             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .summary-item, .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-item .label, .form-group label {
+            font-size: 0.875rem;
+            color: #636e72;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-item .value {
+            font-weight: 500;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            background-color: #f4f7f9;
+            border: 1px solid #dfe6e9;
+            border-radius: 20px;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn.selected, .btn:hover {
+            background-color: #0984e3;
+            color: #fff;
+            border-color: #0984e3;
+        }
+
+        .vendor-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .vendor-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .vendor-card .btn {
+            padding: 0.75rem 1.5rem;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .upload-btn {
+            border: 1px solid #0984e3;
+            color: #0984e3;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EnergyNest</h1>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'new-installation')">New Installation</button>
+            <button class="tab-button" onclick="openTab(event, 'service-maintenance')">Service / Maintenance</button>
+        </div>
+
+        <div id="new-installation" class="tab-content" style="display: block;">
+                        <div class="card profile-summary">
+                <h2>Profile Summary</h2>
+                <div class="profile-summary-grid">
+                    <div class="summary-item">
+                        <span class="label">State</span>
+                        <span class="value">California</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">City</span>
+                        <span class="value">San Diego</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Consumer Type</span>
+                        <span class="value">Residential</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Rooftop Availability</span>
+                        <span class="value">Yes</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Average Monthly Units</span>
+                        <span class="value">450 kWh</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card quick-setup">
+                <h2>Quick Setup</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>System Type</label>
+                        <div class="btn-group">
+                            <button class="btn selected">Rooftop Solar</button>
+                            <button class="btn">Virtual Solar (VSP)</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Required Solar Capacity</label>
+                        <div class="btn-group">
+                            <button class="btn">1 kW</button>
+                            <button class="btn">2 kW</button>
+                            <button class="btn">3 kW</button>
+                            <button class="btn selected">Not sure – Recommend for me</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Battery Option</label>
+                        <div class="btn-group">
+                            <button class="btn">No Battery</button>
+                            <button class="btn">Battery Required</button>
+                            <button class="btn selected">Suggest Best Option</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Installation Priority</label>
+                        <div class="btn-group">
+                            <button class="btn">Lowest Cost</button>
+                            <button class="btn">Best Service Quality</button>
+                            <button class="btn">Fastest Installation</button>
+                            <button class="btn selected">Maximum Bill Savings</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Installation Timeline</label>
+                        <div class="btn-group">
+                            <button class="btn">Immediately</button>
+                            <button class="btn selected">Within 1 month</button>
+                            <button class="btn">Within 3 months</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card recommended-vendors">
+                <h2>Recommended Vendors</h2>
+                <div class="vendor-card">
+                    <div class="vendor-details">
+                        <div><span class="label">Vendor</span><span class="value">Solaris Experts</span></div>
+                        <div><span class="label">Cost/kW</span><span class="value">₹48,000</span></div>
+                        <div><span class="label">SLA</span><span class="value">24h</span></div>
+                        <div><span class="label">Response Time</span><span class="value">4h</span></div>
+                        <div><span class="label">Rating</span><span class="value">4.9/5</span></div>
+                    </div>
+                    <button class="btn">Select Vendor</button>
+                </div>
+                <div class="vendor-card">
+                    <div class="vendor-details">
+                        <div><span class="label">Vendor</span><span class="value">SunPower</span></div>
+                        <div><span class="label">Cost/kW</span><span class="value">₹52,000</span></div>
+                        <div><span class="label">SLA</span><span class="value">48h</span></div>
+                        <div><span class="label">Response Time</span><span class="value">8h</span></div>
+                        <div><span class="label">Rating</span><span class="value">4.8/5</span></div>
+                    </div>
+                    <button class="btn">Select Vendor</button>
+                </div>
+                 <div class="vendor-card">
+                    <div class="vendor-details">
+                        <div><span class="label">Vendor</span><span class="value">GreenFuture</span></div>
+                        <div><span class="label">Cost/kW</span><span class="value">₹45,000</span></div>
+                        <div><span class="label">SLA</span><span class="value">36h</span></div>
+                        <div><span class="label">Response Time</span><span class="value">6h</span></div>
+                        <div><span class="label">Rating</span><span class="value">4.7/5</span></div>
+                    </div>
+                    <button class="btn">Select Vendor</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="service-maintenance" class="tab-content">
+                        <div class="card service-request">
+                <h2>Request Service</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Issue Type</label>
+                        <div class="btn-group">
+                            <button class="btn">Solar not generating power</button>
+                            <button class="btn">Inverter issue</button>
+                            <button class="btn">Battery issue</button>
+                            <button class="btn">Wiring problem</button>
+                            <button class="btn">Monitoring app issue</button>
+                            <button class="btn">Cleaning / preventive maintenance</button>
+                             <button class="btn">General inspection</button>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label>Priority</label>
+                        <div class="btn-group">
+                            <button class="btn">Normal</button>
+                            <button class="btn">Urgent</button>
+                            <button class="btn">Emergency</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload photo or screenshot (optional)</label>
+                        <div class="upload-btn-wrapper">
+                            <button class="upload-btn">Choose File</button>
+                            <input type="file" name="myfile" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Service Mode</label>
+                        <div class="btn-group">
+                            <button class="btn">Remote diagnosis first</button>
+                            <button class="btn">Technician visit</button>
+                        </div>
+                    </div>
+                </div>
+                 <div style="text-align: right; margin-top: 1rem">
+                    <button class="btn selected">Submit Request</button>
+                </div>
+            </div>
+             <div class="card past-requests">
+                <h2>Past Requested Details</h2>
+                <div class="vendor-card">
+                    <div class="vendor-details">
+                        <div><span class="label">Request ID</span><span class="value">#12345</span></div>
+                        <div><span class="label">Issue</span><span class="value">Inverter issue</span></div>
+                        <div><span class="label">Date</span><span class="value">2023-10-26</span></div>
+                        <div><span class="label">Status</span><span class="value">Resolved</span></div>
+                    </div>
+                </div>
+                 <div class="vendor-card">
+                    <div class="vendor-details">
+                        <div><span class="label">Request ID</span><span class="value">#12301</span></div>
+                        <div><span class="label">Issue</span><span class="value">General Inspection</span></div>
+                        <div><span class="label">Date</span><span class="value">2023-08-15</span></div>
+                        <div><span class="label">Status</span><span class="value">Resolved</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttonGroups = document.querySelectorAll('.btn-group');
+            buttonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        // For button groups that should behave like radio buttons
+                        if (!group.classList.contains('multi-select')) {
+                            buttons.forEach(btn => btn.classList.remove('selected'));
+                        }
+                        button.classList.toggle('selected');
+                    });
+                });
+            });
+            
+            const fileInput = document.querySelector('input[type="file"]');
+            if(fileInput) {
+                const button = fileInput.parentElement.querySelector('button');
+                const buttonText = button.innerHTML;
+                fileInput.addEventListener('change', function() {
+                    if (this.files && this.files.length > 0) {
+                        button.innerHTML = this.files[0].name;
+                    } else {
+                        button.innerHTML = buttonText;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
